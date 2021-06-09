@@ -1,0 +1,104 @@
+<mat-card>
+
+  <mat-card-title>
+    <p>This is a Title</p>    
+  </mat-card-title>
+
+  <mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <p>This is a subtitle</p>    
+  </mat-card-subtitle>
+  
+  <mat-card-content>
+
+    <mat-divider></mat-divider>
+    <p>
+      This is content
+    </p>
+    <mat-divider></mat-divider>
+    <ng-container>
+
+      <mat-divider></mat-divider>
+
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <ng-container matColumnDef="emp_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID. </mat-header-cell>
+          <mat-cell *matCellDef="let req"> {{req.emp_id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+          <mat-cell *matCellDef="let req"> {{req.emp_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_position">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Position </mat-header-cell>
+          <mat-cell *matCellDef="let req"> {{req.emp_position}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_start_date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Date Joined </mat-header-cell>
+          <mat-cell *matCellDef="let req"> {{req.emp_start_date | date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Status </mat-header-cell>
+          <mat-cell *matCellDef="let req"> {{req.emp_status}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let req">
+            <button type="button" class="btnpad btn btn-warning" (click)="openDialog()" > EDIT </button>
+            <button type="button" class="btnpad btn btn-danger"> DELETE </button>
+          </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </ng-container>
+
+    <mat-divider></mat-divider>
+  </mat-card-content>
+</mat-card>
+
+
+<!--<thead class="thead-dark">
+        <tr class="text-primary">
+          <th>Employee ID</th>
+          <th>Employee Name</th>
+          <th>Employee Position</th>
+          <th>Date Joined</th>
+          <th>Employee Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of req">
+          <td>{{ req?.emp_id}}</td>
+          <td>{{ req?.emp_name }}</td>
+          <td>{{ req?.emp_position }}</td>
+          <td>{{ req?.emp_start_date | date }}</td>
+          <td>{{ req?.emp_status }}</td>
+          <td>
+            <button type="button" class="btnpad btn btn-warning">-->
+<!--<fa-icon [icon]="faEdit"></fa-icon>-->
+<!--EDIT
+</button>
+<button type="button" class="btnpad btn btn-danger">-->
+<!--<fa-icon [icon]="faTrash"></fa-icon>-->
+<!--DELETE
+      </button>
+    </td>
+  </tr>
+</tbody>-->
