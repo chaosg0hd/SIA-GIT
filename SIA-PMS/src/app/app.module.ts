@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 //Material Modules
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -57,6 +58,10 @@ import { LoginComponent } from './login/login.component';
 import { DashboardpageComponent } from './index/pages/dashboardpage/dashboardpage.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
 
+//Dialog Modules
+
+import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
+
 
 
 @NgModule({
@@ -70,11 +75,14 @@ import { AttendancepageComponent } from './index/pages/attendancepage/attendance
     LoginComponent,
     DashboardpageComponent,
     AttendancepageComponent,
+
+    EditemployeeDialog
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
 
     // Material Cons Imports
@@ -121,5 +129,8 @@ import { AttendancepageComponent } from './index/pages/attendancepage/attendance
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [
+    EditemployeeDialog
+  ]
 })
 export class AppModule { }
