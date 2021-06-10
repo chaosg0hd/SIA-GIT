@@ -72,12 +72,12 @@ export class EmployeepageComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(EditemployeeDialog, {
       width: '30%',
-      data: { id: this.emp_id, name: this.emp_name, position: this.emp_position, start_date: this.emp_start_date, status: this.emp_status}
+      data: { emp_id: this.emp_id, emp_name: this.emp_name, emp_position: this.emp_position, emp_start_date: this.emp_start_date, emp_status: this.emp_status}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.emp_id = result;
+      console.log(result);
+      /*this.emp_id = result;*/
     });
   }
 

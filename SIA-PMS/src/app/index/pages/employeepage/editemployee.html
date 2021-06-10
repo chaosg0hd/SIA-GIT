@@ -1,14 +1,36 @@
-<h1 mat-dialog-title>Hi {{data.emp_name}}</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
+<h1 mat-dialog-title>Dialog Title : <p>{{data.emp_name}}</p> </h1>
+
+
+<mat-dialog-content>
+  <p>{{data.emp_name}}</p>
   <mat-form-field>
     <mat-label>Employee Name</mat-label>
     <input matInput [(ngModel)]="data.emp_name">
   </mat-form-field>
-</div>
-<div mat-dialog-actions>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input matInput [(ngModel)]="data.emp_name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input matInput [(ngModel)]="data.emp_name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input matInput [(ngModel)]="data.emp_name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input matInput [(ngModel)]="data.emp_name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Employee Name</mat-label>
+    <input matInput [(ngModel)]="data.emp_name">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button [mat-dialog-close]="data.emp_name" cdkFocusInitial>Ok</button>
-</div>
+</mat-dialog-actions>
 
-<p>This is a Dialog</p>
