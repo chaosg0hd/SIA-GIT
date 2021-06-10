@@ -10,6 +10,7 @@ import { AdditionpageComponent } from './index/pages/additionpage/additionpage.c
 import { WagespageComponent } from './index/pages/wagespage/wagespage.component';
 import { LoginComponent } from './login/login.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
+import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -48,6 +49,12 @@ const routes: Routes = [
     path: 'attendance', component: IndexComponent,
     children: [
       { path: '', component: AttendancepageComponent }
+    ]
+  },
+  {
+    path: 'payroll', component: IndexComponent,
+    children: [
+      { path: '', component: PayrollpageComponent }
     ]
   }
 

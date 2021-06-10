@@ -12,10 +12,10 @@ import { FormsModule } from '@angular/forms';
 //Calender Module
 
 import { DatePipe } from '@angular/common';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+//import { FlatpickrModule } from 'angularx-flatpickr';
+//import { CalendarModule, DateAdapter } from 'angular-calendar';
+//import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+//import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Material Modules
 
@@ -85,6 +85,7 @@ import { AttendancepageComponent } from './index/pages/attendancepage/attendance
 //Dialog Modules
 
 import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
+import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { EditemployeeDialog } from './index/pages/employeepage/employeepage.comp
     DashboardpageComponent,
     AttendancepageComponent,
 
-    EditemployeeDialog
+    EditemployeeDialog,
+     PayrollpageComponent
   ],
   imports: [
     BrowserModule,
@@ -107,12 +109,12 @@ import { EditemployeeDialog } from './index/pages/employeepage/employeepage.comp
     FormsModule,
     HttpClientModule,
 
-    NgbModalModule,
-    FlatpickrModule.forRoot(),
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+    //NgbModalModule,
+    //FlatpickrModule.forRoot(),
+    //CalendarModule.forRoot({
+    //  provide: DateAdapter,
+    //  useFactory: adapterFactory,
+    //}),
 
     // Material Cons Imports
 

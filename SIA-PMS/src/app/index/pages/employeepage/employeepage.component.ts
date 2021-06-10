@@ -69,11 +69,13 @@ export class EmployeepageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(): void {
+  openDialog(emp_id: any, emp_name: any, emp_position: any, emp_start_date: any, emp_status: any): void {
     const dialogRef = this.dialog.open(EditemployeeDialog, {
       width: '30%',
-      data: { emp_id: this.emp_id, emp_name: this.emp_name, emp_position: this.emp_position, emp_start_date: this.emp_start_date, emp_status: this.emp_status}
+      height: '80%',
+      data: { emp_id: emp_id, emp_name: emp_name, emp_position: emp_position, emp_start_date: emp_start_date, emp_status: emp_status}
     });
+
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
