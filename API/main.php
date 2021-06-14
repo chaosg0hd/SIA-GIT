@@ -59,7 +59,7 @@
 					echo json_encode($auth->loginUser($d), JSON_PRETTY_PRINT);
 				break;
 
-      // GET Operations
+      // Emp Operations
 
         case 'pullAllEmp':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
@@ -80,6 +80,23 @@
 						echo json_encode($get->pullSpecEmp($d), JSON_PRETTY_PRINT);
 					}
 				break;  
+
+		case 'editEmp':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->editEmp($d), JSON_PRETTY_PRINT);
+				break;
+
+		case 'addEmp':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->addEmp($d), JSON_PRETTY_PRINT);
+				break;
+
+		case 'delEmp':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->delEmp($d), JSON_PRETTY_PRINT);
+				break;
+
+		//CHEATSHEET
 				
 		case 'pullAllAdd':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));

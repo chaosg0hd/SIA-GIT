@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
+//Font Awesome
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 //Calender Module
 
 import { DatePipe } from '@angular/common';
@@ -81,11 +85,16 @@ import { WagespageComponent } from './index/pages/wagespage/wagespage.component'
 import { LoginComponent } from './login/login.component';
 import { DashboardpageComponent } from './index/pages/dashboardpage/dashboardpage.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
+import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
+import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 //Dialog Modules
 
 import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
-import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
+import { AddemployeeDialog } from './index/pages/employeepage/employeepage.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -98,16 +107,22 @@ import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.comp
     LoginComponent,
     DashboardpageComponent,
     AttendancepageComponent,
+    PayrollpageComponent,
+    MasterpageComponent,
 
     EditemployeeDialog,
-     PayrollpageComponent
+    AddemployeeDialog,
+     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+
     HttpClientModule,
+
+    FontAwesomeModule,
 
     //NgbModalModule,
     //FlatpickrModule.forRoot(),
@@ -161,7 +176,8 @@ import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.comp
   providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [
-    EditemployeeDialog
+    EditemployeeDialog,
+    AddemployeeDialog,
   ]
 })
 export class AppModule { }

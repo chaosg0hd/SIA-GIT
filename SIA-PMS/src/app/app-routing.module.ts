@@ -11,6 +11,7 @@ import { WagespageComponent } from './index/pages/wagespage/wagespage.component'
 import { LoginComponent } from './login/login.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
+import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -55,6 +56,12 @@ const routes: Routes = [
     path: 'payroll', component: IndexComponent,
     children: [
       { path: '', component: PayrollpageComponent }
+    ]
+  },
+  {
+    path: 'master', component: IndexComponent,
+    children: [
+      { path: '', component: MasterpageComponent }
     ]
   }
 

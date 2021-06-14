@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Edit Employee</h1>
+<h1 mat-dialog-title>Add shit </h1>
 <mat-divider></mat-divider>
 <mat-card>
   <mat-card-title>
@@ -7,6 +7,7 @@
     </p>
   </mat-card-title>
   <mat-card-subtitle>
+    <mat-divider></mat-divider>
     <p>
       This is a subtitle
     </p>
@@ -14,27 +15,26 @@
   <mat-card-content>
     <mat-divider></mat-divider>
     <mat-dialog-content>
-      <p>{{data.emp_name}}</p>
+      <p>FUCKING p</p>
       <!--<mat-form-field>
         <mat-label>Employee ID</mat-label>
-        <input matInput [(ngModel)]="data.emp_id" placeholder="{{data.emp_id}}">
+        <input matInput [(ngModel)]="data.emp_id" placeholder="">
       </mat-form-field>-->
       <mat-form-field>
         <mat-label>Employee Name</mat-label>
-        <input matInput [(ngModel)]="data.emp_name" placeholder="{{data.emp_name}}">
+        <input matInput [(ngModel)]="data.emp_name" placeholder="">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Employee Position</mat-label>
-        <input matInput [(ngModel)]="data.emp_position" placeholder="{{data.emp_position}}">
+        <input matInput [(ngModel)]="data.emp_position" placeholder="">
       </mat-form-field>
       <mat-form-field>
-        <!--Fix Fucking Label-->
-        <mat-label>Date Joined </mat-label>
-        <input type="date" matInput [(ngModel)]="data.emp_start_date" placeholder="{{data.emp_start_date | date}}">
+        <mat-label>Employee Date</mat-label>
+        <input type="date" matInput [(ngModel)]="data.emp_start_date" placeholder="">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Employee Status</mat-label>
-        <input matInput [(ngModel)]="data.emp_status" placeholder="{{data.emp_status}}">
+        <input matInput [(ngModel)]="data.emp_status" placeholder="">
       </mat-form-field>
     </mat-dialog-content>
   </mat-card-content>

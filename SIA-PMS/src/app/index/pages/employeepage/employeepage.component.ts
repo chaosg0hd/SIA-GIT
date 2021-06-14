@@ -1,20 +1,9 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface DialogData {
-  //reqinfo: any;
-  //req: any;
-
-  emp_id: any;
-  emp_name: any;
-  emp_position: any;
-  emp_start_date: any;
-  emp_status: any;
-}
 
 @Component({
   selector: 'app-employeepage',
@@ -22,28 +11,12 @@ export interface DialogData {
   styleUrls: ['./employeepage.component.css']
 })
 
-export class EmployeepageComponent implements OnInit {
+export class EmployeepageComponent implements OnInit, AfterViewInit {
+    
+  //Components Shit
 
-  //Variable Declarations
-  reqInfo: any = {};
-  req: any;
-
-  emp_id: any;
-  emp_name: any;
-  emp_position: any;
-  emp_start_date: any;
-  emp_status: any;
-
-
-  //Table Declaations
-  displayedColumns: string[] = ['emp_id', 'emp_name', 'emp_position', 'emp_start_date', 'emp_status', 'actions'];
-  dataSource: MatTableDataSource<any>;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private ds: DataService, public dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(this.req);
+  constructor(private data: DataService, public dialog: MatDialog) {    
+    this.dataSource = new MatTableDataSource(this.emp);
   }
 
   ngOnInit(): void {
@@ -55,40 +28,123 @@ export class EmployeepageComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  pullAllEmp() {
-    this.ds.sendApiRequest("pullAllEmp", null ).subscribe((data : any) => {
-      this.req = data.payload;
-      this.dataSource = new MatTableDataSource(this.req);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
-  }
+  //Table Declarations
+  //Fucking fix Column Visibility
+
+  columns: any;
+  maxColumns: string[] = ['emp_id', 'emp_name', 'emp_position', 'emp_start_date', 'emp_status','emp_last_mod_date','emp_last_mod_by','actions'];
+  minColumns: string[] = ['emp_name', 'emp_position', 'emp_start_date', 'emp_status', 'actions'];
+
+  dataSource: MatTableDataSource<any>;
+  empInfo: any = {};
+  emp: any;
+
+  //Table shit
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(emp_id: any, emp_name: any, emp_position: any, emp_start_date: any, emp_status: any): void {
+  //Pull Employees
+
+  pullAllEmp() {
+    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
+      this.emp = data.payload;
+      this.dataSource = new MatTableDataSource(this.emp);
+      this.ngAfterViewInit();
+      console.log(this.emp + ' From Employees Page: Method pullAllEmp');
+    });
+  }  
+
+  //Edit Employee Dialog  
+
+  editEmpDialog(
+    emp_id: any,
+    emp_name: any,
+    emp_position: any,
+    emp_start_date: any,
+    emp_status: any,
+    emp_last_mod_by: any   ): void {
     const dialogRef = this.dialog.open(EditemployeeDialog, {
       width: '30%',
       height: '80%',
       data: { emp_id: emp_id, emp_name: emp_name, emp_position: emp_position, emp_start_date: emp_start_date, emp_status: emp_status}
     });
 
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      /*this.emp_id = result;*/
+      this.empInfo = result;
+      this.editEmp();
+      console.log(this.empInfo + ' From Employees Page: Method editEmpDialog');      
     });
   }
+
+  editEmp() {   
+    this.data.sendApiRequest("editEmp", JSON.parse(JSON.stringify(this.empInfo))).subscribe((data: any) => {
+
+    //FIX FUCKING API PROBLEMS HERE
+
+    });
+    this.pullAllEmp();
+    console.log(this.empInfo + 'From Employees Page: Method editEmpDialog');
+  }
+
+  //Add Employee Dialog  
+
+  addEmpDialog(
+    emp_id: any,
+    emp_name: any,
+    emp_position: any,
+    emp_start_date: any,
+    emp_status: any,
+    emp_last_mod_by : any  ): void {
+    const dialogRef = this.dialog.open(AddemployeeDialog, {
+      width: '30%',
+      height: '80%',
+      data: { emp_name: emp_name, emp_position: emp_position, emp_start_date: emp_start_date, emp_status: emp_status, }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.empInfo = result;
+      this.addEmp();
+      console.log(this.empInfo + ' From Employees Page: Method addEmpDialog');
+    });
+  }
+
+  addEmp() {
+    this.data.sendApiRequest("addEmp", JSON.parse(JSON.stringify(this.empInfo))).subscribe((data: any) => {
+
+    //FIX FUCKING API PROBLEMS HERE
+
+    });
+    this.pullAllEmp();
+    console.log(this.empInfo + 'From Employees Page: Method addEmpDialog');
+  }
+
+  delEmp(emp_id: any) {
+    this.empInfo.emp_id = emp_id;
+    console.log(this.empInfo.emp_id + ' From Employees Page: Method delEmp');
+    this.data.sendApiRequest("delEmp", this.empInfo).subscribe((data: any) => {
+
+
+      //FIX FUCKING API PROBLEMS HERE
+
+      this.emp = data.payload;
+      this.dataSource = new MatTableDataSource(this.emp);
+      this.ngAfterViewInit();
+    });
+  } 
+
 
   //End of Methods
 }
 
 //End of Main Component
 
-//SubComponent
+//SubComponents
 
 @Component({
   selector: 'editemployee',
@@ -104,4 +160,32 @@ export class EditemployeeDialog {
     this.dialogRef.close();
   }
 
+}
+
+@Component({
+  selector: 'addemployee',
+  templateUrl: 'addemployee.html',
+})
+export class AddemployeeDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddemployeeDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+//Interfaces
+
+//Replace this, dont fcking need it
+
+export interface DialogData {
+  emp_id: any;
+  emp_name: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
 }

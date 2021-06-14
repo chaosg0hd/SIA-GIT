@@ -1,1 +1,144 @@
-<p>attendancepage works!</p>
+<mat-card>
+  <mat-card-title>
+    <p>This is a Title</p>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-grid-list cols="30" rowHeight="1:3">
+
+      <mat-grid-tile>
+        <mat-card>
+          <!--<mat-card-title>
+            <mat-divider></mat-divider>
+            <p style="font-size:small">shit</p>
+          </mat-card-title>-->
+          <mat-card-content>
+            <!--<mat-divider></mat-divider>-->
+            <p><mat-icon class="dashboard">groups</mat-icon></p>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <ng-container *ngFor="let dayArray of dayArray">
+        <mat-grid-tile>
+          <mat-card [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
+            <mat-card-title>
+              <p style="font-size:small">{{dayArray | date : 'EEEEE'}}</p>
+            </mat-card-title>
+            <mat-card-content>
+              <p>{{dayArray |date : 'd'}}</p>
+
+              <!--<p>{{currentDate | date}}</p>-->
+            </mat-card-content>
+          </mat-card>
+
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+
+    <mat-divider></mat-divider>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+
+  <mat-card-title>
+    <p>Employees Table</p>
+  </mat-card-title>
+
+  <mat-card-subtitle>
+    <p>This is a subtitle</p>
+  </mat-card-subtitle>
+
+  <mat-card-content>
+
+    <mat-divider></mat-divider>
+    <p>
+      This is content
+    </p>
+    <mat-divider></mat-divider>
+    <ng-container>
+
+      <mat-divider></mat-divider>
+      <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+        <ng-container matColumnDef="emp_id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID. </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_position">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Position </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_position}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_start_date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Date Joined </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_start_date | date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Status </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_status}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_last_mod_date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified </mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_last_mod_date | date : 'MMM/d/yy h:mm a'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="emp_last_mod_by">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified By:</mat-header-cell>
+          <mat-cell *matCellDef="let emp"> {{emp.emp_last_mod_by}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let emp">
+            <!--<button type="button" class="btnpad btn btn-warning" (click)="editEmpDialog(emp.emp_id,                                                                                    emp.emp_name,
+                                                                                        emp.emp_position,
+                                                                                        emp.emp_start_date,
+                                                                                        emp.emp_status,
+                                                                                        emp.emp_last_mod_bay)">
+              EDIT
+            </button>
+            <button type="button" class="btnpad btn btn-danger" (click)="delEmp(emp.emp_id)"> DELETE </button>-->
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="maxColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: maxColumns;"></mat-row>
+      </mat-table>
+
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </ng-container>
+
+    <mat-divider></mat-divider>
+
+    <!--Too Lazy to fucking fix this-->
+    <!--<button type="button" class="btnpad btn btn-warning" (click)="addEmpDialog( emp.emp_id,
+                                                                                emp.emp_name,
+                                                                                emp.emp_position,
+                                                                                emp.emp_start_date,
+                                                                                emp.emp_status,
+                                                                                emp.emp_last_mod_bay)">
+      Add
+    </button>-->
+    <!--Edfsdfw-->
+    <mat-divider></mat-divider>
+  </mat-card-content>
+</mat-card>
+
+
+

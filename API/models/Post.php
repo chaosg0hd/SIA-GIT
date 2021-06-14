@@ -10,7 +10,58 @@ class Post{
         $this->get = new Get($pdo);
     }
 
-    // Request Operations
+    // Emp Operations
+
+    public function editEmp($d) {
+        $code = 401;
+        $data = $d;
+        $emp_id = $data->emp_id;
+        $res = $this->gm->edit('employees_tb', $data, "emp_id = '$emp_id'");
+        if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;    
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+        return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+    public function addEmp($data) {
+        $code = 401;
+        $payload = null;
+        $remarks = "failed";
+        $message = "Unable to retrieve data";
+        $reqInfo = $data;
+        $res = $this->gm->insert('employees_tb', $reqInfo);
+        if($res['code']==200) {
+            $code = 200;
+            $payload = $res;
+            $remarks = "success";
+            $message = "Successfully retrieved data";
+        }
+        return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+    public function delEmp($d) {
+      $data = $d;
+      $emp_id = $data->emp_id;
+      $res = $this->gm->delete('employees_tb', $data, "emp_id = '$emp_id'");
+      if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+      return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+    //CHEATSHEETS
 
     public function addReq($data) {
         $code = 401;
