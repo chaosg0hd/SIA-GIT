@@ -32,17 +32,27 @@ mat-sidenav {
 }
 
 .orders {
-  margin-left: -100px;
+  margin-left: -75px;
   margin-right: 10px;
 }
 
 .stocks {
-  margin-left: -100px;
+  margin-left: -90px;
+  margin-right: 10px;
+}
+
+.stocks1 {
+  margin-left: -78px;
   margin-right: 10px;
 }
 
 .supply {
-  margin-left: -100px;
+  margin-left: -108px;
+  margin-right: 10px;
+}
+
+.supply1 {
+  margin-left: -70px;
   margin-right: 10px;
 }
 
