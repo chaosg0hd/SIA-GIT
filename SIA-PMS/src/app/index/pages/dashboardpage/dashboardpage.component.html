@@ -18,30 +18,34 @@
     </p>
     <mat-divider></mat-divider>
     <br />
-    <mat-grid-list style="width : 100% "cols="50" rowHeight="1:5">
-      <ng-container *ngFor="let dayArray of dayArray">
-        <mat-grid-tile>
-          <ng-container>
 
-            <!--/Remove from cards cards fucking useless-->
+    <!-- FUCKING REDO EVERYTHING-->
 
-            <mat-card [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
-              <p style="font-size: 36px; ">I</p>
-              <mat-card-title>
-                <p style="font-size:small">{{dayArray | date : 'EEEEE'}}</p>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-divider></mat-divider>
-                <p style="font-size:smaller">{{dayArray |date : 'M d' }}</p>
-                <mat-divider></mat-divider>
-              </mat-card-content>
-            </mat-card>
-          </ng-container>
-          
+    <div style="width: 150%; ">
+      <mat-grid-list style="overflow-x: scroll; /* Hide horizontal scrollbar */ overflow-y: hidden; /* Add vertical scrollbar */" cols="50" rowHeight="1:4">
+        <ng-container *ngFor="let dayArray of dayArray">
+          <mat-grid-tile>
+            <ng-container>
+              <!--Remove from cards cards fucking useless-->
+              <mat-card [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
+                
+                <mat-card-title>
+                  <p style="font-size:small">{{dayArray | date : 'EEE'}}</p>
+                </mat-card-title>
+                <mat-card-content>
+                  <mat-divider></mat-divider>
+                  <p style="font-size:small">{{dayArray |date : 'M d' }}</p>
+                  <mat-divider></mat-divider>
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
 
-        </mat-grid-tile>
-      </ng-container>
-    </mat-grid-list>
+
+          </mat-grid-tile>
+        </ng-container>
+      </mat-grid-list>
+    </div>
+    
     <br />
     <mat-divider></mat-divider>
   </mat-card-content>
