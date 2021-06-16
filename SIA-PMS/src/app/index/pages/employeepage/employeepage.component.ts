@@ -11,7 +11,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./employeepage.component.css']
 })
 
-export class EmployeepageComponent implements OnInit, AfterViewInit {
+export class EmployeepageComponent implements OnInit /*, AfterViewInit*/ {
     
   //Components Shit
 
@@ -30,6 +30,8 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   //Table Declarations
   //Fucking fix Column Visibility
+  //fucking redo how tables work
+
 
   columns: any;
   maxColumns: string[] = ['emp_id', 'emp_name', 'emp_position', 'emp_start_date', 'emp_status','emp_last_mod_date','emp_last_mod_by','actions'];
@@ -58,9 +60,12 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
       this.ngAfterViewInit();
       console.log(this.emp + ' From Employees Page: Method pullAllEmp');
     });
+    this.ngAfterViewInit();
   }  
 
-  //Edit Employee Dialog  
+  //Edit Employee Dialog
+  //FUCKING TURN IT TO AN ARRAY
+
 
   editEmpDialog(
     emp_id: any,
@@ -68,7 +73,7 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     emp_position: any,
     emp_start_date: any,
     emp_status: any,
-    emp_last_mod_by: any   ): void {
+    emp_last_mod_by: any ): void {
     const dialogRef = this.dialog.open(EditemployeeDialog, {
       width: '30%',
       height: '80%',
