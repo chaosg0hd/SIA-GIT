@@ -18,7 +18,7 @@ class Post{
         $emp_id = $data->emp_id;
         $res = $this->gm->edit('employees_tb', $data, "emp_id = '$emp_id'");
         if ($res['code'] == 200) {
-			$payload = $res['data'];
+			$payload = $res;
 			$remarks = "success";
 			$message = "Successfully retrieved requested data";
 		} else {
