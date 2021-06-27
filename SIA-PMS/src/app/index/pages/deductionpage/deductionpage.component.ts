@@ -18,7 +18,6 @@ export class DeductionpageComponent implements OnInit {
       height: '400px',
      
     });
-
 }
 }
 @Component({
