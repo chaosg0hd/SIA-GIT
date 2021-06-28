@@ -1,8 +1,21 @@
 <mat-card>
   <mat-card-title>
-    <p>this is a content</p>
+    <p>Payroll</p>
+    <button (click)="openDialog()" id="addbutton"><mat-icon>add</mat-icon>Add Payroll</button>
   </mat-card-title>
-  <mat-card-content>
-    <p>this is a content</p>
-  </mat-card-content>
+  <mat-divider></mat-divider>
+
+  
+  <input type="text" class="search" placeholder="Search..." name="search"><mat-icon class="search1" >search</mat-icon> 
+
+  <table style="width:100%">
+    <tr>
+      <th>Ref No</th>
+      <th>Date From</th> 
+      <th>Date To</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </table>
+
 </mat-card>
