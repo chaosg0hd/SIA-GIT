@@ -94,6 +94,7 @@ export class EmployeepageComponent implements OnInit /*, AfterViewInit*/ {
 
     });
     this.pullAllEmp();
+    this.ngAfterViewInit()
     console.log(this.empInfo + 'From Employees Page: Method editEmpDialog');
   }
 
@@ -186,6 +187,7 @@ export class AddemployeeDialog {
 //Interfaces
 
 //Replace this, dont fcking need it
+
 
 export interface DialogData {
   emp_id: any;

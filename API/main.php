@@ -39,7 +39,7 @@
 					}
 				break;
 
-				case 'regUser': // Do not Touch
+		case 'regUser': // Do not Touch
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($auth->regUser($d), JSON_PRETTY_PRINT);
 				break;
@@ -54,7 +54,12 @@
 					echo json_encode($post->editUser($d), JSON_PRETTY_PRINT);
 				break;
 
-				case 'loginUser': // Do not Touch
+		case 'editUser': // Incomplete
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->editUser($d), JSON_PRETTY_PRINT);
+				break;
+
+		case 'loginUser': // Do not Touch
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($auth->loginUser($d), JSON_PRETTY_PRINT);
 				break;

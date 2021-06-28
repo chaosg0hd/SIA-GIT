@@ -26,7 +26,7 @@ class Post{
 			$remarks = "failed";
 			$message = $res['errmsg'];
 		}
-        return $this->gm->sendPayload($payload, $remarks, $message, $code);
+        //return $this->gm->sendPayload($payload, $remarks, $message, $code);
     }
 
     public function addEmp($data) {
