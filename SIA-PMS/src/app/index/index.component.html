@@ -4,13 +4,14 @@
   <!--THE FUCKING NAV-->
   <mat-sidenav class="sidenav" #drawer mode="side" opened="true">
     <img src="./assets/faveIcon/cocolime.png" class="inventory-logo">
+    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">REPORTS</button>
     <button mat-button class="sidebarcontent" routerLink="/home"><mat-icon class="dashboard" aria-hidden="false">dashboard</mat-icon>Dashboard</button>
+    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">MANAGE</button>
     <button mat-button class="sidebarcontent" routerLink="/employee"><mat-icon class="dashboard">groups</mat-icon>Employees</button>
     <button mat-button class="sidebarcontent" routerLink="/attendance"><mat-icon class="orders">checklist</mat-icon>Attendance</button>
     <button mat-button class="sidebarcontent" routerLink="/addition"><mat-icon class="stocks">add_circle_outline</mat-icon>Additions</button>
     <button mat-button class="sidebarcontent" routerLink="/deduction"><mat-icon class="stocks1">remove_circle_outline</mat-icon>Deductions</button>
     <button mat-button class="sidebarcontent" routerLink="/wages"><mat-icon class="supply">paid</mat-icon>Wages</button>
-    <button mat-button class="sidebarcontent" routerLink="/payroll"><mat-icon class="supply">paid</mat-icon>Salary</button>
     <button mat-button class="sidebarcontent" routerLink="/payroll"><mat-icon class="supply">paid</mat-icon>Payroll</button>
     <button mat-button class="sidebarcontent" routerLink="/master"><fa-icon [icon]="faCode" class="supply1"></fa-icon> qweqweqwe</button>
   </mat-sidenav>

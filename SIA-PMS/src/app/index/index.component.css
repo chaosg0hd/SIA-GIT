@@ -69,10 +69,14 @@ mat-sidenav {
 .sidenavbar {
   height: 100%;
 }
+#sidebarcateg {
+  background-color: #d4d4d4;
+  text-align: left;
+}
 
 .sidebarcontent {
   width: 100%;
-  padding: 8px;
+  padding: 3px;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
 }
