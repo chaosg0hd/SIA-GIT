@@ -14,7 +14,9 @@ import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.comp
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  { path: 'login', component: LoginComponent },
 
   {
     path: 'home', component: IndexComponent, children:

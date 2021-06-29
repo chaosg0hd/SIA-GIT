@@ -30,7 +30,7 @@
       <mat-form-field>
         <!--Fix Fucking Label-->
         <mat-label>Date Joined </mat-label>
-        <input type="date" matInput [(ngModel)]="data.emp_start_date" placeholder="{{data.emp_start_date | date}}">
+        <input type="date" matInput [(ngModel)]="data.emp_start_date" placeholder="{{data.emp_start_date | date: 'yyyy-MM-dd'}}">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Employee Status</mat-label>

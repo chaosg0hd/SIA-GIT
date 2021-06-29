@@ -41,7 +41,7 @@
 			return str_replace(['+','/','='],['-','_',''], base64_encode($signature));
 		}
 
-    ########################################
+		########################################
 		# 	USER AUTHENTICATION RELATED METHODS
 		########################################
 		public function encrypt_password($pword) {
@@ -75,12 +75,12 @@
             $encryptedPassword = $this->encrypt_password($dt->user_password);
 
             $payload = array(
-                'uname'=>$dt->user_name,
-                'pword'=>$this->encrypt_password($dt->user_password)
+                'user_name'=>$dt->user_name,
+                'user_password'=>$this->encrypt_password($dt->user_password)
             );
 
-            $sql = "INSERT INTO tbl_user( user_name, user_contact, user_interests, user_email, user_password) 
-                           VALUES ('$dt->user_name', '$dt->user_contact', '$dt->user_interests', '$dt->user_email','$encryptedPassword')";                     
+            $sql = "INSERT INTO user_tb( user_name, user_password) 
+                           VALUES ('$dt->user_name', '$encryptedPassword')";                     
 
                            $data = array(); $code = 0; $errmsg= ""; $remarks = "";
                            try {
@@ -101,27 +101,26 @@
 
       public function loginUser($dt){
 			$payload = $dt;
-			$user_email = $dt->user_email;
+			$user_name = $dt->user_name;
 			$user_password = $dt->user_password;
 			$payload = "";
 			$remarks = "";
 			$message = "";
 			$code = 403;
 
-			$sql = "SELECT * FROM tbl_user WHERE user_email='$user_email' LIMIT 1";
+			$sql = "SELECT * FROM user_tb WHERE user_name='$user_name' LIMIT 1";
 			$res = $this->gm->generalQuery($sql, "Incorrect username or password");
 			if($res['code'] == 200) {
 				if($this->pword_check($user_password, $res['data'][0]['user_password'])) {
 					
 				
 					$user_name =$res['data'][0]['user_name'];
-					$user_id = $res['data'][0]['user_id'];
-					$user_interests = $res['data'][0]['user_interests'];				
+					$user_id = $res['data'][0]['user_id'];		
 
 					$code = 200;
 					$remarks = "success";
 					$message = "Logged in successfully";
-					$payload = array("user_id"=>$user_id, "user_name"=>$user_name, "user_interests"=>$user_interests);
+					$payload = array("user_id"=>$user_id, "user_name"=>$user_name);
 				} else {
 					$payload = null; 
 					$remarks = "failed"; 
