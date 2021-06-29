@@ -101,6 +101,30 @@
 					echo json_encode($post->delEmp($d), JSON_PRETTY_PRINT);
 				break;
 
+		//Attendance Operations
+
+		case 'pullAllAtt':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo $d;
+            if(count($req)>1) {                       
+						echo json_encode($get->pullAllAtt($d), JSON_PRETTY_PRINT);
+					} else {
+						echo json_encode($get->pullAllAtt($d), JSON_PRETTY_PRINT);
+					}
+				break;
+
+		//Wage Operations
+
+		case 'pullAllWage':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo $d;
+            if(count($req)>1) {                       
+						echo json_encode($get->pullAllWage($d), JSON_PRETTY_PRINT);
+					} else {
+						echo json_encode($get->pullAllWage($d), JSON_PRETTY_PRINT);
+					}
+				break;
+
 		//CHEATSHEET
 				
 		case 'pullAllAdd':

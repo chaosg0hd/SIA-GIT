@@ -78,9 +78,11 @@ class Get{
 		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
 	  }
 
-    public function pullSpecReq2 ($d) {
+	  //Wage Operations  
 
-		$sql = "SELECT * FROM tbl_req WHERE req_type = '$d' ORDER BY req_bump DESC";
+	  public function pullAllWage ($d) {
+
+		$sql = "SELECT * FROM wage_tb ";
 		
 		$res = $this->gm->generalQuery($sql, "No records found");
 		  if ($res['code'] == 200) {
@@ -95,24 +97,26 @@ class Get{
 		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
 	  }
 
-    // Comment Operations
+	   //Attendance Operations  
 
-    public function pullCom ($d) {
+	  public function pullAllAtt ($d) {
 
-		$sql = "SELECT * FROM tbl_com";
+		$sql = "SELECT * FROM attendance_tb ";
 		
 		$res = $this->gm->generalQuery($sql, "No records found");
-		if ($res['code'] == 200) {
-			$payload = $res['data'];
-			$remarks = "success";
-			$message = "Successfully retrieved requested data";
-		} else {
-			$payload = null;
-			$remarks = "failed";
-			$message = $res['errmsg'];
-		}
-		return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
-	}
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+    
 
 
   //End of Methods

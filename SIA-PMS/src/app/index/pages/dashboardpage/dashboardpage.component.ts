@@ -2,7 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 
+export interface empTable {
+  emp_id: any;
+  emp_name: any;
+}
+
+export interface attTable {
+  attendance_id: any;
+  emp_id: any;  
+  attendance_date: any;
+  attendance_hours: any;
+  attendance_remarks: any;
+}
 
 @Component({
   selector: 'app-dashboardpage',
@@ -10,6 +23,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./dashboardpage.component.css']
 })
 export class DashboardpageComponent implements OnInit {
+
+
+  empInfoTable: empTable[] = [];
+  empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
+
+  attInfoTable: attTable[] = [];
+  attInfoTableDataSource = new MatTableDataSource(this.attInfoTable);
+
+
+  empColumns: string[] = [
+    "emp_id",
+  ];
 
   constructor(public datepipe: DatePipe, private noti: MatSnackBar, private data: DataService) { }
 
@@ -19,6 +44,8 @@ export class DashboardpageComponent implements OnInit {
     this.getfirstDay();
     this.getlastDay();    
     this.getDayArray();
+    this.pullAllEmp();
+    this.pullAllAtt();
     this.notify();
   }
 
@@ -63,6 +90,34 @@ export class DashboardpageComponent implements OnInit {
     this.dayArray = this.data.gendaysArray();
   }
 
+  pullAllEmp() {
+    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
+      this.empInfoTable = data.payload;
+      this.empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
+      /*this.ngAfterViewInit();*/
+      console.log(this.empInfoTable + ' From Dashboard Page: Method pullAllEmp');
+    });
+    /*this.ngAfterViewInit();*/
+  }
+
+  pullAllAtt() {
+    this.data.sendApiRequest("pullAllAtt", null).subscribe((data: any) => {
+      this.attInfoTable = data.payload;
+      this.attInfoTableDataSource = new MatTableDataSource(this.attInfoTable);
+      /*this.ngAfterViewInit();*/
+      console.log(this.attInfoTable + ' From Dashboard Page: Method pullAllAtt');
+    });
+    /*this.ngAfterViewInit();*/
+  }
+
+  //pullAllWage() {
+  //  this.data.sendApiRequest("pullAllWage", null).subscribe((data: any) => {
+  //    this.wageInfoTable = data.payload;
+  //    console.log(this.wageInfoTable);
+  //    this.wageInfoTableDataSource.data = this.wageInfoTable;
+  //    console.log(this.wageInfoTableDataSource);
+  //  })
+  //}
 
   notify() {
     this.noti.open("hello", "ok");

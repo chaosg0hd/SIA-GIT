@@ -63,7 +63,7 @@ export class DataService {
     this.date = new Date();
     firstDay = this.date.setDate(1);
     //Extension to 15 days
-    firstDay = this.date.setDate(this.date.getDate() - 12);
+    /*firstDay = this.date.setDate(this.date.getDate());*/
     firstDay = this.datepipe.transform(firstDay, 'yyyy-MM-dd');
     console.log(firstDay + ' From Data Service: Method getfirstDay');
 
@@ -77,8 +77,9 @@ export class DataService {
     this.date = new Date();
     lastDay = this.date.setMonth(this.date.getMonth() + 1);
     lastDay = this.date.setDate(1);
+    lastDay = this.date.setDate(this.date.getDate() - 1);
     //Extension to 15 days
-    lastDay = this.date.setDate(this.date.getDate() + 16);
+    /*lastDay = this.date.setDate(this.date.getDate());*/
     lastDay = this.datepipe.transform(lastDay, 'yyyy-MM-dd');
     console.log(lastDay + ' From Data Service: Method getlastDay');
 
@@ -90,17 +91,17 @@ export class DataService {
   
   gendaysArray() {
     var day;
-    var lastday;
+    var lastDay;
     var daysArray: any[];   
 
     daysArray = [];
     this.date = new Date();    
-    lastday = this.getlastDay();
-    lastday = this.date.getDate(lastday);
+    lastDay = this.getlastDay();
+    lastDay = this.date.getDate(lastDay);
     day = this.getfirstDay();
     
-    for (let i = 1, j = 50 + 1; i < j; i++) {
-      day = this.date.setDate(this.date.getDate() + 1);
+    for (let i = 0, j = lastDay; i < j; i++) {
+      day = this.date.setDate(i + 1);
       day = this.datepipe.transform(day, 'yyyy-MM-dd');
       daysArray.push(day);    
       console.log(day + ' From Data Service: Method gendaysArray');

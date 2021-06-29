@@ -5,7 +5,7 @@
   <mat-card-content>
     <mat-divider></mat-divider>
     <div class="scroll">
-      <mat-grid-list cols="15" rowHeight="2:5">
+      <mat-grid-list cols="30" rowHeight="2:5">
         <ng-container *ngFor="let dayArray of dayArray">
           <mat-grid-tile>
             <ng-container>
@@ -19,8 +19,8 @@
                 </mat-card-title>
                 <mat-card-content>
                   <mat-divider></mat-divider>
-                  <p style="font-size: 15px">{{dayArray |date : 'M' }}</p>
-                  <p style="font-size: 10px">{{dayArray |date : 'd' }}</p>
+                  <p style="font-size: 10px">{{dayArray |date : 'MMM' }}</p>
+                  <p style="font-size: 15px">{{dayArray |date : 'd' }}</p>
                 </mat-card-content>
               </mat-card>
             </ng-container>
