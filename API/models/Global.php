@@ -122,6 +122,28 @@
 			return array("code"=>$code, "errmsg"=>$errmsg);
 		}	
 
+		//Dump
+		public function cumDump($table, $data, $condition){
+
+			$sql = "DELETE FROM $table WHERE $condition";
+
+		
+			$data = array(); $code = 0; $errmsg= ""; $remarks = "";
+			try {
+		
+				if ($res = $this->pdo->query($sql)->fetchAll()) {
+					foreach ($res as $rec) { array_push($data, $rec);}
+					$res = null; $code = 200; $msg = "Successfully deleted feedback"; $remarks = "success";
+					return array("code"=>200, "remarks"=>"success");
+				}
+			} catch (\PDOException $e) {
+				$errmsg = $e->getMessage();
+				$code = 403;
+			}
+			
+			return array("code"=>$code, "errmsg"=>$errmsg);
+		}	
+
 		//PAYLOAD
 
 		public function sendPayload($payload, $remarks, $message, $code) {
@@ -133,6 +155,8 @@
 				'prepared_by'=>'Unknown Developer',
 				"timestamp"=>date_create());
 		} 
+
+
 		
 	}	
 

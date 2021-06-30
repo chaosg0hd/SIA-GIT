@@ -111,6 +111,28 @@ export class DataService {
     return <any>(daysArray)
   }
 
+  //gendaysArraywithAp() {
+  //  var day;
+  //  var lastDay;
+  //  var daysArray: any[];
+
+  //  daysArray = [];
+  //  this.date = new Date();
+  //  lastDay = this.getlastDay();
+  //  lastDay = this.date.getDate(lastDay);
+  //  day = this.getfirstDay();
+
+  //  for (let i = 0, j = lastDay; i < j; i++) {
+  //    day = this.date.setDate(i + 1);
+  //    day = this.datepipe.transform(day, 'yyyy-MM-dd');
+  //    daysArray.push('"' + day + '"');
+  //    console.log(day + ' From Data Service: Method gendaysArraywithAp');
+  //  }
+  //  console.log(daysArray + ' From Data Service: Method gendaysArraywithAp');
+
+  //  return <any>(daysArray)
+  //}
+
   //Cheat Sheet
   //var d = new Date();
   //d.getFullYear();	//Get the year as a four digit number (yyyy)
