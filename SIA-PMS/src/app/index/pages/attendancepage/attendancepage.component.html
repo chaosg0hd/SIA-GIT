@@ -1,423 +1,144 @@
 
-<mat-card class="mat-elevation-z6" >
+<mat-card class="mat-elevation-z6">
+
   <mat-card-title class="mat-elevation-z4">
-      <h1 style="vertical-align: middle;">Attendance Record</h1>    
+    <h1 style="vertical-align: middle;">Attendance Record</h1>
   </mat-card-title>
-  
+
   <mat-card-subtitle>
-    &nbsp;
-    <!--<p>Attendance something something</p>-->
+    <p>&nbsp;</p>
+    <p>Current Date : {{currentDate}}</p>
+
+    <p>Last Date : {{lastDay}}</p>
+
+    <p>First Date : {{firstDay}}</p>
   </mat-card-subtitle>
   <mat-divider></mat-divider>
   <br />
   <mat-card-content>
-    <div class="div-container mat-elevation-z4">
-      <ng-container>
-        <mat-table class="mat-elevation-z4" [dataSource]="empInfoTableDataSource" matSort style=" width: 300vh;">
 
-          <!--<ng-container matColumnDef="emp_id">
-    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <!--Tab Group-->
 
-      <p>
-        {{element.emp_id}}
-      </p>
+    <mat-tab-group class="mat-elevation-z4">
 
-    </mat-cell>
-  </ng-container>-->
+      <!--Previous Month Tab-->
 
-          <ng-container matColumnDef="emp_name" sticky>
-            <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-
-              <p>
-                {{element.emp_name}}
-              </p>
-
-            </mat-cell>
-          </ng-container>
-
-          <ng-container *ngFor="let dayArray of dayArray">
-
-            <ng-container matColumnDef="{{dayArray}}">
-              <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">{{dayArray | date : 'MMM d'}}</mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
-
-                <ng-container *ngFor="let attInfoTable of attInfoTable">
-
-                  <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
-
-                    <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
-                      <p>
-                        {{addtoTotal(attInfoTable.attendance_hours)}} {{attInfoTable.attendance_hours}}
-                      </p>              
-                    </ng-container>
-
-                  </ng-container>
-
-                </ng-container>
-
-              </mat-cell>
-            </ng-container>
-
-          </ng-container>
-
-          <ng-container matColumnDef="total" stickyEnd>
-            <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-
-              <p>
-                {{getTotalHours()}}
-              </p>
-
-            </mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="empColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: empColumns;"></mat-row>
-        </mat-table>
-
-
-      </ng-container>
-    </div>
-
-    <mat-paginator class="mat-elevation-z4" [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
-
-  </mat-card-content>
-</mat-card>
-
-<!--<mat-card class="mat-elevation-z8">
-  <mat-card-title>
-    <p>This is a Title</p>
-  </mat-card-title>
-  <mat-card-content>-->
-    <!--<mat-divider></mat-divider>
-    <p>
-      This is content
-    </p>
-    <p>
-      Current Date : {{currentDate | date}}
-    </p>
-    <p>
-      First Date : {{firstDay | date}}
-    </p>
-    <p>
-      Last Date : {{lastDay | date}}
-    </p>
-    <mat-divider></mat-divider>
-    <br />-->
-
-    <!--<ng-container style="width : 100%">
-      <mat-grid-list cols="36" rowHeight="100vh">-->
-
-        <!--(Use this to set as dynamic length {{lastDay | date : 'd' }} + 1)-->
-
-        <!--<mat-grid-tile colspan="4">
-
+      <mat-tab label="{{currentDate  | date : 'MMMM'}}">
+        <div class="div-container mat-elevation-z4">
           <ng-container>
-            <mat-card style="text-align: center" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">-->
-              <!--<p style="font-size: 36px; ">I</p>-->
-              <!--<mat-card-title>
-                <p style="font-size:10px">Employee Name</p>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-divider></mat-divider>
-                <p style="font-size:10px">&nbsp;</p>
-                <mat-divider></mat-divider>
-                <mat-table class="" [dataSource]="empInfoTableDataSource" style="background-color:none">
 
-                  <ng-container matColumnDef="emp_id">
-                    <mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }"></mat-header-cell>
-                    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
+            <!--Previous Month Table-->
 
+            <mat-table class="mat-elevation-z4" [dataSource]="empInfoTableDataSource" matSort style="width: 300vh; ">
 
-                      <p style="white-space: nowrap; text-align:left">
-                        {{element.emp_name}}
-                      </p>
+              <!--Employee Column-->
 
-                    </mat-cell>
-                  </ng-container>
+              <ng-container matColumnDef="emp_name" sticky>
+                <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <p>{{element.emp_name}}</p>
+                </mat-cell>
+              </ng-container>
 
-                  <mat-header-row *matHeaderRowDef="empColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: empColumns;"></mat-row>
-                </mat-table>
-              </mat-card-content>
-            </mat-card>
+              <!--Generated Columns-->
 
-          </ng-container>
-
-        </mat-grid-tile>
-
-        <ng-container *ngFor="let dayArray of dayArray">
-
-          <mat-grid-tile>
-            <ng-container>-->
-
-              <!--/Remove from cards cards fucking useless-->
-              <!--<div>
-
-              </div>-->
-              <!--<mat-card style="text-align: center" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">-->
-                <!--<p style="font-size: 36px; ">I</p>-->
-                <!--<mat-card-title>
-                  <p style="font-size:small">{{dayArray | date : 'EEEEE'}}</p>
-                </mat-card-title>
-                <mat-card-content>
-                  <mat-divider></mat-divider>
-                  <p style="font-size:10px">{{dayArray |date : 'MMM d' }}</p>
-                  <mat-divider></mat-divider>
-                  <mat-table class="" [dataSource]="empInfoTableDataSource" style="background-color:none">
-
-                    <ng-container matColumnDef="emp_id">
-                      <mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }"></mat-header-cell>
-                      <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
-
-
-                        <ng-container *ngFor="let attInfoTable of attInfoTable">
-
-                          <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
-
-                            <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
-
-                              <p style="font-size: 16px;" [ngStyle]="{'color': attInfoTable.attendance_hours < 8 ? '#FF5733' : '#0EDFA0' }">
-                                {{attInfoTable.attendance_hours}}
-                              </p>
-                            </ng-container>
-
-
-                          </ng-container>
-
+              <ng-container *ngFor="let dayArray of dayArray">
+                <ng-container matColumnDef="{{dayArray}}">
+                  <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">{{dayArray | date : 'MMM d'}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
+                    <!--Need to Implement Better Logic Here-->
+                    <ng-container *ngFor="let attInfoTable of attInfoTable">
+                      <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
+                        <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
+                          <p>{{addtoTotal(attInfoTable.attendance_hours)}} {{attInfoTable.attendance_hours}}</p>
                         </ng-container>
-
-                      </mat-cell>
+                      </ng-container>
                     </ng-container>
+                    <!--Need to Implement Better Logic Above-->
+                  </mat-cell>
+                </ng-container>
+              </ng-container>
 
-                    <mat-header-row *matHeaderRowDef="empColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: empColumns;"></mat-row>
-                  </mat-table>
-                </mat-card-content>
-              </mat-card>
+              <!--Total Column-->
 
-            </ng-container>
+              <ng-container matColumnDef="total" stickyEnd>
+                <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <p>{{getTotalHours()}}</p>
+                </mat-cell>
+              </ng-container>
 
+              <!--Row Definitions-->
 
-          </mat-grid-tile>
-        </ng-container>
-
-        <mat-grid-tile colspan="2">
-
-          <ng-container>
-            <mat-card style="text-align: center" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">-->
-              <!--<p style="font-size: 36px; ">I</p>-->
-              <!--<mat-card-title>
-                <p style="font-size:10px">Total</p>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-divider></mat-divider>
-                <p style="font-size:10px">&nbsp;</p>
-                <mat-divider></mat-divider>
-                <mat-table class="" [dataSource]="empInfoTableDataSource" style="background-color:none">
-
-                  <ng-container matColumnDef="emp_id">
-                    <mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }"></mat-header-cell>
-                    <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
-
-
-                      <p>
-                        Total
-                      </p>
-
-                    </mat-cell>
-                  </ng-container>
-
-                  <mat-header-row *matHeaderRowDef="empColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: empColumns;"></mat-row>
-                </mat-table>
-              </mat-card-content>
-            </mat-card>
-
+              <mat-header-row *matHeaderRowDef="thisMonthColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: thisMonthColumns;"></mat-row>
+            </mat-table>
           </ng-container>
+        </div>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+      </mat-tab>
 
-        </mat-grid-tile>
+      <!--Previous Month Tab-->
 
+      <mat-tab label="{{currentDate  | date : 'MMMM'}}">
+        <div class="div-container mat-elevation-z4">
+          <ng-container>
 
-      </mat-grid-list>
-    </ng-container>
+            <!--Previous Month Table-->
 
-    <br />
-  </mat-card-content>
-</mat-card>-->
+            <mat-table class="mat-elevation-z4" [dataSource]="empInfoTableDataSource" matSort style="width: 300vh; ">
 
+              <!--Employee Column-->
 
+              <ng-container matColumnDef="emp_name" sticky>
+                <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <p>{{element.emp_name}}</p>
+                </mat-cell>
+              </ng-container>
 
+              <!--Generated Columns-->
 
+              <ng-container *ngFor="let dayArray of dayArray">
+                <ng-container matColumnDef="{{dayArray}}">
+                  <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">{{dayArray | date : 'MMM d'}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
+                    <!--Need to Implement Better Logic Here-->
+                    <ng-container *ngFor="let attInfoTable of attInfoTable">
+                      <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
+                        <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
+                          <p>{{addtoTotal(attInfoTable.attendance_hours)}} {{attInfoTable.attendance_hours}}</p>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                    <!--Need to Implement Better Logic Above-->
+                  </mat-cell>
+                </ng-container>
+              </ng-container>
 
+              <!--Total Column-->
 
+              <ng-container matColumnDef="total" stickyEnd>
+                <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <p>{{getTotalHours()}}</p>
+                </mat-cell>
+              </ng-container>
 
+              <!--Row Definitions-->
 
+              <mat-header-row *matHeaderRowDef="thisMonthColumns; sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: thisMonthColumns;"></mat-row>
+            </mat-table>
+          </ng-container>
+        </div>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+      </mat-tab>
 
+      <mat-tab label="Third"> Content 3 </mat-tab>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<mat-card>
-  <mat-card-title>
-    <p>This is a Title</p>
-  </mat-card-title>
-  <mat-card-content>
-    <mat-divider></mat-divider>
-    <div class="scroll">
-      <mat-grid-list cols="30" rowHeight="2:5">
-        <ng-container *ngFor="let dayArray of dayArray">
-          <mat-grid-tile>
-            <ng-container>-->
-  
-              <!--/Remove from cards cards fucking useless-->
-  
-              <!--<mat-card [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">-->
-           <!--    <b> <p style="font-size: 30px; ">I</p></b>   -->
-                <!--<mat-card-title>
-                  <b> <p style="font-size: 15px">{{dayArray | date : 'EEEEE'}}</p>  </b>
-                </mat-card-title>
-                <mat-card-content>
-                  <mat-divider></mat-divider>
-                  <p style="font-size: 10px">{{dayArray |date : 'MMM' }}</p>
-                  <p style="font-size: 15px">{{dayArray |date : 'd' }}</p>
-                </mat-card-content>
-              </mat-card>
-            </ng-container>
-            
-  
-          </mat-grid-tile>
-        </ng-container>
-      </mat-grid-list>
-    </div>
-
-    <mat-divider></mat-divider>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>
-
-<mat-card>
-
-  <mat-card-title>
-    <p>Employees Table</p>
-  </mat-card-title>
-
-  <mat-card-subtitle>
-    <p>This is a subtitle</p>
-  </mat-card-subtitle>
-
-  <mat-card-content>
-
-    <mat-divider></mat-divider>
-    <p>
-      This is content
-    </p>
-    <mat-divider></mat-divider>
-    <ng-container>
-
-      <mat-divider></mat-divider>
-      <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-      </mat-form-field>
-
-      <mat-divider></mat-divider>
-      <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-
-        <ng-container matColumnDef="emp_id">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID. </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_id}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_position">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Position </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_position}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_start_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Date Joined </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_start_date | date}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Status </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_status}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_last_mod_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified </mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_last_mod_date | date : 'MMM/d/yy h:mm a'}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="emp_last_mod_by">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Last Modified By:</mat-header-cell>
-          <mat-cell *matCellDef="let emp"> {{emp.emp_last_mod_by}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let emp">-->
-            <!--<button type="button" class="btnpad btn btn-warning" (click)="editEmpDialog(emp.emp_id,                                                                                    emp.emp_name,
-                                                                                        emp.emp_position,
-                                                                                        emp.emp_start_date,
-                                                                                        emp.emp_status,
-                                                                                        emp.emp_last_mod_bay)">
-              EDIT
-            </button>
-            <button type="button" class="btnpad btn btn-danger" (click)="delEmp(emp.emp_id)"> DELETE </button>-->
-          <!--</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="maxColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: maxColumns;"></mat-row>
-      </mat-table>
-
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </ng-container>
-
-    <mat-divider></mat-divider>-->
-
-    <!--Too Lazy to fucking fix this-->
-    <!--<button type="button" class="btnpad btn btn-warning" (click)="addEmpDialog( emp.emp_id,
-                                                                                emp.emp_name,
-                                                                                emp.emp_position,
-                                                                                emp.emp_start_date,
-                                                                                emp.emp_status,
-                                                                                emp.emp_last_mod_bay)">
-      Add
-    </button>-->
-    <!--Edfsdfw-->
-    <!--<mat-divider></mat-divider>
-  </mat-card-content>
-</mat-card>-->
-
 
 

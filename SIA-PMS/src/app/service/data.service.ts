@@ -14,7 +14,6 @@ export class DataService {
 
 
   // NEILWINN PINEDAS MOTHERFUCKING PAYROLL ENGINE
-  // TODO: Should make all this inside a do while loop logic
 
   //Service Methods 
 
@@ -37,11 +36,11 @@ export class DataService {
     }); 
   }
 
-
   //End of Database Methods
 
   // Time Methods
   // Fucking Fix Pls Poorly Implemented
+  // Needs to be Redone
 
   date: any;
 
@@ -58,12 +57,11 @@ export class DataService {
 
   //Get First Date of Month
 
-  getfirstDay() {
+  getfirstDay(month: number) {
     var firstDay;
     this.date = new Date();
+    firstDay = this.date.setMonth(month);
     firstDay = this.date.setDate(1);
-    //Extension to 15 days
-    /*firstDay = this.date.setDate(this.date.getDate());*/
     firstDay = this.datepipe.transform(firstDay, 'yyyy-MM-dd');
     console.log(firstDay + ' From Data Service: Method getfirstDay');
 
@@ -72,14 +70,12 @@ export class DataService {
 
   //Get Last Date of Month
 
-  getlastDay() {
+  getlastDay(month: number) {
     var lastDay;
     this.date = new Date();
-    lastDay = this.date.setMonth(this.date.getMonth() + 1);
+    lastDay = this.date.setMonth(month + 1);
     lastDay = this.date.setDate(1);
     lastDay = this.date.setDate(this.date.getDate() - 1);
-    //Extension to 15 days
-    /*lastDay = this.date.setDate(this.date.getDate());*/
     lastDay = this.datepipe.transform(lastDay, 'yyyy-MM-dd');
     console.log(lastDay + ' From Data Service: Method getlastDay');
 
@@ -87,23 +83,20 @@ export class DataService {
   }
 
   //Generate Days in a month
-  //Now 2 Months
-  
+
   gendaysArray() {
     var day;
     var lastDay;
-    var daysArray: any[];   
+    var daysArray: any[] = [];
 
-    daysArray = [];
-    this.date = new Date();    
-    lastDay = this.getlastDay();
-    lastDay = this.date.getDate(lastDay);
-    day = this.getfirstDay();
-    
+    this.date = new Date();
+    lastDay = this.date.getDate(this.getlastDay(this.date.getMonth()));
+    console.log(lastDay + ' last day From Data Service: Method gendaysArray');
+
     for (let i = 0, j = lastDay; i < j; i++) {
       day = this.date.setDate(i + 1);
       day = this.datepipe.transform(day, 'yyyy-MM-dd');
-      daysArray.push(day);    
+      daysArray.push(day);
       console.log(day + ' From Data Service: Method gendaysArray');
     }
     console.log(daysArray + ' From Data Service: Method gendaysArray');
@@ -111,7 +104,35 @@ export class DataService {
     return <any>(daysArray)
   }
 
-  //gendaysArraywithAp() {
+  //generate days in a month but previous
+  
+  genprevdaysarray() {
+    var day;
+    var lastDay;
+    var daysArray: any[] = [];
+
+    this.date = new Date();
+
+    day = this.date.setMonth(this.date.getMonth(this.getDate()));
+
+    lastDay = this.date.getDate(this.getlastDay(this.date.getMonth(day) - 1));
+
+    console.log(lastDay + ' last day From Data Service: Method gendaysArray');
+
+    for (let i = 0, j = lastDay; i < j; i++) {
+      day = this.date.setDate(i + 1);
+      day = this.datepipe.transform(day, 'yyyy-MM-dd');
+      daysArray.push(day);
+      console.log(day + ' From Data Service: Method gendaysArray');
+    }
+    console.log(daysArray + ' From Data Service: Method gendaysArray');
+
+    return <any>(daysArray)
+  }
+
+  ////Generate Days in a month but next
+
+  //gennextdaysArray() {
   //  var day;
   //  var lastDay;
   //  var daysArray: any[];
@@ -125,13 +146,15 @@ export class DataService {
   //  for (let i = 0, j = lastDay; i < j; i++) {
   //    day = this.date.setDate(i + 1);
   //    day = this.datepipe.transform(day, 'yyyy-MM-dd');
-  //    daysArray.push('"' + day + '"');
-  //    console.log(day + ' From Data Service: Method gendaysArraywithAp');
+  //    daysArray.push(day);
+  //    console.log(day + ' From Data Service: Method gendaysArray');
   //  }
-  //  console.log(daysArray + ' From Data Service: Method gendaysArraywithAp');
+  //  console.log(daysArray + ' From Data Service: Method gendaysArray');
 
   //  return <any>(daysArray)
   //}
+
+  
 
   //Cheat Sheet
   //var d = new Date();

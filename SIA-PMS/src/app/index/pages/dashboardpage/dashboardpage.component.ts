@@ -41,8 +41,8 @@ export class DashboardpageComponent implements OnInit {
   ngOnInit(): void {
     
     this.getDate();
-    this.getfirstDay();
-    this.getlastDay();    
+    //this.getfirstDay();
+    //this.getlastDay();    
     this.getDayArray();
     this.pullAllEmp();
     this.pullAllAtt();
@@ -59,19 +59,19 @@ export class DashboardpageComponent implements OnInit {
     this.currentDate = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
   }
 
-  //Get First Date
-  firstDay: any;  
-  getfirstDay() {
-    this.firstDay = this.data.getfirstDay();
-    this.firstDay = this.datepipe.transform(this.firstDay, 'yyyy-MM-dd');
-  }
+  ////Get First Date
+  //firstDay: any;  
+  //getfirstDay() {
+  //  this.firstDay = this.data.getfirstDay();
+  //  this.firstDay = this.datepipe.transform(this.firstDay, 'yyyy-MM-dd');
+  //}
 
-  //Get Last Date
-  lastDay: any;  
-  getlastDay(){
-    this.lastDay = this.data.getlastDay();
-    this.lastDay = this.datepipe.transform(this.lastDay, 'yyyy-MM-dd');
-  }
+  ////Get Last Date
+  //lastDay: any;  
+  //getlastDay(){
+  //  this.lastDay = this.data.getlastDay();
+  //  this.lastDay = this.datepipe.transform(this.lastDay, 'yyyy-MM-dd');
+  //}
 
   //testDateLogic() {
   //  //this.date = new Date();
