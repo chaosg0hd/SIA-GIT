@@ -5,26 +5,25 @@
     <mat-grid-list cols="2" rowHeight="2:1">
       <div class="row">
         <div class="column">
-          <img class="logo" src="/assets/logo.png">
-          <h2 style="text-align: center;">TEXT</h2>
+          <img class="img" src="/assets/logo.png">
         </div>
 
         <div class="column2">
-          <p class="loginTitle">LOGIN</p>
-          <p>Please login to your account</p><br>
-          <mat-form-field appearance="outline">
-            <mat-icon class="icon" matPrefix>person</mat-icon>
-            <input class="input" [(ngModel)]="user_name" type="text" matInput placeholder="Username">
+          <p id="text1">ADMIN LOGIN</p>
+          <p id="text2">SIGN IN | ADMINISTRATOR</p><br>
+          <mat-form-field id="parent">
+            <mat-icon id="username1" class="icon" matPrefix>person</mat-icon>
+            <input id="username" [(ngModel)]="user_name" type="text" matInput placeholder="Username">
           </mat-form-field><br>
 
-          <mat-form-field appearance="outline">
-            <mat-icon class="icon" matPrefix>lock</mat-icon>
-            <input class="input" [(ngModel)]="user_password" type="password" matInput placeholder="Password">
+          <mat-form-field id="parent">
+            <mat-icon id="password1" class="icon" matPrefix>lock</mat-icon>
+            <input id="password" [(ngModel)]="user_password" type="password" matInput placeholder="Password">
           </mat-form-field>
 
           <br><br>
 
-          <button mat-raised-button class="login-btn" (click)="loginUser()">LOGIN</button><br><br>
+          <button mat-raised-button class="login" (click)="loginUser()">LOGIN</button><br><br>
 
         </div>
       </div>
