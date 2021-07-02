@@ -1,0 +1,42 @@
+
+<mat-sidenav-container autosize>
+
+  <!--THE FUCKING NAV-->
+  <mat-sidenav class="sidenav mat-elevation-z8" #drawer mode="side" opened="true">
+    <img src="./assets/faveIcon/cocolime.png" class="inventory-logo">
+    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">REPORTS</button>
+    <button mat-button class="sidebarcontent" routerLink="/home"><mat-icon class="dashboard" aria-hidden="false">dashboard</mat-icon>Dashboard</button>
+    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">MANAGE</button>
+    <button mat-button class="sidebarcontent" routerLink="/employee"><mat-icon class="dashboard">groups</mat-icon>Employees</button>
+    <button mat-button class="sidebarcontent" routerLink="/attendance"><mat-icon class="orders">checklist</mat-icon>Attendance</button>
+    <button mat-button class="sidebarcontent" routerLink="/addition"><mat-icon class="stocks">add_circle_outline</mat-icon>Additions</button>
+    <button mat-button class="sidebarcontent" routerLink="/deduction"><mat-icon class="stocks1">remove_circle_outline</mat-icon>Deductions</button>
+    <button mat-button class="sidebarcontent" routerLink="/wages"><mat-icon class="supply">paid</mat-icon>Wages</button>
+    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">PRINTABLES</button>
+    <button mat-button class="sidebarcontent" routerLink="/payroll"><mat-icon class="supply">paid</mat-icon>Payroll</button>
+    <button mat-button class="sidebarcontent" routerLink="/master"><fa-icon [icon]="faCode" class="supply1"></fa-icon> qweqweqwe</button>
+  </mat-sidenav>
+
+  <!--THE FUCKING CONTENTS-->
+  <mat-sidenav-content>
+
+      <mat-toolbar color="primary" class="navbar mat-elevation-z10" style="position: sticky;  top: 0; z-index: 10; ">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" mat-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        THIS SYSTEM
+        <span class="example-spacer"></span>
+        <h3 class="admin-name">Hello! <span id="name"></span></h3>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>person</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" type="button">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </mat-toolbar>
+    
+      <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
