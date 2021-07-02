@@ -87,7 +87,7 @@ export class DashboardpageComponent implements OnInit {
 
   dayArray: string[] = [];
   getDayArray() {
-    this.dayArray = this.data.gendaysArray();
+    this.dayArray = this.data.gendaysArray(1);
   }
 
   pullAllEmp() {

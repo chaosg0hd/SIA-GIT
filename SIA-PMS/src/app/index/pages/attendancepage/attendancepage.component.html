@@ -78,65 +78,6 @@
         <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
       </mat-tab>
 
-      <!--Previous Month Tab-->
-
-      <mat-tab label="{{currentDate  | date : 'MMMM'}}">
-        <div class="div-container mat-elevation-z4">
-          <ng-container>
-
-            <!--Previous Month Table-->
-
-            <mat-table class="mat-elevation-z4" [dataSource]="empInfoTableDataSource" matSort style="width: 300vh; ">
-
-              <!--Employee Column-->
-
-              <ng-container matColumnDef="emp_name" sticky>
-                <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <p>{{element.emp_name}}</p>
-                </mat-cell>
-              </ng-container>
-
-              <!--Generated Columns-->
-
-              <ng-container *ngFor="let dayArray of dayArray">
-                <ng-container matColumnDef="{{dayArray}}">
-                  <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">{{dayArray | date : 'MMM d'}}</mat-header-cell>
-                  <mat-cell *matCellDef="let element" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">
-                    <!--Need to Implement Better Logic Here-->
-                    <ng-container *ngFor="let attInfoTable of attInfoTable">
-                      <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
-                        <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
-                          <p>{{addtoTotal(attInfoTable.attendance_hours)}} {{attInfoTable.attendance_hours}}</p>
-                        </ng-container>
-                      </ng-container>
-                    </ng-container>
-                    <!--Need to Implement Better Logic Above-->
-                  </mat-cell>
-                </ng-container>
-              </ng-container>
-
-              <!--Total Column-->
-
-              <ng-container matColumnDef="total" stickyEnd>
-                <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <p>{{getTotalHours()}}</p>
-                </mat-cell>
-              </ng-container>
-
-              <!--Row Definitions-->
-
-              <mat-header-row *matHeaderRowDef="thisMonthColumns; sticky: true"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: thisMonthColumns;"></mat-row>
-            </mat-table>
-          </ng-container>
-        </div>
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
-      </mat-tab>
-
-      <mat-tab label="Third"> Content 3 </mat-tab>
-
     </mat-tab-group>
   </mat-card-content>
 </mat-card>

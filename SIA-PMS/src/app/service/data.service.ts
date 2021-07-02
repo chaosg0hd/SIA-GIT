@@ -84,13 +84,14 @@ export class DataService {
 
   //Generate Days in a month
 
-  gendaysArray() {
+  gendaysArray(month : any) {
     var day;
     var lastDay;
     var daysArray: any[] = [];
 
     this.date = new Date();
-    lastDay = this.getlastDay(this.date.getMonth());
+    day = this.date.setMonth(5);
+    lastDay = this.getlastDay(month+4);
     lastDay = this.date.getDate();
     console.log(lastDay + ' last day From Data Service: Method gendaysArray');
 

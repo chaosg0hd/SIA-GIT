@@ -102,7 +102,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   dayArray: string[] = [];
 
   getDayArray() {
-    this.dayArray = this.data.gendaysArray();
+    this.dayArray = this.data.gendaysArray(1);
     this.thisMonthColumns = this.thisMonthColumns.concat(this.dayArray);
     this.thisMonthColumns = this.thisMonthColumns.concat("total");
     console.log(this.thisMonthColumns + 'From Attendance Page: Method getDayArray')
