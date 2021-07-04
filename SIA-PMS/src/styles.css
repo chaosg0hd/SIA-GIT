@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-
-
 /*GLOBAL*/
 
 html, body {
@@ -16,6 +13,11 @@ body {
 * {
   vertical-align: middle !important;
 }
+
+/*
+button{
+    border-radius:0px !important;
+}*/
 
 mat-card {
   text-align: center;
@@ -39,11 +41,16 @@ mat-table {
 
 mat-header-cell {
   justify-content: center;
+  padding: 6px;
+  background-color: #d1d4ce;
 }
 mat-cell {
+  text-align: center;
   justify-content: center;
-  padding: 0px;
+  padding: 6px;
 }
+
+
 
 .div-container {
   height: 80%;
@@ -51,9 +58,17 @@ mat-cell {
 }
 
 
-.mat-column-emp_name {
+.mat-column-emp_firstname {
   flex: 8% !important;
   justify-content: left;
+  background-color: #d1d4ce;
+}
+
+
+.mat-column-actions {
+  flex: 2% !important;
+  align-content: center;
+  justify-content: center;
   background-color: #d1d4ce;
 }
 
@@ -62,6 +77,18 @@ mat-cell {
   justify-content: center;
   background-color: #d1d4ce;
 }
+
+.mat-column-cashadv {
+  flex: 1% !important;
+  justify-content: center;
+  background-color: #d1d4ce;
+}
+
+/*
+mat-cell{
+    border: dotted 1px;
+    border-color: black;
+}*/
 
 h1 {
   font-size: x-large !important;

@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 
 export interface empTable {
   emp_id: any;
-  emp_name: any;
+  emp_firstname: any;
 }
 
 export interface attTable {
@@ -39,21 +39,20 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
 
   thisMonthColumns: string[] = [
-    "emp_name", 
+    "emp_firstname", 
   ];
 
   previousMonthColumns: string[] = [
-    "emp_name",
+    "emp_firstname",
   ];
 
   nextMonthColumns: string[] = [
-    "emp_name",
+    "emp_firstname",
   ];
 
   constructor(public datepipe: DatePipe, private noti: MatSnackBar, private data: DataService) { }
 
   ngOnInit(): void {
-
     this.getDate();
     this.getfirstDay();
     this.getlastDay();
@@ -104,6 +103,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   getDayArray() {
     this.dayArray = this.data.gendaysArray(1);
     this.thisMonthColumns = this.thisMonthColumns.concat(this.dayArray);
+    this.thisMonthColumns = this.thisMonthColumns.concat("cashadv");
     this.thisMonthColumns = this.thisMonthColumns.concat("total");
     console.log(this.thisMonthColumns + 'From Attendance Page: Method getDayArray')
   }
@@ -122,6 +122,8 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   //Summate Hour, Needs Better Implementation
 
   totalHours = 0;
+
+  //Reads per line needs to improve further
 
   addtoTotal(hour: any) {
     this.totalHours = this.totalHours + hour;
