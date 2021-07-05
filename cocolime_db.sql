@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2021 at 07:59 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.3.27
+-- Generation Time: Jul 05, 2021 at 10:59 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,32 +70,41 @@ CREATE TABLE `delta_types` (
 
 CREATE TABLE `employees_tb` (
   `emp_id` int(11) NOT NULL,
-  `emp_name` varchar(255) NOT NULL,
+  `emp_firstname` varchar(50) NOT NULL,
+  `emp_lastname` varchar(50) NOT NULL,
+  `emp_address` varchar(255) NOT NULL,
+  `emp_datebirth` date NOT NULL,
+  `emp_contact` varchar(50) NOT NULL,
+  `emp_time_in` time NOT NULL,
+  `emp_time_out` time NOT NULL,
+  `emp_department` varchar(100) NOT NULL,
+  `emp_is_archived` tinyint(1) NOT NULL,
+  `emp_sex` varchar(25) NOT NULL,
   `emp_position` varchar(255) NOT NULL,
   `emp_start_date` datetime NOT NULL,
-  `emp_status` varchar(255) NOT NULL,
+  `emp_status` varchar(50) NOT NULL,
   `emp_last_mod_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `emp_last_mod_by` varchar(255) NOT NULL
+  `emp_last_mod_by` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employees_tb`
 --
 
-INSERT INTO `employees_tb` (`emp_id`, `emp_name`, `emp_position`, `emp_start_date`, `emp_status`, `emp_last_mod_date`, `emp_last_mod_by`) VALUES
-(1, 'Benedict Cumberbatch', 'BossiSsss', '2021-06-01 00:00:00', 'HirS', '2021-06-29 08:23:48', ''),
-(2, 'Charlessss', 'Head Bjsss', '2021-06-09 05:18:51', 'Resigneded', '2021-06-28 08:27:52', ''),
-(3, 'Jivans', 'Mainsss', '2021-06-09 05:18:51', 'Firedd', '2021-06-28 08:27:56', ''),
-(4, 'Cyans', '2ndSSS', '2021-08-09 05:18:51', 'On-probationdwdwd', '2021-06-28 08:23:38', ''),
-(6, 'tertertellini', 'tretert', '2021-06-09 09:11:43', 'tertetet', '2021-06-28 08:12:39', ''),
-(7, 'gwegwegeg', 'gewgwegwgweg', '2021-06-09 09:12:21', 'gewgwegwg', '2021-06-13 20:38:58', ''),
-(8, 'gewgwegw', 'gewgwegwgwgwg', '2021-06-09 09:12:21', 'gewgwg', '2021-06-13 20:38:58', ''),
-(9, 'gewgwgwg', 'gewgewgwegweggweg', '2021-06-09 09:12:21', 'ewgwegwe', '2021-06-13 20:38:58', ''),
-(11, 'r23r23r2r', 'r3r23r2r', '2021-06-14 00:00:00', 'r23r2r3r2', '2021-06-14 05:12:50', ''),
-(12, 'rwerwrrrr', 'rrrrrrr', '2021-06-14 00:00:00', 'rrrrr', '2021-06-14 05:33:23', ''),
-(13, 'rrrrrrr', 'rrrrrrrrrrrrrrrrr', '2021-06-14 00:00:00', 'rrrrrrrrrrrrrr', '2021-06-14 05:33:53', ''),
-(14, 'trtrtrt', 'trtrtrtr', '2021-06-15 00:00:00', 'trtrtrtrtr', '2021-06-14 05:40:05', ''),
-(15, 'rererrere', 'rerererer', '2021-06-17 00:00:00', 'rerererer', '2021-06-14 05:39:54', '');
+INSERT INTO `employees_tb` (`emp_id`, `emp_firstname`, `emp_lastname`, `emp_address`, `emp_datebirth`, `emp_contact`, `emp_time_in`, `emp_time_out`, `emp_department`, `emp_is_archived`, `emp_sex`, `emp_position`, `emp_start_date`, `emp_status`, `emp_last_mod_date`, `emp_last_mod_by`) VALUES
+(1, 'Benedict Cumberbatch', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'BossiSsss', '2021-06-01 00:00:00', 'HirS', '2021-06-29 08:23:48', ''),
+(2, 'Charlessss', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'Head Bjsss', '2021-06-09 05:18:51', 'Resigneded', '2021-06-28 08:27:52', ''),
+(3, 'Jivans', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'Mainsss', '2021-06-09 05:18:51', 'Firedd', '2021-06-28 08:27:56', ''),
+(4, 'Cyans', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', '2ndSSS', '2021-08-09 05:18:51', 'On-probationdwdwd', '2021-06-28 08:23:38', ''),
+(6, 'tertertellini', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'tretert', '2021-06-09 09:11:43', 'tertetet', '2021-06-28 08:12:39', ''),
+(7, 'gwegwegeg', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'gewgwegwgweg', '2021-06-09 09:12:21', 'gewgwegwg', '2021-06-13 20:38:58', ''),
+(8, 'gewgwegw', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'gewgwegwgwgwg', '2021-06-09 09:12:21', 'gewgwg', '2021-06-13 20:38:58', ''),
+(9, 'gewgwgwg', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'gewgewgwegweggweg', '2021-06-09 09:12:21', 'ewgwegwe', '2021-06-13 20:38:58', ''),
+(11, 'r23r23r2r', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'r3r23r2r', '2021-06-14 00:00:00', 'r23r2r3r2', '2021-06-14 05:12:50', ''),
+(12, 'rwerwrrrr', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'rrrrrrr', '2021-06-14 00:00:00', 'rrrrr', '2021-06-14 05:33:23', ''),
+(13, 'rrrrrrr', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'rrrrrrrrrrrrrrrrr', '2021-06-14 00:00:00', 'rrrrrrrrrrrrrr', '2021-06-14 05:33:53', ''),
+(14, 'trtrtrt', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'trtrtrtr', '2021-06-15 00:00:00', 'trtrtrtrtr', '2021-06-14 05:40:05', ''),
+(15, 'rererrere', '', '', '0000-00-00', '', '00:00:00', '00:00:00', '', 0, '', 'rerererer', '2021-06-17 00:00:00', 'rerererer', '2021-06-14 05:39:54', '');
 
 -- --------------------------------------------------------
 
