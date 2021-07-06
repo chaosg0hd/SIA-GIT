@@ -21,13 +21,13 @@ html {
   background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
-  background: #8d8d8d;
-}
+  background: #8d8d8d;}
 
 
 * {
   vertical-align: middle !important;
 }
+
 
 mat-button{
     padding: 10px;

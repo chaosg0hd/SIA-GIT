@@ -20,24 +20,40 @@
   <!--THE FUCKING CONTENTS-->
   <mat-sidenav-content>
 
-      <mat-toolbar color="primary" class="navbar mat-elevation-z10" style="position: sticky;  top: 0; z-index: 10; ">
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" mat-button (click)="drawer.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        THIS SYSTEM
-        &nbsp;
-        <span class="example-spacer"> WILL PLACE NOTFICATIONS HERE</span>
-        <h3 class="admin-name">Hello! <span id="name"></span></h3>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>person</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" type="button">
-          <mat-icon>logout</mat-icon>
-        </button>
-      </mat-toolbar>
-    
-      <router-outlet></router-outlet>
+    <mat-toolbar color="primary" class="navbar mat-elevation-z10" style="position: sticky;  top: 0; z-index: 10; ">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" mat-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      App Topbar Something
+      &nbsp;
+      <span class="example-spacer"> WILL PLACE NOTFICATIONS HERE</span>
+      <h3 class="admin-name">Hello!</h3>
+      <button mat-icon-button class="" aria-label="">
+        <mat-icon>person</mat-icon>
+      </button>
+      <button mat-icon-button class="" aria-label="">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
 
   </mat-sidenav-content>
+  
 
 </mat-sidenav-container>
+<mat-toolbar class="navbar mat-elevation-z10" style="position: sticky;  bottom: 0; z-index: 10; color: white ">
+  <p>
+    Powered by my dick
+  </p>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
+    <mat-icon>book</mat-icon>
+  </button>
+  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
+    <mat-icon>announcement</mat-icon>
+  </button>
+  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-toolbar>

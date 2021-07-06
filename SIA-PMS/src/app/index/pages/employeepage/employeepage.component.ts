@@ -55,8 +55,12 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   //fucking redo how tables work
   //Fixed how tables work
   //Could be Better
+  //Actually Just Merge
+
 
   tableWidth = 300;
+
+  //Table Columns Properties
 
   empInfoTableColumnsJSON : empTableColumnProp[] = [
     { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
@@ -72,32 +76,47 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false,},
   ]
 
-  //Add more Columns for here
-  maxTableSize: empTableColumnProp[] = [
-    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
-    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
-    { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false, },
-    { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false, },
-    { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false, },
-    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
-    { "columnName": "emp_department", "columnPrettyName": "Department", "columnisSticky": false, },
-    { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
-    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
-    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false, },
-    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
+  //Maximized Table Columns
+
+  maxTableSize: string[] = [
+    "emp_id",
+    "emp_name",
+    "emp_address",
+    "emp_sex",
+    "emp_datebirth",
+    "emp_contact",
+    "emp_department",
+    "emp_start_date",
+    "emp_status",
+    "emp_last_mod_date",
+    "emp_last_mod_by",
+    "actions"
   ]
 
-  minTableSize: empTableColumnProp[] = [
-    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
-    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
-    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
-    { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
-    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
-    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false, },
-    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
+  //Minimized Table Columns
+  minTableSize: string[] = [
+    "emp_id",
+    "emp_name",
+    "emp_address",
+    "emp_sex",
+    "emp_datebirth",
+    "emp_contact",
+    "actions"
   ]
 
-  empInfoTableColumns: string[] = []
+  //Default Minimized Table Columns
+  empInfoTableColumns: string[] = [
+    "emp_id",
+    "emp_name",
+    "emp_address",
+    "emp_sex",
+    "emp_datebirth",
+    "emp_contact",
+    "emp_department",
+    "emp_start_date",
+    "emp_status",
+    "actions"
+  ]
     
   //Components Shit
 
@@ -129,13 +148,11 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   tableCreate() {
 
-    this.empInfoTableColumns = [];
+    //for (let columns of this.empInfoTableColumnsJSON) {
+    //  this.empInfoTableColumns.push(columns.columnName);      
+    //  console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
+    //}
 
-    for (let columns of this.empInfoTableColumnsJSON) {
-      this.empInfoTableColumns.push(columns.columnName);      
-      console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
-    }
-    this.empInfoTableColumns.push("actions");
     console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
   }
 
@@ -147,13 +164,13 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   }
 
   minTable() {
-    this.empInfoTableColumnsJSON = this.minTableSize;
+    this.empInfoTableColumns = this.minTableSize;
     this.tableCreate();
     this.tableWidth = 200;
   }
 
   maxTable() {
-    this.empInfoTableColumnsJSON = this.maxTableSize;
+    this.empInfoTableColumns = this.maxTableSize;
     this.tableCreate();
     this.tableWidth = 300;
   }
