@@ -27,6 +27,12 @@ export interface empTable {
   emp_last_mod_by: any;
 }
 
+export interface empTableColumnProp {
+  columnName: any;
+  columnPrettyName: any;
+  columnisSticky: boolean;
+}
+
 @Component({
   selector: 'app-employeepage',
   templateUrl: './employeepage.component.html',
@@ -47,48 +53,66 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   //Table Declarations
   //Fucking fix Column Visibility
   //fucking redo how tables work
+  //Fixed how tables work
+  //Could be Better
 
-  empInfoTableColumns: string[] = [
-    "emp_id",
-    "emp_firstname",
-    "emp_lastname",
-    "emp_address",
-    "emp_datebirth",
-    "emp_contact",
-    "emp_time_in",
-    "emp_time_out",
-    "emp_department",
-    "emp_is_archived",
-    "emp_sex",
-    "emp_position",
-    "emp_start_date",
-    "emp_status",
-    "emp_last_mod_date",
-    "emp_last_mod_by",
-    "actions"
-  ];
+  tableWidth = 300;
 
+  empInfoTableColumnsJSON : empTableColumnProp[] = [
+    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
+    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true,},
+    { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false,},
+    { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false,},
+    { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false,},
+    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false,},
+    { "columnName": "emp_department", "columnPrettyName": "Department", "columnisSticky": false,},
+    { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
+    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
+    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false,},
+    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false,},
+  ]
+
+  //Add more Columns for here
+  maxTableSize: empTableColumnProp[] = [
+    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
+    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
+    { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false, },
+    { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false, },
+    { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false, },
+    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
+    { "columnName": "emp_department", "columnPrettyName": "Department", "columnisSticky": false, },
+    { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
+    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
+    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false, },
+    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
+  ]
+
+  minTableSize: empTableColumnProp[] = [
+    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
+    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
+    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
+    { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
+    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
+    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false, },
+    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
+  ]
+
+  empInfoTableColumns: string[] = []
     
   //Components Shit
 
   constructor(private data: DataService, public dialog: MatDialog) {  }
-
+    
   ngOnInit(): void {
     this.pullAllEmp();
+    this.tableCreate();
   }
 
   ngAfterViewInit() {
     this.empInfoTableDataSource.paginator = this.paginator;
     this.empInfoTableDataSource.sort = this.sort;
   }
-
-
-  //Table shit
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.empInfoTableDataSource.filter = filterValue;
-  }
+ 
 
   //Pull Employees
 
@@ -100,6 +124,44 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
     });
   }
+
+  //Create Table
+
+  tableCreate() {
+
+    this.empInfoTableColumns = [];
+
+    for (let columns of this.empInfoTableColumnsJSON) {
+      this.empInfoTableColumns.push(columns.columnName);      
+      console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
+    }
+    this.empInfoTableColumns.push("actions");
+    console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
+  }
+
+  //Filter 
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.empInfoTableDataSource.filter = filterValue;
+  }
+
+  minTable() {
+    this.empInfoTableColumnsJSON = this.minTableSize;
+    this.tableCreate();
+    this.tableWidth = 200;
+  }
+
+  maxTable() {
+    this.empInfoTableColumnsJSON = this.maxTableSize;
+    this.tableCreate();
+    this.tableWidth = 300;
+  }
+
+
+
+
+
 
   //Edit Employee Dialog
   //FUCKING TURN IT TO AN ARRAY
