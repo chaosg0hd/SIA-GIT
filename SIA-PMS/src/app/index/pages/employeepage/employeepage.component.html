@@ -64,7 +64,18 @@
                     <!--Try to make this part part of loop-->
                     <!--Emp ID-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_id'">
-                      <p id="spacing"> XXX-000{{element.emp_id}} </p>
+                <!--  <form>
+                        <label>{{element.emp_id}}</label>
+                        <input id="textbox" placeholder="{{element.emp_id}}">
+                      
+                      </form> 
+                    
+                    <p id="spacing"> XXX-000{{element.emp_id}} </p> -->
+                    <mat-form-field >
+                        <mat-label id="textbox">{{element.emp_id}}</mat-label>
+                        <input id="textbox" matInput placeholder="{{element.emp_id}}">
+                      </mat-form-field> 
+
                     </ng-container>
                     <!--Emp Name-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_name'">
