@@ -104,7 +104,7 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     "actions"
   ]
 
-  //Default Minimized Table Columns
+  //Default Table Columns
   empInfoTableColumns: string[] = [
     "emp_id",
     "emp_name",
@@ -130,8 +130,7 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.empInfoTableDataSource.paginator = this.paginator;
     this.empInfoTableDataSource.sort = this.sort;
-  }
- 
+  } 
 
   //Pull Employees
 

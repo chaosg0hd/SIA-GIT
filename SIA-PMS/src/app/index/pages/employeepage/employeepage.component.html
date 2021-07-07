@@ -1,22 +1,8 @@
 <mat-card class="mat-elevation-z6">
 
-  <mat-card-title class="mat-elevation-z4">
-    <h1 style="vertical-align: middle;">Employee Record</h1>
-  </mat-card-title>
-
-  <mat-card-subtitle>
-    <p>&nbsp;</p>
-  </mat-card-subtitle>
-  <mat-divider></mat-divider>
-  <br />
-  <mat-card-content>
-
-    <!--<div id="searchdiv1">
-    </div>-->
-
-    <div>
-      <mat-toolbar class="mat-table-toolbar mat-elevation-z12">
-
+  <mat-card-title class="mat-elevation-z8">    
+      <mat-toolbar class="mat-table-toolbar">
+        <h1 style="vertical-align: middle;">Employee Record</h1>
         <!--Table Toolbar-->
         <!--Make Drawers for Export And Import-->
 
@@ -36,11 +22,13 @@
           <mat-label><mat-icon>search</mat-icon> FIX ME PLS NASA RIGHT SANA AKO ALSO UNG SHAPE NETO PAAYOS</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
         </mat-form-field>
-
         <button mat-mini-fab style="background-color: darkred"><mat-icon>delete</mat-icon></button> &nbsp;
       </mat-toolbar>
-    </div>
+  </mat-card-title>
+  <mat-card-content>
 
+    <!--<div id="searchdiv1">
+    </div>-->
 
     <!--Lagyan ng For Loop-->
 
@@ -64,7 +52,10 @@
                     <!--Try to make this part part of loop-->
                     <!--Emp ID-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_id'">
-                      <p id="spacing"> XXX-000{{element.emp_id}} </p>
+                      <mat-form-field appearance="standard" style="max-width: 100px; max-height: 20px">
+                        <mat-label style="text-align: center">{{element.emp_id}}</mat-label>
+                        <input matInput placeholder="{{element.emp_id}}">
+                      </mat-form-field>
                     </ng-container>
                     <!--Emp Name-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_name'">
@@ -115,7 +106,7 @@
           </ng-container>
 
           <ng-container matColumnDef="actions" stickyEnd>
-            <mat-header-cell *matHeaderCellDef>&nbsp; <mat-checkbox></mat-checkbox> &nbsp; Actions </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>&nbsp; Actions </mat-header-cell>
             <mat-cell *matCellDef="let element">
               &nbsp;&nbsp;&nbsp;
               <button mat-button class="mat-elevation-z4" style="background-color: #bfba87;color: white;" aria-label="Example icon button with a bookmark icon">Edit</button> &nbsp;
@@ -131,9 +122,7 @@
     </div>
     <br />
 
-
     <p> MASS EDIT BUTTON GOES HERE</p>
-
 
     <button mat-button style="background-color: #bfba87;" aria-label="Example icon button with a bookmark icon">ADD</button>
     <button mat-button style="background-color: #bfba87;" aria-label="Example icon button with a bookmark icon">MASS DELETE</button>
