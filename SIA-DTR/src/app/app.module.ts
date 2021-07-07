@@ -73,8 +73,6 @@ import { UsersideComponent } from './userside/userside.component';
 
 
 
-// HTTP
-
 
 
 @NgModule({
