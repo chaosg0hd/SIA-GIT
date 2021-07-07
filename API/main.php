@@ -101,6 +101,11 @@
 					echo json_encode($post->delEmp($d), JSON_PRETTY_PRINT);
 				break;
 
+		case 'editEmp':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->editEmp($d), JSON_PRETTY_PRINT);
+				break;
+
 		//Attendance Operations
 
 		case 'pullAllAtt':

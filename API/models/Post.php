@@ -12,23 +12,6 @@ class Post{
 
     // Emp Operations
 
-    public function editEmp($d) {
-        $code = 401;
-        $data = $d;
-        $emp_id = $data->emp_id;
-        $res = $this->gm->edit('employees_tb', $data, "emp_id = '$emp_id'");
-        if ($res['code'] == 200) {
-			$payload = $res;
-			$remarks = "success";
-			$message = "Successfully retrieved requested data";
-		} else {
-			$payload = null;    
-			$remarks = "failed";
-			$message = $res['errmsg'];
-		}
-        //return $this->gm->sendPayload($payload, $remarks, $message, $code);
-    }
-
     public function addEmp($data) {
         $code = 401;
         $payload = null;
@@ -60,6 +43,25 @@ class Post{
 		  }
       return $this->gm->sendPayload($payload, $remarks, $message, $code);
     }
+
+    public function editEmp($d) {    
+      $code = 401;
+      $data = $d;
+      $emp_id = $data->emp_id;
+      $res = $this->gm->edit('employees_tb', $data, "emp_id = '$emp_id'");
+      if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+      return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+
 
     //CHEATSHEETS
 

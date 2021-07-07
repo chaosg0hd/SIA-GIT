@@ -47,7 +47,17 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   empInfoTable: empTable[] = [];
+
+  editField: empTable[] = [];
+
+  empInfo: any = {};
+
   empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
+
+  
+  //StartDate
+
+  startDate = new Date(1990, 0, 1);
 
 
   //Table Declarations
@@ -143,6 +153,50 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  //Edit Employees
+
+  editEmp(editEmpInfo: any) {    
+    console.log(editEmpInfo);
+    this.data.sendApiRequest("editEmp", JSON.parse(JSON.stringify(editEmpInfo))).subscribe((data: any) => {
+        this.empInfoTable = data.payload;
+        console.log(this.empInfoTable);
+        this.empInfoTableDataSource.data = this.empInfoTable;
+        console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
+      });
+  } 
+
+
+  //Edit Employees
+
+  delEmp(editEmpInfo: any) {
+    console.log(editEmpInfo)
+    this.data.sendApiRequest("delEmp", editEmpInfo).subscribe((data: any) => {
+      this.empInfoTable = data.payload;
+      console.log(this.empInfoTable);
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
+    });
+  }
+
+  //editForm = (products) => {
+  //  this.prodInfo.item_id = products.item_id;
+  //  this.prodInfo.item_name = products.item_name;
+  //  this.prodInfo.item_desc = products.item_desc;
+  //  this.prodInfo.item_quant = products.item_quant;
+  //  this.prodInfo.date_expiry = products.date_expiry;
+  //  this.prodInfo.item_price = products.item_price;
+  //  this.prodInfo.item_minimum = products.item_minimum;
+  //  this.prodInfo.remarks = products.remarks;
+  //}
+  //async editProduct(e) {
+  //  e.preventDefault();
+  //  this.prodInfo.modifiedBy1 = this.modifiedBy1
+  //  console.log(this.prodInfo.modifiedBy1);
+  //  await this.ds.sendApiRequest("editProduct", this.prodInfo).subscribe(res => {
+  //    this.pullProducts();
+  //  })
+  //}
+
   //Create Table
 
   tableCreate() {
@@ -175,11 +229,64 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   }
 
 
+  changeValue(id: string, property: string, event: any) {
 
+    console.log(event.target.value, property, id);
+  }
 
+  updateList(id: string, property: string, event: any) {
 
+    console.log(event.target.value, property, id);
 
-  //Edit Employee Dialog
+    console.log(this.empInfoTable);
+
+    for (let empInfoTable of this.empInfoTable) {
+
+      if (empInfoTable.emp_id == id) {
+        console.log(empInfoTable.emp_id + ' From Employees Page: Method updateList');
+        switch (property) {
+          case "emp_id": {
+
+            this.empInfo.emp_id = empInfoTable.emp_id
+
+            console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+            break;
+          }
+          case "emp_firstname": {
+            this.editField = [];
+            console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+            empInfoTable.emp_firstname = event.target.value;
+            this.editField.push(empInfoTable);
+            console.log(this.editField + 'From Employees Page: Method updateList');
+            this.editEmp(this.editField);
+            
+            //for (let editField of this.editField) {
+            //  editField.emp_id = empInfoTable.emp_id;
+            //  console.log(editField.emp_id + 'Emp ID From Employees Page: Method updateList');
+            //  editField.emp_firstname = empInfoTable.emp_id;
+            //  console.log(editField.emp_firstname + ' Emp Name From Employees Page: Method updateList');
+            //}
+
+            /*this.editEmp(this.empInfoTable);*/
+            break;
+          }
+          case "emp_lastname": {
+            console.log('Arguments:' + property + 'From Employees Page: Method updateList'); 
+            break;
+          }
+
+          default: {
+            console.log(property + ': No Argumments From Employees Page: Method updateList');
+            break;
+          }
+        } 
+      }
+
+    }
+
+  }
+
+  //Edit Employee Dialogconsole.log(this.editField)
   //FUCKING TURN IT TO AN ARRAY
 
 
