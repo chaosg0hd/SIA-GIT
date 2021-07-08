@@ -46,7 +46,7 @@ mat-card-title {
   background-color: #bfba87;
   color: #fff;
   margin: 0px !important;
-  padding: 10px !important;
+  padding: 6px !important;
 }
 
 .mat-table-toolbar {
@@ -54,12 +54,14 @@ mat-card-title {
   color: #fff;
   margin: 0px !important;
   padding: 10px !important;
+  vertical-align: middle;
 }
 
 mat-table {
   text-align: left;
   margin: 0px !important;
   padding: 0px !important;
+  height:200%;
 }
 
 mat-header-cell {
@@ -75,25 +77,27 @@ mat-cell {
 }
 
 .div-container {
-  height: 80%;
+  height: 100%;
   overflow: auto;
 }
 
 
 .mat-column-emp_id {
-  max-width: 160px;
+  max-width: 100px;
   justify-content: left;
 }
 
 .mat-column-emp_name {
-  flex: 3% !important;
+  flex: 1% !important;
   justify-content: left;
   background-color: #d1d4ce;
 }
 
 .mat-column-emp_address {
   flex: 10% !important;
+  max-width: 50%  ;
   justify-content: left;
+  font-size: 12px;
 }
 
 .mat-column-emp_sex {
@@ -132,7 +136,7 @@ h1 {
   margin: 4px !important;
 }
 
-.mat-form-field {
+mat-form-field {
   font-size: 14px;
   width: 100%;
 }

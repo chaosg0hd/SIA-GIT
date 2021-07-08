@@ -48,7 +48,8 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   empInfoTable: empTable[] = [];
 
-  editField: empTable[] = [];
+  /*leave for testing*/ 
+  /*editField: empTable[] = [];*/
 
   empInfo: any = {};
 
@@ -59,7 +60,6 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   startDate = new Date(1990, 0, 1);
 
-
   //Table Declarations
   //Fucking fix Column Visibility
   //fucking redo how tables work
@@ -67,8 +67,10 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   //Could be Better
   //Actually Just Merge
 
+  tabIndex = 0;
 
-  tableWidth = 300;
+  tableMaxWidth = 200;
+  tableWidth = 150;
 
   //Table Columns Properties
 
@@ -87,7 +89,6 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   ]
 
   //Maximized Table Columns
-
   maxTableSize: string[] = [
     "emp_id",
     "emp_name",
@@ -107,10 +108,11 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   minTableSize: string[] = [
     "emp_id",
     "emp_name",
+    "emp_status",
     "emp_address",
     "emp_sex",
     "emp_datebirth",
-    "emp_contact",
+    "emp_contact",    
     "actions"
   ]
 
@@ -118,13 +120,13 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   empInfoTableColumns: string[] = [
     "emp_id",
     "emp_name",
+    "emp_status",
     "emp_address",
     "emp_sex",
     "emp_datebirth",
     "emp_contact",
     "emp_department",
-    "emp_start_date",
-    "emp_status",
+    "emp_start_date",    
     "actions"
   ]
     
@@ -155,9 +157,9 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   //Edit Employees
 
-  editEmp(editEmpInfo: any) {    
-    console.log(editEmpInfo);
-    this.data.sendApiRequest("editEmp", JSON.parse(JSON.stringify(editEmpInfo))).subscribe((data: any) => {
+  async editEmp(editEmpInfo: any) {    
+    console.log(editEmpInfo + ' From Dashboard Page: Method editEmp');
+    this.data.sendApiRequest("editEmp", editEmpInfo).subscribe((data: any) => {
         this.empInfoTable = data.payload;
         console.log(this.empInfoTable);
         this.empInfoTableDataSource.data = this.empInfoTable;
@@ -166,7 +168,7 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   } 
 
 
-  //Edit Employees
+  //Del Employees
 
   delEmp(editEmpInfo: any) {
     console.log(editEmpInfo)
@@ -219,71 +221,151 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   minTable() {
     this.empInfoTableColumns = this.minTableSize;
     this.tableCreate();
-    this.tableWidth = 200;
+    this.tableMaxWidth = 100;
   }
 
   maxTable() {
     this.empInfoTableColumns = this.maxTableSize;
     this.tableCreate();
-    this.tableWidth = 300;
+    this.tableWidth = 200;
+    this.tableMaxWidth = 200;
   }
 
+  tabIndexStart() {
+    this.tabIndex = 0;
+    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
+    return <number>this.tabIndex;
 
+  }
+
+  tabIndexInc(index: number) {
+    if (this.tabIndex == 0) {
+      this.tabIndex = 1
+    }
+    else {
+      this.tabIndex = this.tabIndex + 1;
+    }
+    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
+    return<number>this.tabIndex;
+  }
+
+  //Leave for testing only
   changeValue(id: string, property: string, event: any) {
-
     console.log(event.target.value, property, id);
   }
+
+  //Rapid Edit Logic
 
   updateList(id: string, property: string, event: any) {
 
-    console.log(event.target.value, property, id);
+    //Fix API Problems
+    console.log(event);
+    console.log(event.target.value, property, id + 'From Employees Page: Method updateList');
 
-    console.log(this.empInfoTable);
-
-    for (let empInfoTable of this.empInfoTable) {
-
-      if (empInfoTable.emp_id == id) {
-        console.log(empInfoTable.emp_id + ' From Employees Page: Method updateList');
-        switch (property) {
-          case "emp_id": {
-
-            this.empInfo.emp_id = empInfoTable.emp_id
-
-            console.log('Arguments:' + property + 'From Employees Page: Method updateList');
-            break;
+    if (event.target.value != "") {
+      for (let empInfoTable of this.empInfoTable) {
+        if (empInfoTable.emp_id == id) {
+          console.log(empInfoTable.emp_id + ' From Employees Page: Method updateList');
+          switch (property) {
+            case "emp_id": {
+              //emp_id should be unmodifiable but dunno            
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              break;
+            }
+            case "emp_firstname": {
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_firstname = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_lastname": {
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_lastname = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_address": {
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_address = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_sex": {
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_sex = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_datebirth": {
+              console.log(event.target.value + ' ------------From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_datebirth = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_contact": {
+              console.log(event.target.value + ' ------------From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_contact = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_department": {
+              console.log(event.target.value + 'From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_department = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_start_date": {
+              console.log(event.target.value + 'From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_start_date = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_status": {
+              console.log(event.target.value + 'From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_status = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            default: {
+              console.log(property + ': No Argumments From Employees Page: Method updateList');
+              break;
+            }
           }
-          case "emp_firstname": {
-            this.editField = [];
-            console.log('Arguments:' + property + 'From Employees Page: Method updateList');
-            empInfoTable.emp_firstname = event.target.value;
-            this.editField.push(empInfoTable);
-            console.log(this.editField + 'From Employees Page: Method updateList');
-            this.editEmp(this.editField);
-            
-            //for (let editField of this.editField) {
-            //  editField.emp_id = empInfoTable.emp_id;
-            //  console.log(editField.emp_id + 'Emp ID From Employees Page: Method updateList');
-            //  editField.emp_firstname = empInfoTable.emp_id;
-            //  console.log(editField.emp_firstname + ' Emp Name From Employees Page: Method updateList');
-            //}
-
-            /*this.editEmp(this.empInfoTable);*/
-            break;
-          }
-          case "emp_lastname": {
-            console.log('Arguments:' + property + 'From Employees Page: Method updateList'); 
-            break;
-          }
-
-          default: {
-            console.log(property + ': No Argumments From Employees Page: Method updateList');
-            break;
-          }
-        } 
+        }
       }
-
-    }
-
+    }    
   }
 
   //Edit Employee Dialogconsole.log(this.editField)

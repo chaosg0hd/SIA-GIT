@@ -45,7 +45,6 @@ class Post{
     }
 
     public function editEmp($d) {    
-      $code = 401;
       $data = $d;
       $emp_id = $data->emp_id;
       $res = $this->gm->edit('employees_tb', $data, "emp_id = '$emp_id'");

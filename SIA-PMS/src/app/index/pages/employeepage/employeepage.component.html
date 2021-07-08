@@ -6,35 +6,50 @@
       <!--Table Toolbar-->
       <!--Make Drawers for Export And Import-->
 
-      <button mat-button disabled class="" style="background-color: #bfba87;color: white;"> | Import | </button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">CSV</button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">XML</button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">JSON</button> &nbsp;
-      <button mat-button disabled class="" style="background-color: #bfba87;color: white;">Export</button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">CSV</button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">XML</button> &nbsp;
-      <button mat-button class="" style="background-color: #bfba87;color: white;">JSON</button> &nbsp;
+      <button mat-button [matMenuTriggerFor]="Import" class="" style="background-color: #bfba87;color: white;">Import</button> &nbsp;
+      <mat-menu #Import="matMenu">
+        <button mat-menu-item>JSON</button>
+        <button mat-menu-item>CSV</button>
+      </mat-menu>
+      <button mat-button [matMenuTriggerFor]="Export" class="" style="background-color: #bfba87;color: white;">Export</button> &nbsp; &nbsp;
+      <mat-menu #Export="matMenu">
+        <button mat-menu-item>JSON</button>
+        <button mat-menu-item>CSV</button>
+      </mat-menu>
+
       <button mat-mini-fab style="background-color: #bfba87;" (click)="maxTable()"><mat-icon>open_in_full</mat-icon></button>  &nbsp;
-      <button mat-mini-fab style="background-color: #bfba87;" (click)="minTable()"><mat-icon>close_fullscreen</mat-icon></button> &nbsp;
+      <button mat-mini-fab style="background-color: #bfba87;" (click)="minTable()"><mat-icon>close_fullscreen</mat-icon></button> &nbsp; &nbsp;
+
+      <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>person_add</mat-icon></button>  &nbsp;
+
       <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>view_headline</mat-icon></button>  &nbsp;
-      <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>print</mat-icon></button>  &nbsp;
+      <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>print</mat-icon></button>  &nbsp; &nbsp; 
+
       <mat-form-field class="">
-        <mat-label><mat-icon>search</mat-icon> FIX ME PLS NASA RIGHT SANA AKO ALSO UNG SHAPE NETO PAAYOS</mat-label>
+        <mat-label><mat-icon>search</mat-icon>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
       </mat-form-field>
+
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <button mat-mini-fab style="background-color: darkred"><mat-icon>delete</mat-icon></button> &nbsp;
+
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
 
     <!--<div id="searchdiv1">
-    </div>-->
+  </div>-->
     <!--Lagyan ng For Loop-->
+    <br />
+    <div>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>    
 
     <div class="div-container mat-elevation-z4">
       <br />
+
       <ng-container>
-        <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" matSort id="mat-table1" [ngStyle]="{'width': tableWidth+'vh'}">
+        <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" matSort id="mat-table1" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
 
           <!--Implemented For Loop-->
           <!--Table Generation-->
@@ -45,69 +60,109 @@
 
                 <ng-container matColumnDef="{{empInfoTableColumnsJSON.columnName}}" sticky="{{empInfoTableColumnsJSON.columnisSticky}}">
                   <mat-header-cell *matHeaderCellDef>&nbsp; <mat-checkbox></mat-checkbox> &nbsp; {{empInfoTableColumnsJSON.columnPrettyName}} </mat-header-cell>
-                  <mat-cell *matCellDef="let element;" style="max-height: 10px;"> 
+                  <mat-cell *matCellDef="let element;" style="max-height: 10px;">
                     &nbsp; <mat-checkbox></mat-checkbox> &nbsp; &nbsp;
                     <!--Try to make this part part of loop-->
                     <!--Emp ID-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_id'">
                       <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" type="text" matInput placeholder="{{element.emp_id}}">
+                        <input (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)"
+                               tabindex="{{tabIndexStart()}}"
+                               type="text" matInput placeholder="{{element.emp_id}}"
+                               disabled>
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Name-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_name'" style="text-align:left">
-                      <mat-form-field floatLabel="never" style="max-width:40%"> 
-                        <input (keyup)="changeValue(element.emp_id, 'emp_firstname', $event)" (blur)="updateList(element.emp_id, 'emp_firstname', $event)" type="text" matInput placeholder="{{element.emp_firstname}}">
+                      <mat-form-field floatLabel="never" style="max-width:40%">
+                        <input (keyup)="updateList(element.emp_id, 'emp_firstname', $event)"
+                               type="text" matInput placeholder="{{element.emp_firstname}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                       <mat-form-field floatLabel="never" style="max-width:40%">
-                        <input (keyup)="changeValue(element.emp_id, 'emp_lastname', $event)" (blur)="updateList(element.emp_id, 'emp_lastname', $event)" type="text" matInput placeholder="{{element.emp_lastname}}">
+                        <input (keyup)="updateList(element.emp_id, 'emp_lastname', $event)"
+                               type="text" matInput placeholder="{{element.emp_lastname}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Address-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_address'">
                       <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" type="text" matInput placeholder="{{element.emp_address}}">
+                        <input (keyup)="updateList(element.emp_id, 'emp_address', $event)"
+                               type="text" matInput placeholder="{{element.emp_address}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Sex-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_sex'">
                       <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" type="text" matInput placeholder="{{element.emp_sex}}">
+                        <input (keyup)="updateList(element.emp_id, 'emp_sex', $event)"
+                               type="text" matInput placeholder="{{element.emp_sex}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                     </ng-container>
                     <!--Emp DateBirth-->
+                    <!--TO BE REDONE-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_datebirth'">
-                        <p id="spacing">{{element.emp_datebirth}}</p>
+                      <mat-form-field floatLabel="never" appearance="fill">
+                        <mat-label>{{element.emp_datebirth | date : 'MMM dd yyyy' }}</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                               (keyup)="updateList(element.emp_id, 'emp_datebirth', $event)"
+                               (click)="updateList(element.emp_id, 'emp_datebirth', $event)"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
                     </ng-container>
                     <!--Emp Contact-->
+                    <!--Phone Pipe Here-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_contact'">
                       <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, 'name', $event)" type="text" matInput placeholder="{{element.emp_contact}}">
+                        <input (keyup)="updateList(element.emp_id, 'emp_contact', $event)"
+                               type="tel" matInput placeholder="{{element.emp_contact}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Department-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_department'">
                       <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, 'name', $event)" type="text" matInput placeholder="{{element.emp_department}}">
+                        <input (keyup)="updateList(element.emp_id, 'emp_department', $event)"
+                               type="text" matInput placeholder="{{element.emp_department}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
                       </mat-form-field>
                     </ng-container>
                     <!--Date Started-->
+                    <!--TO BE REDONE-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_start_date'">
-                      <mat-form-field floatLabel="never">
-                        <input (keyup)="changeValue(element.emp_id, empInfoTableColumnsJSON.columnName, $event)" (blur)="updateList(element.emp_id, 'name', $event)" type="date" matInput placeholder="{{element.emp_start_date | date : 'mm/dd/yyyy'}}">
+                      <mat-form-field floatLabel="never" appearance="fill">
+                        <mat-label>{{element.emp_start_date | date : 'MMM dd yyyy' }}</mat-label>
+                        <input matInput [matDatepicker]="picker"
+                               (keyup)="updateList(element.emp_id, 'emp_start_date', $event)"
+                               (click)="updateList(element.emp_id, 'emp_start_date', $event)"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Status-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_status'">
-                      <p id="spacing">{{element.emp_status}}</p>
+                      <mat-form-field floatLabel="never">
+                        <input (keyup)="updateList(element.emp_id, 'emp_status', $event)"
+                               type="text" matInput placeholder="{{element.emp_status}}"
+                               tabindex="{{tabIndexInc(tabIndex)}}">
+                      </mat-form-field>
                     </ng-container>
                     <!--Emp Last Mod Date-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_date'">
-                      <p id="spacing">{{element.emp_last_mod_date | date}}</p>
+                      <p id="spacing">{{element.emp_last_mod_date | date: 'MMM dd yyyy / hh:mm'}}</p>
                     </ng-container>
                     <!--Emp Last Mod By-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_by'">
-                      <p id="spacing">{{element.emp_last_mod_by}} LAST MOD BY</p>
+                      <p id="spacing">{{element.emp_last_mod_by}}</p>
                     </ng-container>
                     <!--Try to make this part part of loop-->
                   </mat-cell>
@@ -134,12 +189,6 @@
     </div>
     <br />
 
-    <p> MASS EDIT BUTTON GOES HERE</p>
-
-    <button mat-button style="background-color: #bfba87;" aria-label="Example icon button with a bookmark icon">ADD</button>
-    <button mat-button style="background-color: #bfba87;" aria-label="Example icon button with a bookmark icon">MASS DELETE</button>
-
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
   </mat-card-content>
 </mat-card>
 
