@@ -6,6 +6,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+export interface monthList {
+  month_no: any;
+  month_name: any;
+}
+
 export interface empTable {
   emp_id: any;
   emp_firstname: any;
@@ -26,6 +31,7 @@ export interface attTable {
 })
 export class AttendancepageComponent implements OnInit, AfterViewInit {
 
+  isDoneLoading = "false";
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -37,29 +43,33 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   attInfoTable: attTable[] = [];
   attInfoTableDataSource = new MatTableDataSource(this.attInfoTable);
 
+  monthsArray: monthList[] = [];
+
 
   thisMonthColumns: string[] = [
-    "emp_firstname", 
+    "emp_name", 
   ];
 
   previousMonthColumns: string[] = [
-    "emp_firstname",
+    "emp_name",
   ];
 
   nextMonthColumns: string[] = [
-    "emp_firstname",
+    "emp_name",
   ];
 
   constructor(public datepipe: DatePipe, private noti: MatSnackBar, private data: DataService) { }
 
   ngOnInit(): void {
     this.getDate();
+    this.getMonth()
     this.getfirstDay();
     this.getlastDay();
-    this.getDayArray();
-    this.pullAllEmp();
+    this.getDayArray();    
     this.pullAllAtt();
     this.notify();
+    this.genMonsArray();
+    this.pullAllEmp();
   }
 
   ngAfterViewInit() {
@@ -69,12 +79,28 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   //Time Methods
   date: any;
+  month: any;
+
+
+  monthNumbertoText(monthNumber: number) {
+
+  }
 
   //Get Current Date
   currentDate: any;
   getDate() {
+
+    this.date = new Date();
     this.currentDate = this.data.getDate();
     this.currentDate = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+  }
+
+  //Get Current Month
+  getMonth() {
+    this.date = new Date();
+    this.month = this.data.getMonth();
+    this.month = this.date.getMonth();
+    console.log(this.month);
   }
 
   //Get First Date
@@ -108,6 +134,11 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     console.log(this.thisMonthColumns + 'From Attendance Page: Method getDayArray')
   }
 
+  genMonsArray() {
+    this.monthsArray = this.data.genMonsArray();
+    console.log(this.monthsArray);    
+  }
+
   //Pull Emp Data
 
   pullAllEmp() {
@@ -117,6 +148,8 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       this.empInfoTableDataSource.data = this.empInfoTable;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
     });
+    this.isDoneLoading = "true"
+    console.log(this.isDoneLoading + ' ####################################');
   }
 
   //Summate Hour, Needs Better Implementation

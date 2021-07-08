@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { stringify } from '@angular/compiler/src/util';
+
+export interface monthList {
+  month_no: any;
+  month_name: any;
+}
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +21,7 @@ export class DataService {
 
   apiURL = "http://localhost/SIA-GIT/API/";
 
+  
 
   // NEILWINN PINEDAS MOTHERFUCKING PAYROLL ENGINE
 
@@ -53,6 +63,17 @@ export class DataService {
     console.log(currentDate + ' From Data Service: Method getDate');
 
     return <any>(currentDate)
+  }
+
+  //Get Current Date
+
+  getMonth() {
+    var currentMonth;
+    currentMonth = new Date();
+    currentMonth = this.datepipe.transform(currentMonth, 'yyyy-MM-dd');
+    console.log(currentMonth + ' From Data Service: Method getMonth');
+
+    return <any>(currentMonth)
   }
 
   //Get First Date of Month
@@ -104,6 +125,25 @@ export class DataService {
     console.log(daysArray + ' From Data Service: Method gendaysArray');
 
     return <any>(daysArray)
+  }
+
+  monthsArray: string[] = [];
+
+  genMonsArray() {
+
+    var monsArray: any[] = [];
+    var mon
+    for (let i = 0, j = 12; i < j; i++) {
+      console.log(i);
+      mon = this.date.setDate(1);
+      mon = this.date.setMonth(i);      
+      console.log(mon);
+      mon = this.datepipe.transform(mon, 'MMMM');
+      console.log(i, mon + ' From Data Service: Method genMonsArray');
+      monsArray.push(mon)
+      console.log(monsArray + ' From Data Service: Method genMonsArray');
+    }
+    return <any>(monsArray)
   }
 
   //generate days in a month but previous
