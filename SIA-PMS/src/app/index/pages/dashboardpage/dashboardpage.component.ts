@@ -43,7 +43,7 @@ export class DashboardpageComponent implements OnInit {
     this.getDate();
     //this.getfirstDay();
     //this.getlastDay();    
-    this.getDayArray();
+    /*this.getDayArray();*/
     this.pullAllEmp();
     this.pullAllAtt();
     this.notify();
@@ -85,10 +85,10 @@ export class DashboardpageComponent implements OnInit {
   //  console.log(this.currentDate)
   //}
 
-  dayArray: string[] = [];
-  getDayArray() {
-    this.dayArray = this.data.gendaysArray(1);
-  }
+  //dayArray: string[] = [];
+  //getDayArray() {
+  //  this.dayArray = this.data.gendaysArray(1);
+  //}
 
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {

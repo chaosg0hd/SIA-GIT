@@ -6,10 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
-export interface monthList {
-  month_no: any;
-  month_name: any;
-}
+//export interface monthList {
+//  month_no: any;
+//  month_name: any;
+//}
 
 export interface empTable {
   emp_id: any;
@@ -43,32 +43,24 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   attInfoTable: attTable[] = [];
   attInfoTableDataSource = new MatTableDataSource(this.attInfoTable);
 
-  monthsArray: monthList[] = [];
+ /* monthsArray: monthList[] = [];*/
 
 
-  thisMonthColumns: string[] = [
-    "emp_name", 
-  ];
 
-  previousMonthColumns: string[] = [
-    "emp_name",
-  ];
-
-  nextMonthColumns: string[] = [
-    "emp_name",
-  ];
+ attendanceColumns: string[] = [];
+  
 
   constructor(public datepipe: DatePipe, private noti: MatSnackBar, private data: DataService) { }
 
   ngOnInit(): void {
     this.getDate();
-    this.getMonth()
-    this.getfirstDay();
-    this.getlastDay();
-    this.getDayArray();    
+    //this.getMonth()
+    this.getFirstDayofThisMonth();
+    this.getLastDayofThisMonth();
+    this.getDaysArray(this.month);    
     this.pullAllAtt();
     this.notify();
-    this.genMonsArray();
+    this.getMonsArray();
     this.pullAllEmp();
   }
 
@@ -77,11 +69,22 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.empInfoTableDataSource.sort = this.sort;
   }
 
+  consolelog(string: any) {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    console.log(string)
+  }
+
+  tabClick(event: any) {
+    console.log(event + "From Attendance Page: tabClick")
+    this.getDaysArray(event.index);
+    
+  }
+
   //Time Methods
   date: any;
-  month: any;
+  month!: number;
 
-
+  //To be Deleted
   monthNumbertoText(monthNumber: number) {
 
   }
@@ -89,54 +92,64 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   //Get Current Date
   currentDate: any;
   getDate() {
-
-    this.date = new Date();
+    //Sets Date
     this.currentDate = this.data.getDate();
-    this.currentDate = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+    this.month = Number( this.datepipe.transform(this.currentDate, 'MM'));
+    //Sets Month
+    this.month = this.month - 1;
+    console.log(this.month + "From Attendance Page: Method getDate")
   }
 
-  //Get Current Month
-  getMonth() {
-    this.date = new Date();
-    this.month = this.data.getMonth();
-    this.month = this.date.getMonth();
-    console.log(this.month);
-  }
-
+  
+  //These 2 are useless really, 
   //Get First Date
   firstDay: any;
-  getfirstDay() {
+  getFirstDayofThisMonth() {
+    var month
     this.date = new Date();
-    var month;
-    month = this.date.getMonth(this.currentDate);
-    this.firstDay = this.data.getfirstDay(month);
-    this.firstDay = this.datepipe.transform(this.firstDay, 'yyyy-MM-dd');
+    month = this.date.getMonth();
+    this.firstDay = this.data.getFirstDayofMonth(month);
   }
-
   //Get Last Date
   lastDay: any;
-  getlastDay() {
+  getLastDayofThisMonth() {
+    var month
     this.date = new Date();
-    var month;
-    month = this.date.getMonth(this.currentDate);
-    this.lastDay = this.data.getlastDay(month);
-    this.lastDay = this.datepipe.transform(this.lastDay, 'yyyy-MM-dd');
+    month = this.date.getMonth();
+    this.lastDay = this.data.getLastDayofMonth(month);
   }
 
   //Generate Days Array
   dayArray: string[] = [];
 
-  getDayArray() {
-    this.dayArray = this.data.gendaysArray(1);
-    this.thisMonthColumns = this.thisMonthColumns.concat(this.dayArray);
-    this.thisMonthColumns = this.thisMonthColumns.concat("cashadv");
-    this.thisMonthColumns = this.thisMonthColumns.concat("total");
-    console.log(this.thisMonthColumns + 'From Attendance Page: Method getDayArray')
+  getDaysArray(month: number) {
+    this.dayArray = this.data.generateDaysArray(month);
+    console.log(this.dayArray + 'From Attendance Page: Method getDayArray');
+
+
+    //Implement Dedicated Functions
+    this.attendanceColumns = [];
+
+    //add First Columns
+    this.attendanceColumns.push("emp_name");
+    //add Days columns    
+    this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
+    //add End Columns
+    this.attendanceColumns.push("total");
+    //Reload Emp
+    this.pullAllEmp();
+    console.log(this.attendanceColumns + 'From Attendance Page: Method getDayArray');
   }
 
-  genMonsArray() {
-    this.monthsArray = this.data.genMonsArray();
-    console.log(this.monthsArray);    
+  //mergeDaysColumns() {
+  //}
+
+  //Generate Mons Array
+  monthsArray: string[] = [];
+
+  getMonsArray() {
+    this.monthsArray = this.data.generateMonsArray();
+    console.log(this.monthsArray + 'From Attendance Page: Method generateMonsArray');    
   }
 
   //Pull Emp Data
@@ -148,8 +161,10 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       this.empInfoTableDataSource.data = this.empInfoTable;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
     });
+      
+
     this.isDoneLoading = "true"
-    console.log(this.isDoneLoading + ' ####################################');
+    /*console.log(this.isDoneLoading + ' ###################################');*/
   }
 
   //Summate Hour, Needs Better Implementation
