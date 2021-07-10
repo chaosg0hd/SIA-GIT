@@ -25,13 +25,12 @@
       <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>view_headline</mat-icon></button>  &nbsp;
       <button mat-mini-fab style="background-color: #bfba87;"><mat-icon>print</mat-icon></button>  &nbsp; &nbsp; 
 
-      <mat-form-field class="">
+      <mat-form-field class="searchbar">
         <mat-label><mat-icon>search</mat-icon>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="search" #input>
       </mat-form-field>
 
-      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <button mat-mini-fab style="background-color: darkred"><mat-icon>delete</mat-icon></button> &nbsp;
+      <button class="delbutton" mat-mini-fab><mat-icon>delete</mat-icon></button> &nbsp;
 
     </mat-toolbar>
   </mat-card-title>
