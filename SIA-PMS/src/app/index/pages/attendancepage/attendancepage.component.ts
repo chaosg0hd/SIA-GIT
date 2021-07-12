@@ -89,6 +89,13 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   }
 
+    //Filter 
+
+    applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.empInfoTableDataSource.filter = filterValue;
+    }
+
   //Get Current Date
   currentDate: any;
   getDate() {

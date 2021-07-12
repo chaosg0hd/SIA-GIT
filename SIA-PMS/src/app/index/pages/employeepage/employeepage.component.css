@@ -2,26 +2,18 @@
   margin-top: 13px;
 }
 
+.searchbar{
+  margin-bottom: 40px;
+  margin-left: 10px;
+}
+
 mat-form-field {
   max-width: 70%;
   max-height: 70%;
 }
 
-#searchdiv1 {
-  width: 100%;
-  text-align: left;
-  padding-left: 20px;
-}
-
-#searchdiv2 {
-  width: 26%;
-  background-color: #d1d4ce;
-  border-radius: 20px;
-}
-
-#searchdiv3 {
-  width: 100%;
-  padding: 10px;
+.delbutton{
+  background-color: darkred;
 }
 
 #actionbutton {
@@ -50,6 +42,7 @@ mat-form-field {
   background-color: rgb(141, 141, 141) !important;
   ;
 }
+
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: #005691;

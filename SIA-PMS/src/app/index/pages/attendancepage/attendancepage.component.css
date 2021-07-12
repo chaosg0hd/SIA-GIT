@@ -1,13 +1,12 @@
-
-mat-grid-tile{
-    padding: 0px;
+.searchbar{
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
-.scroll {
-    border: 0px solid black;
-    width: 100%;
-    height: 155px;
-    overflow-x: hidden;
-    background-color: #729231;
-    border-radius: 20px;
+::ng-deep .mat-form-field-underline {
+    display: none;
+  }
+
+  .delbutton{
+    background-color: darkred;
   }

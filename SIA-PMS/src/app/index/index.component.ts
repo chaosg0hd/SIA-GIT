@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,9 +13,13 @@ export class IndexComponent implements OnInit {
 
   faCode = faCode;
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this.router.navigate(['login']);
   }
 
  
