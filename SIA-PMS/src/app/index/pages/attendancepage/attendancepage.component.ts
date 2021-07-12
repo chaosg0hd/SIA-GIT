@@ -64,7 +64,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.pullAllEmp();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.empInfoTableDataSource.paginator = this.paginator;
     this.empInfoTableDataSource.sort = this.sort;
   }
@@ -173,16 +173,16 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   //Reads per line needs to improve further
 
-  addtoTotal(hour: any) {
-    this.totalHours = this.totalHours + hour;
-    console.log(this.totalHours + ' From Dashboard Page: Method addtoTotal');
+  addtoTotal(hour: any, id: any) {
+    //this.totalHours = this.totalHours + hour;
+    //console.log(this.totalHours + ' From Dashboard Page: Method addtoTotal');
   }
 
-  getTotalHours() {
-    var total;
-    total = this.totalHours;
-    this.totalHours = 0;
-    return total;
+  getTotalHours(id: any) {
+    //var total;
+    //total = this.totalHours;
+    //this.totalHours = 0;
+    //return total;
   }
 
   pullAllAtt() {

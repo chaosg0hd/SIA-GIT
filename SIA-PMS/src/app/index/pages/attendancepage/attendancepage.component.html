@@ -42,8 +42,8 @@
   </mat-card-subtitle>-->
 
   <mat-card-content>
-
-    <mat-tab-group class="mat-elevation-z4" [selectedIndex]="month" animationDuration="2000ms" (selectedTabChange)="tabClick($event)">
+    <!--rename index to selected month-->
+    <mat-tab-group class="mat-elevation-z4" [selectedIndex]="month" animationDuration="1000ms" (selectedTabChange)="tabClick($event)">
 
       <!--Remove from Material Tabs-->
       <!--Tab Loop-->
@@ -53,10 +53,9 @@
         <mat-tab label="{{monthsArray | date : 'MMMM'}}">
 
           <ng-template matTabContent>
-
             <div class="div-container mat-elevation-z4">
               <ng-container>
-                <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort style="width:400vh;">
+                <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort style="width:600vh;">
 
                   <!---Employee Column-->-->
                   <ng-container matColumnDef="emp_name" sticky>
@@ -74,18 +73,20 @@
                   <ng-container *ngFor="let dayArray of dayArray">
                     <!--{{consolelog(dayArray)}}-->
 
-
                     <ng-container matColumnDef="{{dayArray}}">
-                      <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white' }">{{dayArray | date : 'MMM d'}}</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white', 'font-size': dayArray === currentDate ? '18px' : '14px'}">{{dayArray | date : 'EE'}}<br />{{dayArray | date : 'MMM d'}}</mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         <!--Need to Implement Better Logic Here-->
                         <ng-container *ngFor="let attInfoTable of attInfoTable">
                           <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
                             <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
-                              <p>{{addtoTotal(attInfoTable.attendance_hours)}} {{attInfoTable.attendance_hours}}</p>
+
+                              <p>{{addtoTotal(attInfoTable.attendance_hours, element.emp_id)}} {{attInfoTable.attendance_hours}}</p>
                             </ng-container>
                           </ng-container>
                         </ng-container>
+                        
+                        <!--<p> 0</p>-->
                         <!--Need to Implement Better Logic Above-->
                       </mat-cell>
                     </ng-container>
@@ -104,7 +105,7 @@
                   <ng-container matColumnDef="total" stickyEnd>
                     <mat-header-cell *matHeaderCellDef>Total Hours</mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                      <p>{{getTotalHours()}}</p>
+                      <p>{{getTotalHours(element.emp_id)}}</p>
                     </mat-cell>
                   </ng-container>
 
@@ -114,8 +115,8 @@
                 </mat-table>
               </ng-container>
             </div>
-            <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>           
-          </ng-template>       
+            <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
+          </ng-template>
 
         </mat-tab>
       </ng-container>

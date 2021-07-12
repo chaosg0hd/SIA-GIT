@@ -95,7 +95,7 @@ mat-cell {
 }
 
 .emp_name_attendance {
-  flex: 6% !important;
+  flex: 2% !important;
   justify-content: left;
   background-color: #d1d4ce;
 }
