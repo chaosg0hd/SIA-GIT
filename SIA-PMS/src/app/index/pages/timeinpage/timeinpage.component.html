@@ -1,0 +1,27 @@
+
+<mat-card id="mat"  class="mat-elevation-z8">
+    <mat-card-title  class="mat-elevation-z8">
+      <p>Time In / Time Out</p>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+  
+    <!--<input class="mat-elevation-z5" id="time" type="text" name="time">-->
+    <p id="time">{{myDate | date: 'h:mm a'}}</p>
+
+    <div class="input">
+        <h3>Enter Info</h3>
+    <input class="mat-elevation-z5" id="inputname" type="text" placeholder="Enter Your Name" name="search"><br>
+    <button id="buttontime" class="mat-elevation-z8" mat-raised-button ><mat-icon>alarm_add</mat-icon>Time In</button>
+    </div>
+  
+    <table class="mat-elevation-z5" style="width:70%; margin-left: 3%;">
+      <tr>
+        <th>Employee Name</th>
+        <th>Time In</th> 
+        <th>Time Out</th> 
+        <th>Action</th>
+      </tr>
+    </table>
+  
+  </mat-card>
+  

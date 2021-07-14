@@ -93,6 +93,7 @@ import { MasterpageComponent } from './index/pages/masterpage/masterpage.compone
 import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
 import { AddemployeeDialog } from './index/pages/employeepage/employeepage.component';
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
+import { TimeinpageComponent } from './index/pages/timeinpage/timeinpage.component';
 
 
 
@@ -114,6 +115,7 @@ import { SalarypageComponent } from './index/pages/salarypage/salarypage.compone
     EditemployeeDialog,
     AddemployeeDialog,
     SalarypageComponent,
+    TimeinpageComponent,
      
   ],
   imports: [

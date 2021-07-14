@@ -58,6 +58,11 @@ mat-sidenav {
   margin-right: 10px;
 }
 
+.times {
+  margin-left: -30px;
+  margin-right: 10px;
+}
+
 .inventory-logo {
   display: block;
   margin-top: 20px;
