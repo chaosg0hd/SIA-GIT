@@ -59,7 +59,7 @@
           <ng-template matTabContent>
             <div class="div-container mat-elevation-z4">
               <ng-container>
-                <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort style="width:600vh;">
+                <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort style="width:300vh;">
 
                   <!---Employee Column-->-->
                   <ng-container matColumnDef="emp_name" sticky>
@@ -70,7 +70,6 @@
                     </mat-cell>
                   </ng-container>
 
-
                   <!--Generated Columns-->
                   <!--Middle Columns-->
 
@@ -78,18 +77,42 @@
                     <!--{{consolelog(dayArray)}}-->
 
                     <ng-container matColumnDef="{{dayArray}}">
-                      <mat-header-cell *matHeaderCellDef style="font-size: 16px;" [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white', 'font-size': dayArray === currentDate ? '18px' : '14px'}">{{dayArray | date : 'EE'}}<br />{{dayArray | date : 'MMM d'}}</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': dayArray === currentDate ? '#a39c57' : 'white', 'font-size': dayArray === currentDate ? '18px' : '14px'}">{{dayArray | date : 'EE'}}<br />{{dayArray | date : 'MMM d'}}</mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        <!--Need to Implement Better Logic Here-->
                         <ng-container *ngFor="let attInfoTable of attInfoTable">
                           <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
-                            <ng-container *ngIf="dayArray === attInfoTable.attendance_date">
-
-                              <p>{{addtoTotal(attInfoTable.attendance_hours, element.emp_id)}} {{attInfoTable.attendance_hours}}</p>
+                            <ng-container *ngIf="attInfoTable.attendance_date === dayArray">
+                              <p>{{attInfoTable.attendance_hours}}</p>
                             </ng-container>
                           </ng-container>
                         </ng-container>
-                        
+
+
+
+
+
+                        <!--Need to Implement Better Logic Here-->
+                        <!--<ng-container *ngFor="let attInfoTable of attInfoTable">
+                        <ng-container *ngIf="element.emp_id === attInfoTable.emp_id">
+                          <ng-container *ngIf="attInfoTable.attendance_date === dayArray  ">-->
+                        <!-- If Attendance has content-->
+                        <!--<mat-form-field floatLabel="never" style="max-height: 20px">
+                            <input type="text" matInput placeholder="{{attInfoTable.attendance_hours}}">
+                          </mat-form-field>
+
+                        </ng-container>-->
+                        <!-- If Attendance has no content-->
+                        <!--<ng-container *ngIf="attInfoTable.attendance_date !== dayArray">
+
+                              <mat-form-field floatLabel="never" style="max-height: 20px">
+                                <input type="text" matInput placeholder="0">
+                              </mat-form-field>
+                              {{consolelog(attInfoTable.attendance_hours)}}
+
+                            </ng-container>
+
+                          </ng-container>
+                        </ng-container>-->
                         <!--<p> 0</p>-->
                         <!--Need to Implement Better Logic Above-->
                       </mat-cell>
@@ -119,8 +142,8 @@
                 </mat-table>
               </ng-container>
             </div>
-            <mat-paginator [pageSizeOptions]="[10, 20, 50]"></mat-paginator>
           </ng-template>
+
 
         </mat-tab>
       </ng-container>

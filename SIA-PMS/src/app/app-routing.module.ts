@@ -10,6 +10,7 @@ import { AdditionpageComponent } from './index/pages/additionpage/additionpage.c
 import { WagespageComponent } from './index/pages/wagespage/wagespage.component';
 import { LoginComponent } from './login/login.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
+import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 import { TimeinpageComponent } from './index/pages/timeinpage/timeinpage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
@@ -53,6 +54,13 @@ const routes: Routes = [
     path: 'attendance', component: IndexComponent,
     children: [
       { path: '', component: AttendancepageComponent }
+    ]
+  },
+
+  {
+    path: 'dailytimerecord', component: IndexComponent,
+    children: [
+      { path: '', component: DailytimerecordpageComponent }
     ]
   },
   {

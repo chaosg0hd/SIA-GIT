@@ -1,12 +1,19 @@
-.searchbar{
+.searchbar {
   margin-top: 10px;
   margin-left: 10px;
 }
 
 ::ng-deep .mat-form-field-underline {
-    display: none;
-  }
+  display: none;
+}
 
-  .delbutton{
-    background-color: darkred;
-  }
+.delbutton {
+  background-color: darkred;
+}
+
+.mat-cell {
+  margin: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-right: 2px solid rgba(0, 0, 0, 0.12);
+}
+

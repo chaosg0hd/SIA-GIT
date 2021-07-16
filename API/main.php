@@ -106,6 +106,18 @@
 					echo json_encode($post->editEmp($d), JSON_PRETTY_PRINT);
 				break;
 
+
+		//DTR Methods
+		case 'pullAllDTR':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo $d;
+            if(count($req)>1) {                       
+						echo json_encode($get->pullAllDTR($d), JSON_PRETTY_PRINT);
+					} else {
+						echo json_encode($get->pullAllDTR($d), JSON_PRETTY_PRINT);
+					}
+				break;
+
 		//Attendance Operations
 
 		case 'pullAllAtt':
@@ -207,15 +219,15 @@
 
 				// TO BE REMOVED      
 
-				case 'reqs':
-					$d = json_decode(base64_decode(file_get_contents("php://input")));
-					if(count($req)>1) {
+		case 'reqs':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			if(count($req)>1) {
 						   
-						echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
-					} else {
-						echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
-					}	
-				break;
+				echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
+			} else {
+				echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
+			}	
+		break;
 
         case 'reqt':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));

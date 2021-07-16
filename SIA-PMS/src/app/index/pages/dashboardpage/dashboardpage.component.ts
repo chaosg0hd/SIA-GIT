@@ -46,7 +46,6 @@ export class DashboardpageComponent implements OnInit {
     /*this.getDayArray();*/
     this.pullAllEmp();
     this.pullAllAtt();
-    this.notify();
   }
 
   //Time Methods

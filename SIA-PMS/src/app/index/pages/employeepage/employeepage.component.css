@@ -1,25 +1,94 @@
-#spacing {
+/*#spacing {
   margin-top: 13px;
+}*/
+
+mat-header-cell {
+  max-height: 20px;
+  text-align: left;
+  justify-content: left;
+  padding: 6px;
+  color: white;
+  font-size: 14px;
+  background-color: #b4b4b3;
 }
 
-.searchbar{
+mat-cell{
+    font-size: 16px;
+}
+
+.mat-column-emp_id {
+  max-width: 100px;
+  justify-content: left;
+}
+
+.mat-column-emp_no {
+  max-width: 100px;
+  justify-content: left;
+}
+
+.mat-column-emp_name {
+  flex: 10% !important;
+  max-width: 400px;
+  justify-content: left;
+  background-color: #d1d4ce;
+}
+
+.mat-column-emp_address {
+  flex: 10% !important;
+  max-width: 800px;
+  justify-content: left;
+}
+
+.mat-column-emp_sex {
+  max-width: 50px;
+  justify-content: left;
+}
+
+.mat-column-emp_datebirth {
+  max-width: 400px;
+  justify-content: left;
+}
+
+.mat-column-emp_department {
+  max-width: 400px;
+  justify-content: left;
+}
+
+.mat-column-emp_rate {
+  max-width: 200px;
+  justify-content: left;
+}
+
+
+
+.mat-column-actions {
+  max-width: 200px;
+  align-content: center;
+  justify-content: center;
+  background-color: #d1d4ce;
+}
+
+
+
+
+/*.searchbar{
   margin-bottom: 40px;
   margin-left: 10px;
-}
+}*/
 
 mat-form-field {
   max-width: 70%;
   max-height: 70%;
 }
 
-.delbutton{
+/*.delbutton{
   background-color: darkred;
 }
 
 #actionbutton {
   background-color: #bfba87;
   color: white;
-}
+}*/
 
 ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/

@@ -39,12 +39,12 @@ export interface empTableColumnProp {
   styleUrls: ['./employeepage.component.css']
 })
 
-export class EmployeepageComponent implements OnInit, AfterViewInit {
+export class EmployeepageComponent implements OnInit{
 
 
-  @ViewChild(MatSort) sort!: MatSort;
+  //@ViewChild(MatSort) sort!: MatSort;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  //@ViewChild(MatPaginator) paginator!: MatPaginator;
 
   empInfoTable: empTable[] = [];
 
@@ -54,9 +54,11 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   empInfo: any = {};
 
   empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
+  empInfoTableLength = 0;
 
   
   //StartDate
+  //Delete this
 
   startDate = new Date(1990, 0, 1);
 
@@ -74,31 +76,48 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 
   //Table Columns Properties
 
-  empInfoTableColumnsJSON : empTableColumnProp[] = [
-    { "columnName": "emp_id", "columnPrettyName": "Employee ID", "columnisSticky": false, },
-    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true,},
+  empInfoTableColumnsJSON: empTableColumnProp[] = [
+    { "columnName": "emp_no", "columnPrettyName": "Emp #", "columnisSticky": false, },
+    { "columnName": "emp_id", "columnPrettyName": "Emp ID", "columnisSticky": false, },
+    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
+    { "columnName": "emp_firstname", "columnPrettyName": "Firstname", "columnisSticky": false, },
+    { "columnName": "emp_lastname", "columnPrettyName": "Lastname", "columnisSticky": false, },
+    { "columnName": "emp_middle", "columnPrettyName": "MI", "columnisSticky": false, },
     { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false,},
     { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false,},
     { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false,},
-    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false,},
-    { "columnName": "emp_department", "columnPrettyName": "Department", "columnisSticky": false,},
+    { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
+    { "columnName": "emp_time_in", "columnPrettyName": "Time-in", "columnisSticky": false, },
+    { "columnName": "emp_time_out", "columnPrettyName": "Time-out", "columnisSticky": false, },
+    { "columnName": "emp_department", "columnPrettyName": "Department", "columnisSticky": false, },
+    { "columnName": "emp_rate", "columnPrettyName": "Rate", "columnisSticky": false, },
     { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
-    { "columnName": "emp_status", "columnPrettyName": "Employee Status", "columnisSticky": false, },
+    { "columnName": "emp_status", "columnPrettyName": "Status", "columnisSticky": false, },
+    { "columnName": "emp_position", "columnPrettyName": "Position", "columnisSticky": false, },
     { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false,},
-    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false,},
+    { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
+    { "columnName": "emp_is_archived", "columnPrettyName": "Archive Status", "columnisSticky": false, },
   ]
 
   //Maximized Table Columns
   maxTableSize: string[] = [
+    "emp_no",
     "emp_id",
     "emp_name",
+    "emp_firstname",
+    "emp_lastname",
+    "emp_status",
+    //Add MI
     "emp_address",
     "emp_sex",
     "emp_datebirth",
     "emp_contact",
+    "emp_position",
     "emp_department",
+    "emp_rate",
     "emp_start_date",
-    "emp_status",
+    "emp_time_in",
+    "emp_time_out",
     "emp_last_mod_date",
     "emp_last_mod_by",
     "actions"
@@ -109,10 +128,12 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     "emp_id",
     "emp_name",
     "emp_status",
-    "emp_address",
-    "emp_sex",
-    "emp_datebirth",
-    "emp_contact",    
+    "emp_contact",
+    "emp_position",
+    "emp_department",
+    "emp_rate",
+    "emp_time_in",
+    "emp_time_out",
     "actions"
   ]
 
@@ -125,13 +146,17 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     "emp_sex",
     "emp_datebirth",
     "emp_contact",
+    "emp_position",
     "emp_department",
-    "emp_start_date",    
+    "emp_rate",
+    "emp_start_date",
+    "emp_time_in",
+    "emp_time_out",
     "actions"
   ]
     
   //Components Shit
-
+  //Remove MatDialog when able
   constructor(private data: DataService, public dialog: MatDialog) {  }
     
   ngOnInit(): void {
@@ -139,20 +164,27 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
     this.tableCreate();
   }
 
-  ngAfterViewInit() {
-    this.empInfoTableDataSource.paginator = this.paginator;
-    this.empInfoTableDataSource.sort = this.sort;
-  } 
+  //Sad na hindi ko apply pagination dito
+  //ngAfterViewInit() {
+  //  this.empInfoTableDataSource.paginator = this.paginator;
+  //  this.empInfoTableDataSource.sort = this.sort;
+  //}
+
+  //Methods
 
   //Pull Employees
 
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
-      this.empInfoTable = data.payload;
-      console.log(this.empInfoTable);
+      this.empInfoTable = data.payload;      
+      console.log(this.empInfoTable);      
+      console.log(this.empInfoTableLength + 'From Dashboard Page: Method pullAllEmp');
+      this.empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
       this.empInfoTableDataSource.data = this.empInfoTable;
+      this.empInfoTableLength = this.empInfoTableDataSource.data.length;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
     });
+    
   }
 
   //Edit Employees
@@ -165,12 +197,39 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
         this.empInfoTableDataSource.data = this.empInfoTable;
         console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
       });
-  } 
+  }
+
+  //Add Employees
+
+  //async addEmp(emp_id: number) {
+  //  this.empInfo = {}
+  //  emp_id = emp_id + 1;
+  //  this.empInfo.emp_id = ("XX-" + emp_id)
+  //  console.log(this.empInfo + ' From Dashboard Page: Method addEmp');    
+  //  this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
+  //    this.empInfoTable = data.payload;
+  //    console.log(this.empInfoTable);
+  //    this.empInfoTableDataSource.data = this.empInfoTable;
+  //    console.log(this.empInfoTableDataSource + ' From Employee Page: Method addEmp');
+  //    this.pullAllEmp();
+  //  });
+  //}
+
+  async addEmp(emp_id: number) {
+    this.empInfo = {}
+    emp_id = emp_id + 1;
+    this.empInfo.emp_id = ("XX-" + emp_id);
+    this.empInfoTableDataSource.data.push(this.empInfo);
+    this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
+    this.empInfoTableLength = this.empInfoTableDataSource.data.length;
+    console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
+    this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => { });
+  }
 
 
   //Del Employees
 
-  delEmp(editEmpInfo: any) {
+  async delEmp(editEmpInfo: any) {
     console.log(editEmpInfo)
     this.data.sendApiRequest("delEmp", editEmpInfo).subscribe((data: any) => {
       this.empInfoTable = data.payload;
@@ -178,41 +237,20 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
       this.empInfoTableDataSource.data = this.empInfoTable;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
     });
-  }
+  }  
 
-  //editForm = (products) => {
-  //  this.prodInfo.item_id = products.item_id;
-  //  this.prodInfo.item_name = products.item_name;
-  //  this.prodInfo.item_desc = products.item_desc;
-  //  this.prodInfo.item_quant = products.item_quant;
-  //  this.prodInfo.date_expiry = products.date_expiry;
-  //  this.prodInfo.item_price = products.item_price;
-  //  this.prodInfo.item_minimum = products.item_minimum;
-  //  this.prodInfo.remarks = products.remarks;
-  //}
-  //async editProduct(e) {
-  //  e.preventDefault();
-  //  this.prodInfo.modifiedBy1 = this.modifiedBy1
-  //  console.log(this.prodInfo.modifiedBy1);
-  //  await this.ds.sendApiRequest("editProduct", this.prodInfo).subscribe(res => {
-  //    this.pullProducts();
-  //  })
-  //}
-
+  //Not Really Needed
   //Create Table
 
   tableCreate() {
-
     //for (let columns of this.empInfoTableColumnsJSON) {
     //  this.empInfoTableColumns.push(columns.columnName);      
     //  console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
     //}
-
     console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
   }
 
   //Filter 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.empInfoTableDataSource.filter = filterValue;
@@ -255,13 +293,13 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   }
 
   //Rapid Edit Logic
-
   updateList(id: string, property: string, event: any) {
 
-    //Fix API Problems
+    //Fix API Problems still causing problems
     console.log(event);
     console.log(event.target.value, property, id + 'From Employees Page: Method updateList');
 
+    //Improve Null Value Check
     if (event.target.value != "") {
       for (let empInfoTable of this.empInfoTable) {
         if (empInfoTable.emp_id == id) {
@@ -371,6 +409,8 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
   //Edit Employee Dialogconsole.log(this.editField)
   //FUCKING TURN IT TO AN ARRAY
 
+  // pATULONG HERE JIV
+
 
   //editEmpDialog(
   //  emp_id: any,
@@ -456,6 +496,8 @@ export class EmployeepageComponent implements OnInit, AfterViewInit {
 //End of Main Component
 
 //SubComponents
+
+//Maybe pag kelangan na pede na mag dialog data
 
 @Component({
   selector: 'editemployee',

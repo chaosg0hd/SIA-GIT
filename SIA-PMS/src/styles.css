@@ -28,6 +28,10 @@ html {
   vertical-align: middle !important;
 }
 
+.mat-tooltip {
+  font-size: 24px !important;
+}
+
 
 mat-button{
     padding: 10px;
@@ -68,6 +72,7 @@ mat-header-cell {
   text-align: left;
   justify-content: left;
   padding: 6px;
+  color: white;
   background-color: #d1d4ce;
 }
 mat-cell {
@@ -81,42 +86,9 @@ mat-cell {
   overflow: auto;
 }
 
-
-
-.mat-column-emp_id {
-  max-width: 100px;
-  justify-content: left;
-}
-
-.mat-column-emp_name {
-  flex: 1% !important;
-  justify-content: left;
-  background-color: #d1d4ce;
-}
-
 .emp_name_attendance {
   flex: 2% !important;
   justify-content: left;
-  background-color: #d1d4ce;
-}
-
-.mat-column-emp_address {
-  flex: 10% !important;
-  max-width: 50%  ;
-  justify-content: left;
-  font-size: 12px;
-}
-
-.mat-column-emp_sex {
-  max-width: 160px;
-  justify-content: left;
-}
-
-
-.mat-column-actions {
-  max-width: 200px;
-  align-content: center;
-  justify-content: center;
   background-color: #d1d4ce;
 }
 

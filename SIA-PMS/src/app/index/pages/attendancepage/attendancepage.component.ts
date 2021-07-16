@@ -74,6 +74,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     console.log(string)
   }
 
+
   tabClick(event: any) {
     console.log(event + "From Attendance Page: tabClick")
     this.getDaysArray(event.index);
@@ -89,12 +90,12 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   }
 
-    //Filter 
+  //Filter 
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.empInfoTableDataSource.filter = filterValue;
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.empInfoTableDataSource.filter = filterValue;
+  }
 
   //Get Current Date
   currentDate: any;
@@ -125,7 +126,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     month = this.date.getMonth();
     this.lastDay = this.data.getLastDayofMonth(month);
   }
-
   //Generate Days Array
   dayArray: string[] = [];
 
@@ -148,9 +148,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     console.log(this.attendanceColumns + 'From Attendance Page: Method getDayArray');
   }
 
-  //mergeDaysColumns() {
-  //}
-
   //Generate Mons Array
   monthsArray: string[] = [];
 
@@ -160,15 +157,13 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   }
 
   //Pull Emp Data
-
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
       this.empInfoTable = data.payload;
       console.log(this.empInfoTable);
       this.empInfoTableDataSource.data = this.empInfoTable;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
-    });
-      
+    });     
 
     this.isDoneLoading = "true"
     /*console.log(this.isDoneLoading + ' ###################################');*/
@@ -199,6 +194,8 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       console.log(this.attInfoTable + ' From Dashboard Page: Method pullAllAtt');
     });
   }
+
+
 
   notify() {
     this.noti.open("hello", "ok");
