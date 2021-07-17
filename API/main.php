@@ -107,7 +107,7 @@
 				break;
 
 
-		//DTR Methods
+		//DTR Operations
 		case 'pullAllDTR':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
@@ -116,6 +116,11 @@
 					} else {
 						echo json_encode($get->pullAllDTR($d), JSON_PRETTY_PRINT);
 					}
+				break;
+
+		case 'addDTR':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($post->addDTR($d), JSON_PRETTY_PRINT);
 				break;
 
 		//Attendance Operations

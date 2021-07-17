@@ -60,6 +60,24 @@ class Post{
       return $this->gm->sendPayload($payload, $remarks, $message, $code);
     }
 
+    // DTR Operations
+
+    public function addDTR($data) {
+        $code = 401;
+        $payload = null;
+        $remarks = "failed";
+        $message = "Unable to retrieve data";
+        $reqInfo = $data;
+        $res = $this->gm->insert('dailytimerecord_tb', $reqInfo);
+        if($res['code']==200) {
+            $code = 200;
+            $payload = $res;
+            $remarks = "success";
+            $message = "Successfully retrieved data";
+        }
+        return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
 
 
     //CHEATSHEETS
