@@ -93,8 +93,8 @@ import { MasterpageComponent } from './index/pages/masterpage/masterpage.compone
 import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
 import { AddemployeeDialog } from './index/pages/employeepage/employeepage.component';
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
-import { TimeinpageComponent } from './index/pages/timeinpage/timeinpage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
+import { TimeinComponent } from './timein/timein.component';
 
 @NgModule({
   declarations: [
@@ -113,8 +113,8 @@ import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/
     EditemployeeDialog,
     AddemployeeDialog,
     SalarypageComponent,
-    TimeinpageComponent,
     DailytimerecordpageComponent,
+    TimeinComponent,
      
   ],
   imports: [

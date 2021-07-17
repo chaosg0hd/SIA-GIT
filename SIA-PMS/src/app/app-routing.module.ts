@@ -9,16 +9,20 @@ import { DeductionpageComponent } from './index/pages/deductionpage/deductionpag
 import { AdditionpageComponent } from './index/pages/additionpage/additionpage.component';
 import { WagespageComponent } from './index/pages/wagespage/wagespage.component';
 import { LoginComponent } from './login/login.component';
+import { TimeinComponent } from './timein/timein.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
-import { TimeinpageComponent } from './index/pages/timeinpage/timeinpage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
+
+  { path: '', redirectTo: 'timein', pathMatch: 'full' },
+
+  { path: 'timein', component: TimeinComponent },
 
   {
     path: 'home', component: IndexComponent, children:
@@ -67,12 +71,6 @@ const routes: Routes = [
     path: 'payroll', component: IndexComponent,
     children: [
       { path: '', component: PayrollpageComponent }
-    ]
-  },
-  {
-    path: 'timein', component: IndexComponent,
-    children: [
-      { path: '', component: TimeinpageComponent }
     ]
   },
   {

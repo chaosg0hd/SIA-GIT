@@ -1,0 +1,66 @@
+.input{
+    margin-top: 4%;
+}
+#mat{
+    overflow: auto;
+}
+#header{
+    height: 70px;
+}
+
+img {
+    height: 150px;
+  }
+
+.title{
+    font-size: 50px;
+    margin-top: 20px;
+    margin-right: 17%;
+}
+
+#inputname{
+    margin-right: 10px;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    border-radius: 8px;
+}
+
+#time{
+    align-self: center;
+    margin-top: 5%;
+    font-size: 80px;
+}
+
+#buttontime{
+    background-color: #357555;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+table, th, td{
+    margin-top: 5%;
+    border: 1px solid #8b8989;
+    border-collapse: collapse;
+  }
+
+    
+  #text1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: #787977;
+  }
+  
+  #text2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 28px;
+    color: #787977;
+  }
