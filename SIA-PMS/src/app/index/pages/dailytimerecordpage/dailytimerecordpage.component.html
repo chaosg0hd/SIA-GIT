@@ -1,9 +1,11 @@
+<!--Page-->
 <mat-card>
-  <mat-card-title>
+  <mat-card-title class="mat-elevation-z8">
     <mat-toolbar class="mat-table-toolbar">
       <h1 style="vertical-align: middle;">Daily Time Record</h1>
-      <!--Table Toolbar-->
-      <!--Make Drawers for Export And Import-->
+      <!--Toolbar-->
+      <button mat-mini-fab class="" style="background-color: darkred;" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;
+      <!--Import & Export Buttons-->
       <button mat-button [matMenuTriggerFor]="Import" class="" style="background-color: #bfba87;color: white;">Import</button> &nbsp;
       <mat-menu #Import="matMenu">
         <button mat-menu-item>JSON</button>
@@ -13,150 +15,123 @@
       <mat-menu #Export="matMenu">
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
-      </mat-menu>
-      <!--Something about view all info as a big table-->
-      <!--<button mat-mini-fab style="background-color: #bfba87;"><mat-icon>view_headline</mat-icon></button>  &nbsp;-->
-      <button mat-mini-fab style="background-color: #bfba87;" matTooltip="Print Employee Details"><mat-icon>print</mat-icon></button>  &nbsp; &nbsp;
-
-      <mat-form-field appearance="fill" style="font-size: 10px;" matTooltip="Search">
-        <mat-label style="font-size: 16px;">Search</mat-label>
-        <input #input matInput>
-        <mat-icon style="font-size: 20px;" matSuffix>search</mat-icon>
-      </mat-form-field>
+        <button mat-mini-fab style="background-color: #bfba87;" matTooltip="Print Employee Details"><mat-icon>print</mat-icon></button>
+      </mat-menu>&nbsp; &nbsp;
+      <!--Search Bar-->
+      <!--Rework Toolbar-->
+      <div style="width: 60%">
+        <mat-form-field appearance="fill" style="font-size: 10px; max-width: 50%; vertical-align: middle;" matTooltip="Search">
+          <mat-label style="font-size: 20px; vertical-align: middle;">Search</mat-label>
+          <input #input matInput>
+          <mat-icon style="font-size: 20px;" matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
       &nbsp; &nbsp;&nbsp; &nbsp;
-
-      <button mat-mini-fab class="" style="background-color: darkred;" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;
-
     </mat-toolbar>
   </mat-card-title>
+  <!--Page Content-->
   <mat-card-content>
     <mat-tab-group>
+      <!--Implement Filter-->
       <ng-container *ngFor="let empInfoTable of empInfoTable">
-        <mat-tab label="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}">
-          <br />
+        {{hasDTR(false)}}
+        <mat-tab label="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" >
 
+          <ng-template matTabContent>
+            
+            <ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
+              <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_id+'_'+month_year;">
+                {{hasDTR(true)}}
+                <br />
+                <mat-grid-list cols="2" rowHeight="850">
+                  <mat-grid-tile>
+                    <mat-card style="width: 75%; height: 100%">
+                      <mat-card-title style="padding:8px;">
+                        {{month| date: 'MMMM'}} {{month| date: 'YYY'}}
+                      </mat-card-title>
+                      <mat-card-content style="padding:8px;">
 
-          <mat-grid-list cols="2" rowHeight="900">
-            <mat-grid-tile>
-              <mat-card style="width: 75%; height: 100%">
-                <mat-card-title style="padding:8px;">
-                  {{month| date: 'MMMM'}} {{month| date: 'YYY'}}
-                </mat-card-title>
-                <mat-card-content style="padding:8px;">
+                        <p style="text-align: justify; text-justify: inter-word;">
+                          Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
+                        </p>
 
-                  <p style="text-align: justify; text-justify: inter-word;">
-                    Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
-                  </p>
+                        <table class="DTR-card">
+                          <tr>
+                            <th>Date</th>
+                            <th colspan="2">AM</th>
+                            <th colspan="2">PM</th>
+                            <th colspan="2">Overtime</th>
+                            <th colspan="2">Total</th>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:16%">Hours</th>
+                            <th style="width:14%">Remarks</th>
+                          </tr>
+                          <!--SPLIT IN HALF-->
 
-                  <table class="DTR-card">
-                    <tr>
-                      <th>Date</th>
-                      <th colspan="2">AM</th>
-                      <th colspan="2">PM</th>
-                      <th colspan="2">Overtime</th>
-                      <th colspan="2">Total</th>
-                    </tr>
-                    <tr>
-                      <th></th>
-                      <th style="width:14%">In</th>
-                      <th style="width:14%">Out</th>
-                      <th style="width:14%">In</th>
-                      <th style="width:14%">Out</th>
-                      <th style="width:14%">In</th>
-                      <th style="width:14%">Out</th>
-                      <th style="width:14%">MHrs</th>
-                      <th style="width:14%">Remarks</th>
-                    </tr>
+                          <ng-container *ngFor="let dtrJSONTable of dtrJSONTable">
+                            <tr>
+                              <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}</td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.am_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_in', dtrJSONTable.date)" matInput>
+                                {{setam_time_in(dtrJSONTable.am_time_in)}}
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.am_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_out', dtrJSONTable.date)" matInput>
+                                {{setam_time_out(dtrJSONTable.am_time_out)}}
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.pm_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_in', dtrJSONTable.date)" matInput>
+                                {{setpm_time_in(dtrJSONTable.pm_time_in)}}
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.pm_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_out', dtrJSONTable.date)" matInput>
+                                {{setpm_time_out(dtrJSONTable.pm_time_out)}}
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.ot_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_in', dtrJSONTable.date)" matInput>
+                                {{setot_time_in(dtrJSONTable.ot_time_in)}}
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.ot_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_out', dtrJSONTable.date)" matInput>
+                                {{setot_time_out(dtrJSONTable.ot_time_out)}}
+                              </td>
+                              <td>
+                                {{computehrs()}}
+                                <!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
+                              </td>
+                              <td>
+                                <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
+                              </td>
+                            </tr>
+                          </ng-container>
 
-                    <ng-container *ngFor="let dayArray1stHalf of dayArray1stHalf">
-                      <tr>
-                        <td style="font-size:14px">{{dayArray1stHalf | date :'dd'}}</td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'AM_Time_In', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'AM_Time_Out', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'PM_Time_In', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'PM_Time_Out', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'OT_Time_In', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
-                          <input type="text" (keyup)="updateList(empInfoTable.emp_id, 'OT_Time_Out', dayArray1stHalf)" matInput>
-                        </td>
-                        <td>
+                        </table>
+                      </mat-card-content>
+                    </mat-card>
+                  </mat-grid-tile>
 
-                        </td>
-                        <td>
+                </mat-grid-list>
+              </ng-container>
 
-                        </td>
-                      </tr>
-                    </ng-container>
-                  </table>
+            </ng-container>
+            <ng-container *ngIf="hasDTRbool === false">
+              <br />
+              <!--p>No DTR found. </p> <br />-->
+              <button mat-raised-button style="background-color: #bfba87; color: white" matTooltip="Generate Blank DTR" (click)="generateDTR(empInfoTable.emp_id)"><mat-icon> add_circle_outline</mat-icon>&nbsp; Generate DTR</button><br />
+            </ng-container>
+          </ng-template>
 
-                </mat-card-content>
-              </mat-card>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <mat-card style="width: 75%; height: 100%">
-                <mat-card-title style="padding:8px;">
-                  {{month| date: 'MMMM'}}
-                </mat-card-title>
-                <mat-card-content style="padding:8px;">
-
-                  <p style="text-align: justify; text-justify: inter-word;">
-                    Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
-                  </p>
-
-                  <table class="DTR-card">
-                    <tr>
-                      <th>Date</th>
-                      <th colspan="2">AM</th>
-                      <th colspan="2">PM</th>
-                      <th colspan="2">Overtime</th>
-                    </tr>
-                    <tr>
-                      <th></th>
-                      <th style="width:14%">Time-in</th>
-                      <th style="width:14%">Time-Out</th>
-                      <th style="width:14%">Time-in</th>
-                      <th style="width:14%">Time-Out</th>
-                      <th style="width:14%">Time-in</th>
-                      <th style="width:14%">Time-Out</th>
-                    </tr>
-
-                    <ng-container *ngFor="let dayArray2ndHalf of dayArray2ndHalf">
-                      <tr>
-                        <td>{{dayArray2ndHalf | date :'MMMM dd'}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                      </tr>
-                    </ng-container>
-                  </table>
-
-                </mat-card-content>
-              </mat-card>
-
-            </mat-grid-tile>
-          </mat-grid-list>
-
-
-
-
+            
         </mat-tab>
-
       </ng-container>
     </mat-tab-group>
-
   </mat-card-content>
 </mat-card>

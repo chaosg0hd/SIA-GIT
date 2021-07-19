@@ -3,8 +3,6 @@
   <mat-card-title class="mat-elevation-z8">
     <mat-toolbar class="mat-table-toolbar">
       <h1 style="vertical-align: middle;">Employee Record</h1>
-      <!--Table Toolbar-->
-      <!--Make Drawers for Export And Import-->
       <button mat-button [matMenuTriggerFor]="Import" class="" style="background-color: #bfba87;color: white;">Import</button> &nbsp;
       <mat-menu #Import="matMenu">
         <button mat-menu-item>JSON</button>
@@ -18,40 +16,23 @@
       <button mat-mini-fab style="background-color: #bfba87; transform: rotate(90deg);" matTooltip="Maximize Columns" (click)="maxTable()"><mat-icon>unfold_more</mat-icon></button>  &nbsp;
       <button mat-mini-fab style="background-color: #bfba87; transform: rotate(90deg);" matTooltip="Minimize Columns" (click)="minTable()"><mat-icon>unfold_less</mat-icon></button> &nbsp; &nbsp;
       <button mat-mini-fab style="background-color: #bfba87;" matTooltip="Add Employee" (click)="addEmp(empInfoTableLength)"><mat-icon>person_add</mat-icon></button>  &nbsp;
-      <!--Something about view all info as a big table-->
-      <!--<button mat-mini-fab style="background-color: #bfba87;"><mat-icon>view_headline</mat-icon></button>  &nbsp;-->
       <button mat-mini-fab style="background-color: #bfba87;" matTooltip="Print Employee Details"><mat-icon>print</mat-icon></button>  &nbsp; &nbsp;
-
       <mat-form-field appearance="fill" style="font-size: 10px;" matTooltip="Search" >
         <mat-label style="font-size: 16px;">Search</mat-label>
         <input (keyup)="applyFilter($event)" #input matInput>
         <mat-icon style="font-size: 20px;" matSuffix>search</mat-icon>
-      </mat-form-field>
-      &nbsp; &nbsp;&nbsp; &nbsp;
-
+      </mat-form-field>&nbsp; &nbsp;&nbsp; &nbsp;
       <button mat-mini-fab class="" style="background-color: darkred;" matTooltip="Delete" ><mat-icon>delete</mat-icon></button> &nbsp;
-
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content>
-
-    <!--<div id="searchdiv1">
-  </div>-->
-    <!--Lagyan ng For Loop-->
     <br />
-    <div>
-      <!--<mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>-->
-    </div>    
-
     <div class="div-container mat-elevation-z4">
       <br />
-
       <ng-container>
         <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" id="mat-table1" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
-
           <!--Implemented For Loop-->
           <!--Table Generation-->
-
           <ng-container *ngFor="let empInfoTableColumnsJSON of empInfoTableColumnsJSON">
             <ng-container *ngFor="let empInfoTableColumns of empInfoTableColumns">
               <ng-container *ngIf="empInfoTableColumnsJSON.columnName === empInfoTableColumns">

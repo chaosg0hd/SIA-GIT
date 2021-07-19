@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { LowerCasePipe } from '@angular/common';
 
 //Font Awesome
 
@@ -95,6 +96,7 @@ import { AddemployeeDialog } from './index/pages/employeepage/employeepage.compo
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { TimeinComponent } from './timein/timein.component';
+import { FilterpipePipe } from './filterpipe.pipe';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,7 @@ import { TimeinComponent } from './timein/timein.component';
     SalarypageComponent,
     DailytimerecordpageComponent,
     TimeinComponent,
+    FilterpipePipe,
      
   ],
   imports: [
@@ -176,7 +179,7 @@ import { TimeinComponent } from './timein/timein.component';
     MatSortModule,
     MatTableModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, LowerCasePipe],
   bootstrap: [AppComponent],
   entryComponents: [
     EditemployeeDialog,

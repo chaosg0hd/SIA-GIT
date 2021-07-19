@@ -78,6 +78,22 @@ class Post{
         return $this->gm->sendPayload($payload, $remarks, $message, $code);
     }
 
+    public function editDTR($d) {    
+      $data = $d;
+      $dtr_id = $data->dtr_id;
+      $res = $this->gm->edit('dailytimerecord_tb', $data, "dtr_id = '$dtr_id'");
+      if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+      return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
 
 
     //CHEATSHEETS
