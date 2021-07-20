@@ -60,14 +60,29 @@
                   <mat-grid-tile>
                     <mat-card style="width: 70%; height: 100%">
                       <mat-card-title style="padding:8px;">
-                        {{month}} {{year}}
                         {{dtrInfoTable.dtr_month_year}}
                       </mat-card-title>
                       <mat-card-content style="padding:12px;">
 
-                        <p style="text-align: justify; text-justify: inter-word;">
-                          Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
-                        </p>
+
+                          <table class="DTR-card">
+                            <tr>
+                              <th>Employee ID: {{empInfoTable.emp_id}}</th>
+                              <th>Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
+                            </tr>
+                            <tr>
+                              <th>Gender: {{empInfoTable.emp_sex}}</th>
+                              <th>Department: {{empInfoTable.emp_department}}</th>
+                            </tr>
+                            </table>
+                                                      
+                          <table class="DTR-card">
+                            <tr>
+                              <th style="width:41%">Position: {{empInfoTable.emp_position}}</th>
+                              <th style="width:14%">Time In: {{empInfoTable.emp_time_in}}</th>
+                              <th style="width:14%">Time Out: {{empInfoTable.emp_time_out}}</th>
+                            </tr>
+                            </table>
 
                         <table class="DTR-card">
                           <tr>
@@ -138,14 +153,29 @@
 
                   <mat-grid-tile>
                     <mat-card style="width: 70%; height: 100%">
-                      <mat-card-title style="padding:8px;">
-                        {{dtrInfoTable.dtr_month_year}}
+                      <mat-card-title style="padding:8px; height:30px; font-size: 36px;">
+                        <p style="margin-top: 4px;">  {{month}} {{year}} </p>
                       </mat-card-title>
                       <mat-card-content style="padding:12px;">
 
-                        <p style="text-align: justify; text-justify: inter-word;">
-                          Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
-                        </p>
+                        <table class="DTR-card">
+                          <tr>
+                            <th>Employee ID: {{empInfoTable.emp_id}}</th>
+                            <th>Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
+                          </tr>
+                          <tr>
+                            <th>Gender: {{empInfoTable.emp_sex}}</th>
+                            <th>Department: {{empInfoTable.emp_department}}</th>
+                          </tr>
+                          </table>
+
+                          <table class="DTR-card">
+                            <tr>
+                              <th style="width:41%">Position: {{empInfoTable.emp_position}}</th>
+                              <th style="width:14%">Time In: {{empInfoTable.emp_time_in}}</th>
+                              <th style="width:14%">Time Out: {{empInfoTable.emp_time_out}}</th>
+                            </tr>
+                            </table>
 
                         <table class="DTR-card">
                           <tr>
