@@ -118,6 +118,16 @@
 					}
 				break;
 
+		case 'pullSpecDTR':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo $d;
+            if(count($req)>1) {                       
+						echo json_encode($get->pullSpecDTR($d), JSON_PRETTY_PRINT);
+					} else {
+						echo json_encode($get->pullSpecDTR($d), JSON_PRETTY_PRINT);
+					}
+				break;  
+
 		case 'addDTR':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($post->addDTR($d), JSON_PRETTY_PRINT);

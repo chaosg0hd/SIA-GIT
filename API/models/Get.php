@@ -97,6 +97,23 @@ class Get{
 		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
 	  }
 
+	  public function pullSpecDTR ($d) {
+
+		$sql = "SELECT * FROM dailytimerecord_tb WHERE emp_id = '$d'";
+		
+		$res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
 	  //Wage Operations  
 
 	  public function pullAllWage ($d) {

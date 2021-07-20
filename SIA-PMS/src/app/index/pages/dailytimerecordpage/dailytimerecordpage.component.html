@@ -31,21 +31,96 @@
   </mat-card-title>
   <!--Page Content-->
   <mat-card-content>
-    <mat-tab-group>
+    <mat-tab-group dynamicHeight (selectedTabChange)="tabClick($event)">
       <!--Implement Filter-->
       <ng-container *ngFor="let empInfoTable of empInfoTable">
-        {{hasDTR(false)}}
-        <mat-tab label="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" >
-
+        <mat-tab  label="{{empInfoTable.emp_id}} : {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}">          
           <ng-template matTabContent>
-            
+            <!--DTR CARD-->
             <ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
               <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_id+'_'+month_year;">
-                {{hasDTR(true)}}
                 <br />
                 <mat-grid-list cols="2" rowHeight="850">
                   <mat-grid-tile>
-                    <mat-card style="width: 75%; height: 100%">
+                    <mat-card style="width: 70%; height: 100%">
+                      <mat-card-title style="padding:8px;">
+                        {{month| date: 'MMMM'}} {{month| date: 'YYY'}}
+                      </mat-card-title>
+                      <mat-card-content style="padding:12px;">
+                        
+                        <p style="text-align: justify; text-justify: inter-word;">
+                          Employee ID: {{empInfoTable.emp_id}} &nbsp;  Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}} &nbsp; Gender: {{empInfoTable.emp_sex}}
+                        </p>
+
+                        <table class="DTR-card">
+                          <tr>
+                            <th>Date</th>
+                            <th colspan="2">AM</th>
+                            <th colspan="2">PM</th>
+                            <th colspan="2">Overtime</th>
+                            <th colspan="2">Total</th>
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:14%">In</th>
+                            <th style="width:14%">Out</th>
+                            <th style="width:16%">Hours</th>
+                            <th style="width:14%">Remarks</th>
+                          </tr>
+
+                          <!--Loop de loop-->
+
+                          <ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
+                            <tr>
+                              <ng-container *ngIf="i <= 15">
+                                <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}</td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.am_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_in', dtrJSONTable.date)" matInput>
+                                  {{setam_time_in(dtrJSONTable.am_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.am_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_out', dtrJSONTable.date)" matInput>
+                                  {{setam_time_out(dtrJSONTable.am_time_out)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.pm_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_in', dtrJSONTable.date)" matInput>
+                                  {{setpm_time_in(dtrJSONTable.pm_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.pm_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_out', dtrJSONTable.date)" matInput>
+                                  {{setpm_time_out(dtrJSONTable.pm_time_out)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.ot_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_in', dtrJSONTable.date)" matInput>
+                                  {{setot_time_in(dtrJSONTable.ot_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.ot_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_out', dtrJSONTable.date)" matInput>
+                                  {{setot_time_out(dtrJSONTable.ot_time_out)}}
+                                </td>
+                                <td>
+                                  {{computehrs()}}
+                                  <!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
+                                </td>
+                              </ng-container>
+
+                            </tr>
+                          </ng-container>
+
+                        </table>
+                      </mat-card-content>
+                    </mat-card>
+                  </mat-grid-tile>
+
+                  <mat-grid-tile>
+                    <mat-card style="width: 70%; height: 100%">
                       <mat-card-title style="padding:8px;">
                         {{month| date: 'MMMM'}} {{month| date: 'YYY'}}
                       </mat-card-title>
@@ -74,62 +149,77 @@
                             <th style="width:16%">Hours</th>
                             <th style="width:14%">Remarks</th>
                           </tr>
-                          <!--SPLIT IN HALF-->
 
-                          <ng-container *ngFor="let dtrJSONTable of dtrJSONTable">
+                          <ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
                             <tr>
-                              <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}</td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.am_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_in', dtrJSONTable.date)" matInput>
-                                {{setam_time_in(dtrJSONTable.am_time_in)}}
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.am_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_out', dtrJSONTable.date)" matInput>
-                                {{setam_time_out(dtrJSONTable.am_time_out)}}
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.pm_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_in', dtrJSONTable.date)" matInput>
-                                {{setpm_time_in(dtrJSONTable.pm_time_in)}}
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.pm_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_out', dtrJSONTable.date)" matInput>
-                                {{setpm_time_out(dtrJSONTable.pm_time_out)}}
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.ot_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_in', dtrJSONTable.date)" matInput>
-                                {{setot_time_in(dtrJSONTable.ot_time_in)}}
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.ot_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_out', dtrJSONTable.date)" matInput>
-                                {{setot_time_out(dtrJSONTable.ot_time_out)}}
-                              </td>
-                              <td>
-                                {{computehrs()}}
-                                <!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
-                              </td>
-                              <td>
-                                <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
-                              </td>
+                              <ng-container *ngIf="i >= 16">
+                                <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}</td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.am_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_in', dtrJSONTable.date)" matInput>
+                                  {{setam_time_in(dtrJSONTable.am_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.am_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'am_time_out', dtrJSONTable.date)" matInput>
+                                  {{setam_time_out(dtrJSONTable.am_time_out)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.pm_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_in', dtrJSONTable.date)" matInput>
+                                  {{setpm_time_in(dtrJSONTable.pm_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.pm_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'pm_time_out', dtrJSONTable.date)" matInput>
+                                  {{setpm_time_out(dtrJSONTable.pm_time_out)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.ot_time_in}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_in', dtrJSONTable.date)" matInput>
+                                  {{setot_time_in(dtrJSONTable.ot_time_in)}}
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.ot_time_out}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'ot_time_out', dtrJSONTable.date)" matInput>
+                                  {{setot_time_out(dtrJSONTable.ot_time_out)}}
+                                </td>
+                                <td>
+                                  {{computehrs()}}
+                                  <!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
+                                </td>
+                                <td>
+                                  <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
+                                </td>
+                              </ng-container>
                             </tr>
                           </ng-container>
-
                         </table>
                       </mat-card-content>
                     </mat-card>
                   </mat-grid-tile>
-
                 </mat-grid-list>
               </ng-container>
+            </ng-container>
 
-            </ng-container>
+            <!--CHECK IF HAS DTR-->
+
             <ng-container *ngIf="hasDTRbool === false">
-              <br />
-              <!--p>No DTR found. </p> <br />-->
-              <button mat-raised-button style="background-color: #bfba87; color: white" matTooltip="Generate Blank DTR" (click)="generateDTR(empInfoTable.emp_id)"><mat-icon> add_circle_outline</mat-icon>&nbsp; Generate DTR</button><br />
-            </ng-container>
+
+              <mat-card style="width: 30%; height: 200px; margin: auto; margin-top: 50px; margin-bottom: 50px">
+                <mat-card-title style="background-color:sandybrown; vertical-align:middle;">
+
+                  <p style="font-size:x-large; padding: 2px; ">
+                    <mat-icon style="font-size:xx-large">
+                      error
+                    </mat-icon> &nbsp;  
+                  </p>
+                </mat-card-title>
+                <mat-card-content>
+                  <br />
+                  <p style="font-size:x-large">No DTR found.</p>
+                  <br />
+                  <button mat-raised-button style="background-color: #bfba87; color: white" matTooltip="Generate Blank DTR" (click)="generateDTR(empInfoTable.emp_id)"><mat-icon> add_circle_outline</mat-icon>&nbsp; Generate DTR</button><br />
+                </mat-card-content>
+              </mat-card>
+              </ng-container>
           </ng-template>
 
-            
+
         </mat-tab>
       </ng-container>
     </mat-tab-group>

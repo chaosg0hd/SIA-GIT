@@ -64,16 +64,20 @@ export class DailytimerecordpageComponent implements OnInit {
   ngOnInit(): void {
     this.getDate();
     this.pullAllEmp();
+    
   }
+
+  hasDTRbool: boolean = false;
 
   //Methods
 
   //Pull Emps
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
-      this.empInfoTable = data.payload;
+      /*console.log(JSON.parse(data.payload));*/
+      this.empInfoTable = data.payload;      
       console.log(this.empInfoTable + ' From DTR Page: Method pullAllEmp');
-      this.pullAllDTR();
+      this.pullAllDTR()
     });
   }
 
@@ -81,8 +85,8 @@ export class DailytimerecordpageComponent implements OnInit {
   pullAllDTR() {
     this.data.sendApiRequest("pullAllDTR", null).subscribe((data: any) => {
       this.dtrInfoTable = data.payload;
-      console.log(this.dtrInfoTable + ' From DTR Page: Method pullAllDTR');
-      this.pullDTR('XX-01');
+      console.log(this.dtrInfoTable + ' From DTR Page: Method pullAllDTR');      
+      this.pullDTR(this.empInfoTable[0].emp_id);
     });
 
   }
@@ -90,17 +94,25 @@ export class DailytimerecordpageComponent implements OnInit {
   //Pull DTR Contents
   jsonData: any;
   pullDTR(emp_id: string) {
+    console.log(emp_id + ' From DTR Page: Method pullDTRContents');
     this.dtrJSONTable = [];
-    for (let dtrInfoTable of this.dtrInfoTable) {
-      if (dtrInfoTable.emp_id == emp_id) {
+    for (let dtrInfoTable of this.dtrInfoTable) {      
+      console.log(emp_id + '_' + this.month_year);
+      if (dtrInfoTable.dtr_id === emp_id + '_' + this.month_year) {
+        this.hasDTRbool = true;
         this.jsonData = dtrInfoTable.dtr_content;
         this.dtrJSONTable = JSON.parse(this.jsonData);
         console.log(this.dtrJSONTable + ' From DTR Page: Method pullDTRContents');
-        for (let dtrJSONTable of this.dtrJSONTable) {
-          console.log(dtrJSONTable.date + ' From DTR Page: Method pullDTRContents');
-        }
+      } else {
+        console.log('NO MAAATCH')
+        /*this.hasDTRbool = false;*/
       }
     }
+
+  }
+
+  resetDTRbool() {
+    this.hasDTRbool = false;
   }
 
   //Generate DTR
@@ -132,6 +144,7 @@ export class DailytimerecordpageComponent implements OnInit {
     this.data.sendApiRequest("addDTR", this.dtrInfo).subscribe((data: any) => {
       this.ngOnInit();
     });
+    
   }
 
   //Edit DTR
@@ -142,9 +155,6 @@ export class DailytimerecordpageComponent implements OnInit {
     this.data.sendApiRequest("editDTR", this.dtrInfo).subscribe((data: any) => {
     });
   }
-
-
-
 
   //Need to ReImplement Filter 
   ////Filter 
@@ -177,16 +187,19 @@ export class DailytimerecordpageComponent implements OnInit {
   }
 
   dayArray: any;
-  dayArray1stHalf: any
-  dayArray2ndHalf: any
 
   getDaysArray(month: number) {
     this.dayArray = this.data.generateDaysArray(month);
     console.log(this.dayArray + 'From DTR Page: Method getDayArray');
-    this.dayArray1stHalf = this.dayArray.slice(0, this.dayArray.length / 2);
-    console.log(this.dayArray1stHalf + 'From DTR Page: Method getDayArray');
-    this.dayArray2ndHalf = this.dayArray.slice(this.dayArray.length / 2);
-    console.log(this.dayArray2ndHalf + 'From DTR Page: Method getDayArray');
+  }
+
+  tabClick(event: any) {
+    var string = event.tab.textLabel;
+    string = string.split(':');
+    var id = string[0].replace(/^\s+|\s+$/g, "");
+    console.log(id + 'From DTR Page: Method tabClick');
+    this.resetDTRbool();
+    this.pullDTR(id);    
   }
 
   //OPEN DTR
@@ -279,52 +292,56 @@ export class DailytimerecordpageComponent implements OnInit {
 //Implement Round Up Policy Here
   gethour(time: string) {
     var hour_minute = time.split(':');
-    var hour = hour_minute[0];
-    var minute = hour_minute[1];
-    console.log(hour + '++++++++')
+    var hour = parseInt(hour_minute[0]);
+    var minute = parseInt(hour_minute[1]) / 60;
+
+    if (minute != minute) {
+      minute = 0;
+    }
+
+    hour = hour + minute;
+    
+    /*console.log(hour + '++++++++')*/
     return(hour);
   }
 
   computehrs() {
-    console.log(this.am_time_in + ':From DTR Page: Method computehrs')
+    //console.log(this.am_time_in + ':From DTR Page: Method computehrs')
 
-    console.log(this.am_time_in);
-    console.log(this.am_time_out+'++++++++++++++++++++++++++++++');
-    var am_total = parseInt(this.gethour(this.am_time_out)) - parseInt(this.gethour(this.am_time_in));
+    //console.log(this.am_time_in);
+    //console.log(this.am_time_out+'++++++++++++++++++++++++++++++');
+    var am_total = this.gethour(this.am_time_out) - this.gethour(this.am_time_in);
     this.am_time_in = 0;
     this.am_time_out = 0;
-    var pm_total = parseInt(this.gethour(this.pm_time_out)) - parseInt(this.gethour(this.pm_time_in));
+    var pm_total = this.gethour(this.pm_time_out) - this.gethour(this.pm_time_in);
     this.pm_time_in = 0;
     this.pm_time_out = 0;
-    var ot_total = parseInt(this.gethour(this.ot_time_out)) - parseInt(this.gethour(this.ot_time_in));
+    var ot_total = this.gethour(this.ot_time_out) - this.gethour(this.ot_time_in);
     this.pm_time_in = 0;
     this.pm_time_out = 0;
-    var total = am_total + pm_total;
+    
 
-    if (total != total) {
-      total = 0;
+    if (am_total != am_total) {
+      am_total = 0;
+    }
+
+    if (pm_total != pm_total) {
+      pm_total = 0;
     }
 
     if (ot_total != ot_total){
       ot_total = 0;
     }
     
+    var total = am_total + pm_total + ot_total;
 
-    return (total +' OT : '+ ot_total);
-  }
-
-
-
-  hasDTRbool: boolean = false;
-
-  hasDTR(ifTrue: boolean) {
-  //  this.hasDTRbool = ifTrue;
-  //  console.log(this.hasDTRbool + ' From Attendance Page: Method hasDTRbool');
-
-  }
+    return (total +' hrs');
+  } 
 
   generateDTR(emp_id: string) {
+    
     this.addemptyDTR(emp_id, this.month_year);
+    this.dtrJSONTable = [];
     
   }  
 
