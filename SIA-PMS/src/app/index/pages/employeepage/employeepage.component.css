@@ -2,7 +2,7 @@
   margin-top: 13px;
 }*/
 
-mat-header-cell {
+/*mat-header-cell {
   max-height: 20px;
   text-align: left;
   justify-content: left;
@@ -66,7 +66,7 @@ mat-cell{
   align-content: center;
   justify-content: center;
   background-color: #d1d4ce;
-}
+}*/
 
 
 
@@ -76,10 +76,10 @@ mat-cell{
   margin-left: 10px;
 }*/
 
-mat-form-field {
+/*mat-form-field {
   max-width: 70%;
   max-height: 70%;
-}
+}*/
 
 /*.delbutton{
   background-color: darkred;
@@ -90,25 +90,25 @@ mat-form-field {
   color: white;
 }*/
 
-::ng-deep .mat-focused .mat-form-field-label {
+/*::ng-deep .mat-focused .mat-form-field-label {*/
   /*change color of label*/
-  color: black !important;
+  /*color: black !important;
 }
 
-::ng-deep.mat-form-field-underline {
+::ng-deep.mat-form-field-underline {*/
   /*change color of underline*/
-  background-color: black !important;
+  /*background-color: black !important;
 }
 
-::ng-deep.mat-form-field-ripple {
+::ng-deep.mat-form-field-ripple {*/
   /*change color of underline when focused*/
-  background-color: black !important;
+  /*background-color: black !important;
   ;
 }
 
-::ng-deep.mat-header-cell {
+::ng-deep.mat-header-cell {*/
   /*change color of background color*/
-  background-color: rgb(141, 141, 141) !important;
+  /*background-color: rgb(141, 141, 141) !important;
   ;
 }
 
@@ -119,4 +119,4 @@ mat-form-field {
 
 ::ng-deep .mat-form-field-underline {
   display: none;
-}
+}*/

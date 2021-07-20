@@ -1,47 +1,49 @@
-
 <mat-sidenav-container autosize>
+  <!--Nav Bar-->
+  <mat-sidenav color="primary" class="mat-elevation-z12" #drawer mode="side" opened="true" style="padding: 0px">
+    <br />
+    <br />
+    <img src="./assets/faveIcon/cocolime.png" style="width: 98%" class="logo">
+    <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; REPORTS</button>
+    <button mat-button class="sidebarcontent" routerLink="/home" matTooltip="Dashboard"><mat-icon>dashboard</mat-icon>&nbsp; Dashboard</button>
+    <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; MANAGE</button>
+    <button mat-button class="sidebarcontent" routerLink="/employee" matTooltip="Employees"><mat-icon>hail</mat-icon>&nbsp; Employees</button>
+    <button mat-button class="sidebarcontent" routerLink="/attendance" matTooltip="Attendance"><mat-icon>checklist</mat-icon>&nbsp; Attendance</button>
+    <button mat-button class="sidebarcontent" routerLink="/schedule" matTooltip="Time Keeping"><mat-icon>schedule</mat-icon>&nbsp; Time Keeping</button>
+    <button mat-button class="sidebarcontent" routerLink="/wages" matTooltip="Wages"><mat-icon>attach_money</mat-icon>&nbsp; Wages</button>
+    <button mat-button class="sidebarcontent" routerLink="/addition" matTooltip="Additions"><mat-icon>add_circle_outline</mat-icon>&nbsp; Additions</button>
+    <button mat-button class="sidebarcontent" routerLink="/deduction" matTooltip="Deductions"><mat-icon>remove_circle_outline</mat-icon>&nbsp; Deductions</button>
+    <button mat-button class="sidebarcontent" routerLink="/salary" matTooltip="Salary"><mat-icon>paid</mat-icon>&nbsp; Salary</button>
+    <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; PRINTABLES</button>
+    <button mat-button class="sidebarcontent" routerLink="/payroll" matTooltip="Payroll"><mat-icon>payments</mat-icon>&nbsp; Payroll</button>
+    <button mat-button class="sidebarcontent" routerLink="/dailytimerecord" matTooltip="DTR"><mat-icon>list_alt</mat-icon>&nbsp; DTR</button>
+    <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; ADMINISTRATION</button>
+    <button mat-button class="sidebarcontent" routerLink="/master" matTooltip="Users"><mat-icon>person</mat-icon>&nbsp; Users</button>
+    <button mat-button class="sidebarcontent" routerLink="/master" matTooltip="Control Panel"><mat-icon>admin_panel_settings</mat-icon>&nbsp; Control Panel</button>
 
-  <!--THE FUCKING NAV-->
-  <mat-sidenav class="sidenav mat-elevation-z8" #drawer mode="side" opened="true">
-    <img src="./assets/faveIcon/cocolime.png" class="inventory-logo">
-    <button disabled id="" mat-button class="" routerLink="">&ensp;REPORTS</button>
-    <button mat-button class="sidebarcontent" routerLink="/home"><mat-icon class="dashboard">dashboard</mat-icon>Dashboard</button>
-    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="/employee">&ensp;MANAGE</button>
-    <button mat-button class="sidebarcontent" routerLink="/employee"><mat-icon class="dashboard">groups</mat-icon>Employees</button>
-    <button mat-button class="sidebarcontent" routerLink="/attendance"><mat-icon class="orders">checklist</mat-icon>Attendance</button>
-    <button mat-button class="sidebarcontent" routerLink="/dailytimerecord"><mat-icon class="orders">checklist</mat-icon>DTR Record</button>
-    <button mat-button class="sidebarcontent" routerLink="/addition"><mat-icon class="stocks">add_circle_outline</mat-icon>Additions</button>
-    <button mat-button class="sidebarcontent" routerLink="/deduction"><mat-icon class="stocks1">remove_circle_outline</mat-icon>Deductions</button>
-    <button mat-button class="sidebarcontent" routerLink="/salary"><mat-icon class="supply">paid</mat-icon>Salary</button>
-    <button mat-button class="sidebarcontent" routerLink="/wages"><mat-icon class="supply">paid</mat-icon>Wages</button>
-    <button disabled id="sidebarcateg" mat-button class="sidebarcontent" routerLink="">&ensp;PRINTABLES</button>
-    <button mat-button class="sidebarcontent" routerLink="/payroll"><mat-icon class="supply">paid</mat-icon>Payroll</button>
-    <button mat-button class="sidebarcontent" routerLink="/master"><fa-icon [icon]="faCode" class="supply1"></fa-icon> qweqweqwe</button>
   </mat-sidenav>
 
-  <!--THE FUCKING CONTENTS-->
+  <!--Contents-->
   <mat-sidenav-content>
-
-    <mat-toolbar color="primary" class="navbar mat-elevation-z10">
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" mat-button (click)="drawer.toggle()">
+    <mat-toolbar class="mat-elevation-z12" color="primary" style="color: white; position: sticky; top: 0; z-index: 1000;">
+      <button mat-icon-button class="example-icon" aria-label="" mat-button (click)="drawer.toggle()" matTooltip="Hide Sidebar">
         <mat-icon>menu</mat-icon>
       </button>
-      PAYROLL + DTR
       &nbsp;
-      <span class="example-spacer"> </span>
+      <h2 style="font-weight: 400; font-size:larger; letter-spacing: 10px;">Payroll + DTR Management System</h2>
+      &nbsp;
+      <span style="flex: 1 1 auto;"> </span>
       <h3 class="admin-name">Hello!</h3>
-      <button mat-icon-button class="" aria-label="">
+      <button mat-icon-button class="" aria-label="" matTooltip="Account Settings">
         <mat-icon>person</mat-icon>
       </button>
-      <button mat-icon-button class="" aria-label="">
+      <button mat-icon-button class="" aria-label="" matTooltip="Logout">
         <mat-icon (click)="logout()">logout</mat-icon>
       </button>
     </mat-toolbar>
 
     <router-outlet></router-outlet>
-
   </mat-sidenav-content>
-  
 
 </mat-sidenav-container>
 
