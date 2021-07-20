@@ -3,7 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { IndexComponent } from './index/index.component';
 import { DashboardpageComponent } from './index/pages/dashboardpage/dashboardpage.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeepageComponent } from './index/pages/employeepage/employeepage.component';
 import { DeductionpageComponent } from './index/pages/deductionpage/deductionpage.component';
 import { AdditionpageComponent } from './index/pages/additionpage/additionpage.component';
@@ -13,6 +12,7 @@ import { TimeinComponent } from './timein/timein.component';
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
+import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-  { path: '', redirectTo: 'timein', pathMatch: 'full' },
+ /* { path: '', redirectTo: 'timein', pathMatch: 'full' },*/
 
   { path: 'timein', component: TimeinComponent },
 
@@ -28,6 +28,12 @@ const routes: Routes = [
     path: 'home', component: IndexComponent, children:
       [        
         { path: '', component: DashboardpageComponent },
+      ]
+  },
+  {
+    path: 'salary', component: IndexComponent, children:
+      [
+        { path: '', component: SalarypageComponent },
       ]
   },
   {

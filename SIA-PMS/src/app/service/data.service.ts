@@ -3,10 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 
-export interface monthList {
-  month_no: any;
-  month_name: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +12,6 @@ export class DataService {
   constructor(private http: HttpClient, private datepipe: DatePipe) { }
 
   apiURL = "http://localhost/SIA-GIT/API/";
-
   
 
   // NEILWINN PINEDAS MOTHERFUCKING PAYROLL ENGINE
@@ -30,9 +25,28 @@ export class DataService {
   sendApiRequest(method: any, data: any) {
 
     return <any>(
-      this.http.post(this.apiURL + method, btoa(JSON.stringify(data)))
+      this.http.post(this.apiURL + method, btoa(JSON.stringify(data))
+      )
     );
   }
+
+  //Local Request Methods
+  getJSON(url1: any) {
+    var url = "./assets/JSON/SampleJson.json"
+    return <any>(
+      this.http.get(url)
+    );
+  }
+
+  storeFile(data: any) {
+    var url = "../assets/JSON"
+    return <any>(
+      this.http.post(url, data)
+    );
+  }
+
+
+
 
   //Database Methods *********************************************************************************
   //Tried to Implement Database loading from here but just adds more boilerplate, so not really needed

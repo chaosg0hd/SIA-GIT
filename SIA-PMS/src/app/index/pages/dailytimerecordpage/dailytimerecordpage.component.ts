@@ -257,6 +257,7 @@ export class DailytimerecordpageComponent implements OnInit {
   }
 
   //DTR RAPIT EDIT
+  //NASIRA TO IDK WHY
 
   updateList(dtr_id: any, event: any, argument: string, date: any) {
     console.log(event + '+++++++++ From DTR Page: Method updateList');

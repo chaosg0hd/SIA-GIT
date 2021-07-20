@@ -48,14 +48,44 @@ export class MasterpageComponent implements OnInit {
 
   dtrInfo: any = {};
 
+  jsonInfo: any = {};
+
+  fileToUpload: File | null = null;
+
 
   constructor(private data: DataService) { }
 
   ngOnInit(): void {
-    this.pullAllDTR();
-    /*this.addDTR();*/
+    /*this.pullAllDTR();*/
+  /*this.addDTR();*/
+    /*this.getJSON();*/
 
   }
+
+  getJSON() {
+    this.data.getJSON(null).subscribe((data:any) =>{
+      console.log(data);
+    })
+  }
+
+  uploadFile(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      console.log("FileUpload -> files", fileList);
+      this.uploadFileToActivity(fileList, 'json_1')
+    }
+  }
+
+  uploadFileToActivity(json_content: any, json_id: any) {
+
+    this.jsonInfo.json_id = json_id;
+    this.jsonInfo.jscon_content = json_content;
+    this.data.sendApiRequest("addJSON",this.jsonInfo).subscribe((data :any) => {
+      console.log(data);
+    })
+  }
+
 
   //pullAllEmp() {
   //  this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
