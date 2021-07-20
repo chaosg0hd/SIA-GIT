@@ -64,12 +64,20 @@ export class DailytimerecordpageComponent implements OnInit {
   ngOnInit(): void {
     this.getDate();
     this.pullAllEmp();
-    
+    this.getMonsArray();    
   }
 
   hasDTRbool: boolean = false;
 
   //Methods
+
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
+  /////STILL HAS MOTHERFUCKING ISSUES
 
   //Pull Emps
   pullAllEmp() {
@@ -77,7 +85,7 @@ export class DailytimerecordpageComponent implements OnInit {
       /*console.log(JSON.parse(data.payload));*/
       this.empInfoTable = data.payload;      
       console.log(this.empInfoTable + ' From DTR Page: Method pullAllEmp');
-      this.pullAllDTR()
+      this.pullAllDTR();
     });
   }
 
@@ -85,30 +93,34 @@ export class DailytimerecordpageComponent implements OnInit {
   pullAllDTR() {
     this.data.sendApiRequest("pullAllDTR", null).subscribe((data: any) => {
       this.dtrInfoTable = data.payload;
-      console.log(this.dtrInfoTable + ' From DTR Page: Method pullAllDTR');      
-      this.pullDTR(this.empInfoTable[0].emp_id);
+      console.log(this.dtrInfoTable + ' From DTR Page: Method pullAllDTR');
+      this.pullDTR(this.dtrInfoTable[0].emp_id);
     });
-
   }
+
 
   //Pull DTR Contents
   jsonData: any;
+  activeEmp: any;
+
   pullDTR(emp_id: string) {
+    this.activeEmp = emp_id;
     console.log(emp_id + ' From DTR Page: Method pullDTRContents');
     this.dtrJSONTable = [];
     for (let dtrInfoTable of this.dtrInfoTable) {      
       console.log(emp_id + '_' + this.month_year);
       if (dtrInfoTable.dtr_id === emp_id + '_' + this.month_year) {
+        console.log('MAAAAAAAAATCH   ' + dtrInfoTable.dtr_id)
         this.hasDTRbool = true;
         this.jsonData = dtrInfoTable.dtr_content;
         this.dtrJSONTable = JSON.parse(this.jsonData);
         console.log(this.dtrJSONTable + ' From DTR Page: Method pullDTRContents');
       } else {
-        console.log('NO MAAATCH')
+
+        console.log('NO MAAAAAAAAATCH   ' + dtrInfoTable.dtr_id)
         /*this.hasDTRbool = false;*/
       }
     }
-
   }
 
   resetDTRbool() {
@@ -117,6 +129,7 @@ export class DailytimerecordpageComponent implements OnInit {
 
   //Generate DTR
   async addemptyDTR(emp_id: any, month_year: any) {
+    console.log(emp_id +'_'+ month_year)
     //DTR INFO
     this.dtrJSONTable = [];
     this.dtrInfo = {};
@@ -143,6 +156,7 @@ export class DailytimerecordpageComponent implements OnInit {
     console.log(this.dtrInfo + ' From DTR Page: Method addEmp');
     this.data.sendApiRequest("addDTR", this.dtrInfo).subscribe((data: any) => {
       this.ngOnInit();
+      this.pullDTR(emp_id);
     });
     
   }
@@ -163,46 +177,86 @@ export class DailytimerecordpageComponent implements OnInit {
   //  this.empInfoTableDataSource.filter = filterValue;
   //}
 
-  //Get Current Month
+  //Set Date Functions
   currentDate: any;
   month: any;
+  monthinNum: any;
   year: any;
   monthintText: any;
   month_year: any;
 
+  //Sets Date Variables
   getDate() {
     //Sets Date
-    this.currentDate = this.data.getDate();
+    this.currentDate = new Date(this.data.getDate());
+    console.log(this.currentDate + " From DTR Page: Method getDate");
     //Sets Month and MonthYear Var
-    this.month = new Date(this.currentDate);
-    console.log(this.month + " From DTR Page: Method getDate");
-    this.monthintText = this.datepipe.transform(this.month, 'MMMM');
-    this.monthintText = this.lowercasepipe.transform(this.monthintText);
+    this.monthinNum = this.data.getMonthinNum();
+    this.month = this.data.getMonth();
+    console.log(this.month + " From DTR Page: Method getDate ++++++++++++++++++");
+    this.monthintText = this.lowercasepipe.transform(this.month);
     console.log(this.monthintText + " From DTR Page: Method getDate");
-    this.year = this.datepipe.transform(this.month, 'YYYY');
+    this.year = this.data.getYear();
     this.month_year = this.monthintText + '_' + this.year;
     console.log(this.month_year + " From DTR Page: Method getDate");
     //Generate Days
-    this.getDaysArray(Number(this.datepipe.transform(this.month, 'MM')) - 1);
+    this.getDaysArray(this.monthinNum);
+    this.dateIndex = this.monthinNum;
   }
 
+  //Generate Days Array
   dayArray: any;
-
   getDaysArray(month: number) {
     this.dayArray = this.data.generateDaysArray(month);
     console.log(this.dayArray + 'From DTR Page: Method getDayArray');
   }
 
-  tabClick(event: any) {
-    var string = event.tab.textLabel;
-    string = string.split(':');
-    var id = string[0].replace(/^\s+|\s+$/g, "");
-    console.log(id + 'From DTR Page: Method tabClick');
-    this.resetDTRbool();
-    this.pullDTR(id);    
+  //Generate Months Array
+  monthsArray: any;
+  getMonsArray() {
+    this.monthsArray = this.data.generateMonsArray();
+    console.log(this.monthsArray + 'From Attendance Page: Method generateMonsArray');
   }
 
-  //OPEN DTR
+  tabClick(event: any) {
+
+    //Small Buttons Sa taas
+    var string = event.tab.textLabel;
+    string = string.split(':');
+    var emp_id = string[0].replace(/^\s+|\s+$/g, "");
+    console.log(emp_id + 'From DTR Page: Method tabClick');
+    this.resetDTRbool();
+    this.pullDTR(emp_id);    
+    
+  }
+
+  dateIndex: any;
+
+  hightabClick(event: any) {
+
+    //Big Buttons Sa taas
+    var string = event.tab.textLabel;
+    string = string.split(':');
+    var month = string[0].replace(/^\s+|\s+$/g, "");
+    console.log(month + 'From DTR Page: Method hightabClick');
+    this.month = month;
+    console.log(this.month + " From DTR Page: Method hightabClick");
+    this.monthinNum = event.index
+    console.log(this.monthinNum + " From DTR Page: Method hightabClick");
+    this.monthintText = this.lowercasepipe.transform(this.month);
+    console.log(this.monthintText + " From DTR Page: Method hightabClick");
+    this.month_year = this.monthintText + '_' + this.year;    
+    console.log(this.month_year + " From DTR Page: Method hightabClick +++++++++++++++++++++++++");
+
+    this.dateIndex = this.monthinNum
+    //Regenerate Days
+    this.resetDTRbool();
+    this.getDaysArray(this.monthinNum);
+    this.pullDTR(this.activeEmp);
+    
+  }
+
+  //DTR RAPIT EDIT
 
   updateList(dtr_id: any, event: any, argument: string, date: any) {
     console.log(event + '+++++++++ From DTR Page: Method updateList');
@@ -255,7 +309,6 @@ export class DailytimerecordpageComponent implements OnInit {
             console.log(argument + ': No Valid Argumments From DTR Page: Method updateList');
             break;
           }
-
         }
       }
     }
@@ -338,11 +391,8 @@ export class DailytimerecordpageComponent implements OnInit {
     return (total +' hrs');
   } 
 
-  generateDTR(emp_id: string) {
-    
+  generateDTR(emp_id: string) {    
     this.addemptyDTR(emp_id, this.month_year);
-    this.dtrJSONTable = [];
-    
   }  
 
 }

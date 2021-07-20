@@ -51,7 +51,29 @@ export class DataService {
     this.date = new Date();
     this.date = this.datepipe.transform(this.date, 'yyyy-MM-dd');
     console.log(this.date + ' From Data Service: Method getDate');
-    return <any>(this.date)
+    return <any>(this.date);
+  }
+
+  getMonth() {
+    this.date = new Date();
+    this.date = this.datepipe.transform(this.date, 'MMMM');
+    console.log(this.date + ' From Data Service: Method getDate');
+    return <any>(this.date);
+  }
+
+  getMonthinNum() {
+    this.date = new Date();
+    this.date = this.datepipe.transform(this.date, 'M')
+    this.date = parseInt(this.date) - 1;
+    console.log(this.date + ' From Data Service: Method getDate');
+    return <any>(this.date);
+  }
+
+  getYear() {
+    this.date = new Date();
+    this.date = this.datepipe.transform(this.date, 'y');
+    console.log(this.date + ' From Data Service: Method getDate');
+    return <any>(this.date);
   }
 
   getFirstDayofMonth(month : number) {
@@ -146,7 +168,7 @@ export class DataService {
       this.date = new Date();
       this.date.setDate(1);
       this.date.setMonth(i);      
-      mon = this.datepipe.transform(this.date, 'yyyy-MM-dd');
+      mon = this.datepipe.transform(this.date, 'MMMM');
       monsArray.push(mon);
       console.log(mon + ' From Data Service: Method genMonsArray');
     }

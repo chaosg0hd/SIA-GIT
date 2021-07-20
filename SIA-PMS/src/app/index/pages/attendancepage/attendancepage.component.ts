@@ -6,6 +6,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+import { RouterModule } from '@angular/router';
+
 //export interface monthList {
 //  month_no: any;
 //  month_name: any;
@@ -50,7 +52,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
  attendanceColumns: string[] = [];
   
 
-  constructor(public datepipe: DatePipe, private noti: MatSnackBar, private data: DataService) { }
+  constructor(private datepipe: DatePipe, private noti: MatSnackBar, private data: DataService, private router: RouterModule) { }
 
   ngOnInit(): void {
     this.getDate();
