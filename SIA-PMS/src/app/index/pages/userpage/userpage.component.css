@@ -1,0 +1,22 @@
+#profile{
+    width: 97%;
+    height: 78%;
+    border-radius: 10px !important;
+}
+p{
+    margin-left: 5px;
+}
+
+
+.DTR-card > table, tr, th, td {
+    border: 1px solid;
+    height: 60px;
+    font-size: large;
+    text-align: left;
+  }
+  
+  .DTR-card {
+    border-collapse: collapse;
+    width: 100%;
+  }
+

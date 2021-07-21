@@ -98,6 +98,8 @@ import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/
 import { TimeinComponent } from './timein/timein.component';
 import { FilterpipePipe } from './filterpipe.pipe';
 import { UserspageComponent } from './index/pages/userspage/userspage.component';
+import { UserpageComponent } from './index/pages/userpage/userpage.component';
+import { MyprofilepageComponent } from './index/pages/myprofilepage/myprofilepage.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +122,8 @@ import { UserspageComponent } from './index/pages/userspage/userspage.component'
     TimeinComponent,
     FilterpipePipe,
     UserspageComponent,
+    UserpageComponent,
+    MyprofilepageComponent,
      
   ],
   imports: [
