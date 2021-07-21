@@ -287,8 +287,8 @@ export class EmployeepageComponent implements OnInit{
   isMin: boolean = false
   isMax: boolean = false
 
-  tableMaxWidth = 150;
-  tableWidth = 150;
+  tableMaxWidth = 250;
+  tableWidth = 250;
 
   minTable() {
     if (this.isMin == false) {
@@ -298,8 +298,8 @@ export class EmployeepageComponent implements OnInit{
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 150;
-      this.tableWidth = 150;
+      this.tableMaxWidth = 250;
+      this.tableWidth = 250;
       this.isMin = false;
     }    
   }
@@ -307,14 +307,14 @@ export class EmployeepageComponent implements OnInit{
   maxTable() {
     if (this.isMax == false) {
       this.empInfoTableColumns = this.maxTableSize;
-      this.tableWidth = 200;
-      this.tableMaxWidth = 200;
+      this.tableWidth = 350;
+      this.tableMaxWidth = 300;
       this.isMax = true;
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 150;
-      this.tableWidth = 150;
+      this.tableMaxWidth = 250;
+      this.tableWidth = 250;
       this.isMax = false;
     }    
   }
