@@ -243,6 +243,8 @@ export class EmployeepageComponent implements OnInit{
     this.empInfo.emp_start_date = this.startDate;
     this.empInfo.emp_datebirth = this.startDate;    
     this.empInfo.emp_id = ("XX-" + emp_id);
+    this.empInfo.emp_time_in = '00:00:00';
+    this.empInfo.emp_time_out = '00:00:00';
     this.empInfo.emp_last_mod_by = this.user;    
     console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
     this.empInfoTableDataSource.data.push(this.empInfo);
