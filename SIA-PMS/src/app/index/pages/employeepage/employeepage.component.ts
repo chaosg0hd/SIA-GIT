@@ -60,7 +60,7 @@ export class EmployeepageComponent implements OnInit{
   //StartDate
   //Delete this
 
-  startDate = new Date(1990, 0, 1);
+  startDate = new Date(1990, 1, 1);
 
   //Table Declarations
   //Fucking fix Column Visibility
@@ -240,15 +240,18 @@ export class EmployeepageComponent implements OnInit{
   async addEmp(emp_id: number) {
     this.empInfo = {}
     emp_id = emp_id + 1;
-    this.empInfo.emp_start_date = '1-1-2000';
-    this.empInfo.emp_datebirth = '1-1-2000';    
+    this.empInfo.emp_start_date = this.startDate;
+    this.empInfo.emp_datebirth = this.startDate;    
     this.empInfo.emp_id = ("XX-" + emp_id);
-    this.empInfo.last_mod_by = this.user;
+    this.empInfo.emp_last_mod_by = this.user;    
+    console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
     this.empInfoTableDataSource.data.push(this.empInfo);
     this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
     this.empInfoTableLength = this.empInfoTableDataSource.data.length;
-    console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
-    this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => { });
+    console.log(this.data);
+    this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
+      
+    });
   }
 
 
@@ -430,7 +433,7 @@ export class EmployeepageComponent implements OnInit{
               console.log('Arguments:' + property + 'From Employees Page: Method updateList');
               this.empInfo = {};
               this.empInfo.emp_id = id;
-              this.empInfo.emp_start_date = event.target.value;
+              this.empInfo.emp_start_date = this.datepipe.transform(event.target.value, 'yyyy-M-d');
               console.log(this.empInfo + 'From Employees Page: Method updateList');
               this.editEmp(this.empInfo);
               break;

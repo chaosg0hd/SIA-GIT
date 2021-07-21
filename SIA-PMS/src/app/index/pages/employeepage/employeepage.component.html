@@ -133,7 +133,7 @@
                           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-label floatLabel="never">{{element.emp_datebirth | date : 'MMM dd yyyy' }}</mat-label>
+                        <mat-label floatLabel="never">{{element.emp_datebirth}}</mat-label>
                         <input matInput [matDatepicker]="picker"
                                (dateChange)="updateList(element.emp_id, 'emp_datebirth', $event)"
                                tabindex="{{tabIndexInc(tabIndex)}}"
@@ -228,7 +228,7 @@
               &nbsp;&nbsp;&nbsp;
               <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="View">View &nbsp;<mat-icon>pageview</mat-icon></button> 
               <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Print">Print &nbsp;<mat-icon>print</mat-icon></button>
-              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Delete">Delete &nbsp;<mat-icon>delete</mat-icon></button>
+              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Delete" (click)="delEmp(element.emp_id)">Delete &nbsp;<mat-icon>delete</mat-icon></button>
             </mat-cell>
           </ng-container>
 
