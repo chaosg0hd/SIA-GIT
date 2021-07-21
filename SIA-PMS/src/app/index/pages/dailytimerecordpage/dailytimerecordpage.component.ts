@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe, Time } from '@angular/common';
 import { LowerCasePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import jspdf from 'jspdf';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export interface empTable {
   emp_id: string;
@@ -59,7 +63,23 @@ export class DailytimerecordpageComponent implements OnInit {
   dtrInfo: any = {};
   dtrJSONInfo: any = {};
 
+
+  @ViewChild('content', {static: false}) es!: ElementRef;
+
+
+  downloadPDF() {
+    let pdf = new jspdf('l', 'px', 'a2');
+    let position=0;
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("dtr.pdf");
+      }
+    });
+  }
+
+
   constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe) { }
+
 
   ngOnInit(): void {
     this.getDate();

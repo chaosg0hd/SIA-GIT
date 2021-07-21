@@ -13,8 +13,6 @@ import { AttendancepageComponent } from './index/pages/attendancepage/attendance
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
-import { UserpageComponent } from './index/pages/userpage/userpage.component';
-import { MyprofilepageComponent } from './index/pages/myprofilepage/myprofilepage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 
 const routes: Routes = [
@@ -79,18 +77,6 @@ const routes: Routes = [
     path: 'payroll', component: IndexComponent,
     children: [
       { path: '', component: PayrollpageComponent }
-    ]
-  },
-  {
-    path: 'user', component: IndexComponent,
-    children: [
-      { path: '', component: UserpageComponent }
-    ]
-  },
-  {
-    path: 'myprofile', component: IndexComponent,
-    children: [
-      { path: '', component: MyprofilepageComponent }
     ]
   },
   {

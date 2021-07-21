@@ -243,8 +243,6 @@ export class EmployeepageComponent implements OnInit{
     this.empInfo.emp_start_date = this.startDate;
     this.empInfo.emp_datebirth = this.startDate;    
     this.empInfo.emp_id = ("XX-" + emp_id);
-    this.empInfo.emp_time_in = '00:00:00';
-    this.empInfo.emp_time_out = '00:00:00';
     this.empInfo.emp_last_mod_by = this.user;    
     console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
     this.empInfoTableDataSource.data.push(this.empInfo);
@@ -259,12 +257,13 @@ export class EmployeepageComponent implements OnInit{
 
   //Del Employees
 
-  async delEmp(emp_id:any) {
-    this.empInfo = {}
-    this.empInfo.emp_id = emp_id
-    console.log(this.empInfo.emp_id);;
-    this.data.sendApiRequest("delEmp", this.empInfo).subscribe((data: any) => {
-      this.pullAllEmp();
+  async delEmp(editEmpInfo: any) {
+    console.log(editEmpInfo)
+    this.data.sendApiRequest("delEmp", editEmpInfo).subscribe((data: any) => {
+      this.empInfoTable = data.payload;
+      console.log(this.empInfoTable);
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
     });
   }  
 
@@ -288,18 +287,19 @@ export class EmployeepageComponent implements OnInit{
   isMin: boolean = false
   isMax: boolean = false
 
-  tableMaxWidth :any;
-  tableWidth = 200;
+  tableMaxWidth = 150;
+  tableWidth = 150;
 
   minTable() {
     if (this.isMin == false) {
       this.empInfoTableColumns = this.minTableSize;
-      this.tableWidth = 100;
+      this.tableMaxWidth = 100;
       this.isMin = true;
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableWidth = 250;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
       this.isMin = false;
     }    
   }
@@ -307,12 +307,14 @@ export class EmployeepageComponent implements OnInit{
   maxTable() {
     if (this.isMax == false) {
       this.empInfoTableColumns = this.maxTableSize;
-      this.tableWidth = 300;
+      this.tableWidth = 200;
+      this.tableMaxWidth = 200;
       this.isMax = true;
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableWidth = 200;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
       this.isMax = false;
     }    
   }
