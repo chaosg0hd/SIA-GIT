@@ -1,6 +1,6 @@
 <mat-sidenav-container autosize>
   <!--Nav Bar-->
-  <mat-sidenav color="primary" class="mat-elevation-z12" #drawer mode="side" opened="true" style="padding: 0px">
+  <mat-sidenav color="primary" class="mat-elevation-z12" #drawer mode="side" opened="true" style="padding: 0px; overflow:hidden">
     <br />
     <br />
     <img src="./assets/faveIcon/cocolime.png" style="width: 98%" class="logo">
@@ -33,7 +33,7 @@
       <h2 style="font-weight: 400; font-size:larger; letter-spacing: 10px;">Payroll + DTR Management System</h2>
       &nbsp;
       <span style="flex: 1 1 auto;"> </span>
-      <h3 class="admin-name">Hello!</h3>
+      <h3 class="">Hello! &nbsp; {{user}}  </h3>
       <button mat-icon-button class="" aria-label="" matTooltip="Account Settings">
         <mat-icon>person</mat-icon>
       </button>

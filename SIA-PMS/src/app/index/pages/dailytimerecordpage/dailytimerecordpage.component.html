@@ -47,15 +47,15 @@
 
 
 
-<!--Page-->
-<!--<mat-card>
+<!--Page
+<mat-card>
   <mat-card-title class="mat-elevation-z8">
     <mat-toolbar class="mat-table-toolbar">
-      <h1 style="vertical-align: middle;">Daily Time Record</h1>-->
-<!--Toolbar-->
-<!--<button mat-mini-fab class="" style="background-color: darkred;" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;-->
-<!--Import & Export Buttons-->
-<!--<button mat-button [matMenuTriggerFor]="Import" class="" style="background-color: #bfba87;color: white;">Import</button> &nbsp;
+      <h1 style="vertical-align: middle;">Daily Time Record</h1>
+Toolbar
+<button mat-mini-fab class="" style="background-color: darkred;" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;
+Import & Export Buttons
+<button mat-button [matMenuTriggerFor]="Import" class="" style="background-color: #bfba87;color: white;">Import</button> &nbsp;
 <mat-menu #Import="matMenu">
   <button mat-menu-item>JSON</button>
   <button mat-menu-item>CSV</button>
@@ -65,10 +65,10 @@
   <button mat-menu-item>JSON</button>
   <button mat-menu-item>CSV</button>
   <button mat-mini-fab style="background-color: #bfba87;" matTooltip="Print Employee Details"><mat-icon>print</mat-icon></button>
-</mat-menu>&nbsp; &nbsp;-->
-<!--Search Bar-->
-<!--Rework Toolbar-->
-<!--<div style="width: 60%">
+</mat-menu>&nbsp; &nbsp;
+Search Bar
+Rework Toolbar
+<div style="width: 60%">
       <mat-form-field appearance="fill" style="font-size: 10px; max-width: 50%; vertical-align: middle;" matTooltip="Search">
         <mat-label style="font-size: 20px; vertical-align: middle;">Search</mat-label>
         <input #input matInput>
@@ -77,16 +77,16 @@
     </div>
     &nbsp; &nbsp;&nbsp; &nbsp;
   </mat-toolbar>
-</mat-card-title>-->
-<!--Page Content-->
-<!--<mat-card-content>-->
-<!--<p> {{currentDate}} </p>
+</mat-card-title>
+Page Content
+<mat-card-content>
+<p> {{currentDate}} </p>
 <p> {{month}} </p>
 <p> {{monthinNum}} </p>
 <p> {{year}} </p>
 <p> {{month_year}} </p>
-<p> {{activeEmp}} </p>-->
-<!--<mat-tab-group class="mat-elevation-z4" [selectedIndex]="dateIndex" animationDuration="1000ms" (selectedTabChange)="hightabClick($event)">
+<p> {{activeEmp}} </p>
+<mat-tab-group class="mat-elevation-z4" [selectedIndex]="dateIndex" animationDuration="1000ms" (selectedTabChange)="hightabClick($event)">
   <ng-container *ngFor="let monthsArray of monthsArray">
     <mat-tab label="{{monthsArray}}" matTooltip="{{monthsArray}}">
 
@@ -94,14 +94,14 @@
   </ng-container>
 </mat-tab-group>
 
-<mat-tab-group class="mat-elevation-z4" dynamicHeight (selectedTabChange)="tabClick($event)">-->
-<!--Implement Filter-->
-<!--<ng-container *ngFor="let empInfoTable of empInfoTable">
+<mat-tab-group class="mat-elevation-z4" dynamicHeight (selectedTabChange)="tabClick($event)">
+Implement Filter
+<ng-container *ngFor="let empInfoTable of empInfoTable">
   <br />
   <mat-tab label="{{empInfoTable.emp_id}} : {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" matTooltip="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}">
-    <ng-template matTabContent>-->
-<!--DTR CARD-->
-<!--<ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
+    <ng-template matTabContent>
+DTR CARD
+<ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
   <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_id+'_'+month_year;">
 
     <br />
@@ -151,9 +151,9 @@
                 <th style="width:14%">Out</th>
                 <th style="width:16%">Hours</th>
                 <th style="width:14%">Remarks</th>
-              </tr>-->
-<!--Loop de loop-->
-<!--<ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
+              </tr>
+Loop de loop
+<ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
   <tr>
     <ng-container *ngIf="i <= 15">
       <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}.</td>
@@ -182,9 +182,9 @@
         {{setot_time_out(dtrJSONTable.ot_time_out)}}
       </td>
       <td>
-        {{computehrs()}}-->
-<!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
-<!--</td>
+        {{computehrs()}}
+<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>
+</td>
               <td>
                 <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
               </td>
@@ -242,9 +242,9 @@
           <th style="width:14%">Out</th>
           <th style="width:16%">Hours</th>
           <th style="width:14%">Remarks</th>
-        </tr>-->
-<!--Loop de loop-->
-<!--<ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
+        </tr>
+Loop de loop
+<ng-container *ngFor="let dtrJSONTable of dtrJSONTable ; index as i">
   <tr>
     <ng-container *ngIf="i >= 15">
       <td style="font-size:14px">{{dtrJSONTable.date | date :'dd'}}</td>
@@ -273,9 +273,9 @@
         {{setot_time_out(dtrJSONTable.ot_time_out)}}
       </td>
       <td>
-        {{computehrs()}}-->
-<!--<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>-->
-<!--</td>
+        {{computehrs()}}
+<input placeholder="{{dtrJSONTable.mhrs}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'mhrs', dtrJSONTable.date)" matInput>
+</td>
                     <td>
                       <input placeholder="{{dtrJSONTable.remarks}}" type="text" (keyup)="updateList(dtrInfoTable.dtr_id, $event, 'remarks', dtrJSONTable.date)" matInput>
                     </td>
@@ -291,9 +291,9 @@
 
     </mat-grid-list>
   </ng-container>
-</ng-container>-->
-<!--CHECK IF HAS DTR-->
-<!--<ng-container *ngIf="hasDTRbool === false">
+</ng-container>
+CHECK IF HAS DTR
+<ng-container *ngIf="hasDTRbool === false">
 
               <mat-card style="width: 30%; height: 200px; margin: auto; margin-top: 50px; margin-bottom: 50px">
                 <mat-card-title style="background-color:sandybrown; vertical-align:middle;">

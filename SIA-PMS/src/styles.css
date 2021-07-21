@@ -343,6 +343,8 @@
   width: 133.3333433333%;
 }
 
+
+
 .mat-grid-tile-header,
 .mat-grid-tile-footer {
   font-size: 14px;
@@ -2816,8 +2818,6 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     font-family: 'Abel';
   }
 
-
-
 /*//////////////////////////////OVERIDES///////////////////////////////////////*/
 
 mat-toolbar{
@@ -2862,47 +2862,15 @@ mat-card-title {
   padding: 4px !important;
 }
 
-
-/** {
-  vertical-align: middle !important;
-}*/
-
-
-
-
-/*mat-button{
-    padding: 10px;
-    text-align: left !important;
-}*/
-
-
-
-/*.mat-table-toolbar {
-  background-color: #bfba87;
-  color: #fff;
-  margin: 0px !important;
-  padding: 10px !important;
-  vertical-align: middle;
-}
-
-
-mat-table {
-  text-align: left;
-  margin: 0px !important;
-  padding: 0px !important;
-}
-
 mat-header-cell {
   text-align: left;
   justify-content: left;
-  padding: 6px;
-  color: white;
-  background-color: #d1d4ce;
+  font-size: 20px !important;
+  height: 40px;
+  background-color: #bfba87;  
 }
-mat-cell {
-  text-align: left;
-  justify-content: left;
-  padding: 6px;
+mat_cell{
+    padding: 0px!important;
 }
 
 .div-container {
@@ -2910,44 +2878,9 @@ mat-cell {
   overflow: auto;
 }
 
-.emp_name_attendance {
-  flex: 2% !important;
-  justify-content: left;
-  background-color: #d1d4ce;
+mat-form-field{
+    width: 100%;
 }
 
-.mat-column-total {
-  flex: 1% !important;
-  justify-content: center;
-  background-color: #d1d4ce;
-}
-
-.mat-column-cashadv {
-  flex: 1% !important;
-  justify-content: center;
-  background-color: #d1d4ce;
-}*/
-
-/*
-mat-cell{
-    border: dotted 1px;
-    border-color: black;
-}*/
-
-/*h1 {
-  font-size: x-large !important;
-  margin: 4px !important;
-}
-
-mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}*/
-
-/*FOR TESTING*/
-
-/*div{
-    border: solid;
-}*/
 
 

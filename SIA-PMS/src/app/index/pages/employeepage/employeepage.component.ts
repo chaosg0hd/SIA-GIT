@@ -4,11 +4,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface empTable {
+  emp_no: any;
   emp_id: any;
   emp_firstname: any;
   emp_lastname: any;
@@ -71,13 +71,12 @@ export class EmployeepageComponent implements OnInit{
 
   tabIndex = 0;
 
-  tableMaxWidth = 200;
-  tableWidth = 150;
+  
 
   //Table Columns Properties
 
   empInfoTableColumnsJSON: empTableColumnProp[] = [
-    { "columnName": "emp_no", "columnPrettyName": "Emp #", "columnisSticky": false, },
+    { "columnName": "emp_no", "columnPrettyName": "Emp no", "columnisSticky": false, },
     { "columnName": "emp_id", "columnPrettyName": "Emp ID", "columnisSticky": false, },
     { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
     { "columnName": "emp_firstname", "columnPrettyName": "Firstname", "columnisSticky": false, },
@@ -107,7 +106,6 @@ export class EmployeepageComponent implements OnInit{
     "emp_firstname",
     "emp_lastname",
     "emp_status",
-    //Add MI
     "emp_address",
     "emp_sex",
     "emp_datebirth",
@@ -137,6 +135,24 @@ export class EmployeepageComponent implements OnInit{
     "actions"
   ]
 
+  defaultTableSize: string[] = [
+    "emp_id",
+    "emp_name",
+    "emp_status",
+    "emp_address",
+    "emp_sex",
+    "emp_datebirth",
+    "emp_contact",
+    "emp_position",
+    "emp_department",
+    "emp_rate",
+    "emp_start_date",
+    "emp_time_in",
+    "emp_time_out",
+    "actions"
+  ]
+
+
   //Default Table Columns
   empInfoTableColumns: string[] = [
     "emp_id",
@@ -157,11 +173,16 @@ export class EmployeepageComponent implements OnInit{
     
   //Components Shit
   //Remove MatDialog when able
-  constructor(private data: DataService, public dialog: MatDialog) {  }
+  constructor(private data: DataService, private datepipe: DatePipe, public dialog: MatDialog) {  }
     
   ngOnInit(): void {
     this.pullAllEmp();
-    this.tableCreate();
+    this.getUser();
+  }
+
+  user: any;
+  getUser() {
+    this.user = localStorage.getItem('Name');
   }
 
   //Sad na hindi ko apply pagination dito
@@ -189,7 +210,8 @@ export class EmployeepageComponent implements OnInit{
 
   //Edit Employees
 
-  async editEmp(editEmpInfo: any) {    
+  async editEmp(editEmpInfo: any) {
+    this.empInfo.emp_last_mod_by = this.user
     console.log(editEmpInfo + ' From Dashboard Page: Method editEmp');
     this.data.sendApiRequest("editEmp", editEmpInfo).subscribe((data: any) => {
         this.empInfoTable = data.payload;
@@ -206,7 +228,7 @@ export class EmployeepageComponent implements OnInit{
   //  emp_id = emp_id + 1;
   //  this.empInfo.emp_id = ("XX-" + emp_id)
   //  console.log(this.empInfo + ' From Dashboard Page: Method addEmp');    
-  //  this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
+  //  this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {S
   //    this.empInfoTable = data.payload;
   //    console.log(this.empInfoTable);
   //    this.empInfoTableDataSource.data = this.empInfoTable;
@@ -218,7 +240,10 @@ export class EmployeepageComponent implements OnInit{
   async addEmp(emp_id: number) {
     this.empInfo = {}
     emp_id = emp_id + 1;
+    this.empInfo.emp_start_date = '1-1-2000';
+    this.empInfo.emp_datebirth = '1-1-2000';    
     this.empInfo.emp_id = ("XX-" + emp_id);
+    this.empInfo.last_mod_by = this.user;
     this.empInfoTableDataSource.data.push(this.empInfo);
     this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
     this.empInfoTableLength = this.empInfoTableDataSource.data.length;
@@ -256,18 +281,41 @@ export class EmployeepageComponent implements OnInit{
     this.empInfoTableDataSource.filter = filterValue;
   }
 
+  isMin: boolean = false
+  isMax: boolean = false
+
+  tableMaxWidth = 150;
+  tableWidth = 150;
+
   minTable() {
-    this.empInfoTableColumns = this.minTableSize;
-    this.tableCreate();
-    this.tableMaxWidth = 100;
+    if (this.isMin == false) {
+      this.empInfoTableColumns = this.minTableSize;
+      this.tableMaxWidth = 100;
+      this.isMin = true;
+    }
+    else {
+      this.empInfoTableColumns = this.defaultTableSize;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
+      this.isMin = false;
+    }    
   }
 
   maxTable() {
-    this.empInfoTableColumns = this.maxTableSize;
-    this.tableCreate();
-    this.tableWidth = 200;
-    this.tableMaxWidth = 200;
+    if (this.isMax == false) {
+      this.empInfoTableColumns = this.maxTableSize;
+      this.tableWidth = 200;
+      this.tableMaxWidth = 200;
+      this.isMax = true;
+    }
+    else {
+      this.empInfoTableColumns = this.defaultTableSize;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
+      this.isMax = false;
+    }    
   }
+
 
   tabIndexStart() {
     this.tabIndex = 0;
@@ -351,7 +399,8 @@ export class EmployeepageComponent implements OnInit{
               console.log('Arguments:' + property + 'From Employees Page: Method updateList');
               this.empInfo = {};
               this.empInfo.emp_id = id;
-              this.empInfo.emp_datebirth = event.target.value;
+              this.empInfo.emp_datebirth = this.datepipe.transform(event.target.value, 'yyyy-M-d');
+              console.log('Date:' + this.empInfo.emp_datebirth + 'From Employees Page: Method updateList');
               console.log(this.empInfo + 'From Employees Page: Method updateList');
               this.editEmp(this.empInfo);
               break;
@@ -392,6 +441,16 @@ export class EmployeepageComponent implements OnInit{
               this.empInfo = {};
               this.empInfo.emp_id = id;
               this.empInfo.emp_status = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
+            case "emp_rate": {
+              console.log(event.target.value + 'From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_id = id;
+              this.empInfo.emp_rate = event.target.value;
               console.log(this.empInfo + 'From Employees Page: Method updateList');
               this.editEmp(this.empInfo);
               break;
