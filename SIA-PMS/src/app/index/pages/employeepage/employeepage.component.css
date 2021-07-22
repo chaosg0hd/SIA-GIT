@@ -2,9 +2,8 @@
   margin-top: 13px;
 }*/
 
-
 mat-cell {
-  font-size: 20px;
+  font-size: 12px;
   border: dotted 1px;
   border-collapse: collapse !important;
   border-color: grey;
@@ -13,122 +12,89 @@ mat-cell {
 
 mat-header-cell {
   border: dotted 1px;
-}
-
-.mat-column-emp_no {
-  flex: 5% !important;
-  font-size: 20px;
-  max-width: 120px;
   justify-content: left;
-}
-
-.mat-column-emp_id {
-  flex: 5% !important;
-  max-width: 120px;
-  font-size: 20px;
-  justify-content: left;
-}
-
-.mat-column-emp_name {
-  flex: 10% !important;
-  max-width: 400px;
-  justify-content: left;
-  background-color: #d1d4ce;
 }
 
 .mat-column-emp_firstname {
   flex: 10% !important;
-  max-width: 200px;
-  justify-content: left;
+  max-width: 160px;
+  background-color: #d1d4ce;
 }
+
 .mat-column-emp_lastname {
   flex: 10% !important;
-  max-width: 200px;
-  justify-content: left;
+  max-width: 160px;
+  background-color: #d1d4ce;
+}
+
+.mat-column-emp_no {
+  font-size: 12px;
+  max-width: 80px;
+}
+
+.mat-column-emp_id {
+  max-width: 80px;
+  font-size: 12px;
 }
 
 .mat-column-emp_status {
-  flex: 5% !important;
-  max-width: 400px;
-  justify-content: left;
+  max-width: 150px;
 }
 
 .mat-column-emp_address {
   flex: 15% !important;
-  max-width: 800px;
-  justify-content: left;
 }
 
 .mat-column-emp_sex {
-  flex: 5% !important;
-  max-width: 100px;
-  justify-content: left;
+  max-width: 60px;
 }
 
 .mat-column-emp_datebirth {
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_contact{
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_position {
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_department {
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_rate {
-  flex: 5% !important;
-  max-width: 150px;
-  justify-content: left;
+  max-width: 120px;
 }
 
 .mat-column-emp_start_date {
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_time_in {
-  flex: 5% !important;
-  max-width: 150px;
-  justify-content: left;
+  max-width: 100px;
 }
 
 .mat-column-emp_time_out {
-  flex: 5% !important;
-  max-width: 150px;
-  justify-content: left;
+  max-width: 100px;
 }
 
 .mat-column-emp_last_mod_date {
-  flex: 10% !important;
-  max-width: 300px;
-  justify-content: left;
+  max-width: 200px;
 }
 
 .mat-column-emp_last_mod_by {
-  flex: 10% !important;
   max-width: 200px;
-  justify-content: left;
 }
 
 .mat-column-actions {
-  flex: 15% !important;
   color: white;
-  max-width: 300px;
+  
+  min-width: 300px;
+
+  max-width: 350px;
   align-content: center;
   justify-content: center;
   background-color: #706e5a;
@@ -142,43 +108,3 @@ mat-form-field {
 .mat-input-container.app-input-no-underline .mat-input-underline {
   display: none !important;
 }
-
-/*.delbutton{
-  background-color: darkred;
-}
-
-#actionbutton {
-  background-color: #bfba87;
-  color: white;
-}*/
-
-/*::ng-deep .mat-focused .mat-form-field-label {*/
-  /*change color of label*/
-  /*color: black !important;
-}
-
-::ng-deep.mat-form-field-underline {*/
-  /*change color of underline*/
-  /*background-color: black !important;
-}
-
-::ng-deep.mat-form-field-ripple {*/
-  /*change color of underline when focused*/
-  /*background-color: black !important;
-  ;
-}
-
-::ng-deep.mat-header-cell {*/
-  /*change color of background color*/
-  /*background-color: rgb(141, 141, 141) !important;
-  ;
-}
-
-
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: #005691;
-}
-
-::ng-deep .mat-form-field-underline {
-  display: none;
-}*/

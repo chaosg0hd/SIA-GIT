@@ -64,8 +64,13 @@ export class DailytimerecordpageComponent implements OnInit {
   dtrJSONInfo: any = {};
 
 
+
+
+
+
   @ViewChild('content', {static: false}) es!: ElementRef;
 
+  
 
   downloadPDF() {
     let pdf = new jspdf('l', 'px', 'a2');
@@ -79,6 +84,11 @@ export class DailytimerecordpageComponent implements OnInit {
 
 
   constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe) { }
+
+
+
+
+
 
 
   ngOnInit(): void {

@@ -1,9 +1,10 @@
 <mat-sidenav-container autosize>
   <!--Nav Bar-->
-  <mat-sidenav color="primary" class="mat-elevation-z12" #drawer mode="side" opened="true" style="padding: 0px; overflow:hidden">
+  <mat-sidenav color="primary" class="mat-elevation-z12" #drawer mode="side" opened="true">
+    <!--<br />
+    <br />-->
+    <img src="./assets/faveIcon/cocolime.png" style="width: 100%" class=""> 
     <br />
-    <br />
-    <img src="./assets/faveIcon/cocolime.png" style="width: 98%" class="logo">
     <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; REPORTS</button>
     <button mat-button class="sidebarcontent" routerLink="/home" matTooltip="Dashboard"><mat-icon>dashboard</mat-icon>&nbsp; Dashboard</button>
     <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; MANAGE</button>
@@ -20,7 +21,6 @@
     <button mat-button disabled class="sidebarcateg mat-elevation-z2">&nbsp; ADMINISTRATION</button>
     <button mat-button class="sidebarcontent" routerLink="/master" matTooltip="Users"><mat-icon>person</mat-icon>&nbsp; Users</button>
     <button mat-button class="sidebarcontent" routerLink="/master" matTooltip="Control Panel"><mat-icon>admin_panel_settings</mat-icon>&nbsp; Control Panel</button>
-
   </mat-sidenav>
 
   <!--Contents-->
@@ -42,24 +42,8 @@
       </button>
     </mat-toolbar>
 
-    <router-outlet></router-outlet>
+    <router-outlet>
+
+    </router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>
-
-<!--footer pag ok na--> 
-<!--<mat-toolbar class="navbar mat-elevation-z10" style="position: sticky;  bottom: 0; z-index: 10; color: white ; height: 60px;">
-  <p>
-    Powered by:
-  </p>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
-    <mat-icon>book</mat-icon>
-  </button>
-  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
-    <mat-icon>announcement</mat-icon>
-  </button>
-  <button mat-icon-button class="" aria-label="" matBadge="!" matBadgePosition="after" matBadgeColor="warn">
-    <mat-icon>delete</mat-icon>
-  </button>
-</mat-toolbar>-->

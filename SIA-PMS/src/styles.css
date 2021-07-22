@@ -2818,11 +2818,6 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     font-family: 'Abel';
   }
 
-/*//////////////////////////////OVERIDES///////////////////////////////////////*/
-
-mat-toolbar{
-    padding: 0px !important;
-}
 
 html, body {
   height: 100%;
@@ -2833,17 +2828,48 @@ body {
   margin: 0;
 }
 
-html {
+/*//////////////////////////CLASSES//////////////////////////////////////////*/
+
+.toolbar-buttons {
+  color: white!important;
+  background-color: #706e5a;
+  font-size: large;
+  height: 100%;
+  border-radius: 0px !important;
+}
+
+/*//////////////////////////////OVERIDES///////////////////////////////////////*/
+
+
+
+
+/*html {
   overflow: scroll;
   overflow-x: hidden;
-}
+  overflow: hidden;
+}*/
 
 ::-webkit-scrollbar {
   width: 0; 
   background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
-  background: #8d8d8d;}
+  background: #8d8d8d;
+
+}
+
+.mat-tab-label{
+  font-size: 18px;
+}
+
+.mat-tab-label-active {
+  font-size: 24px;
+  background-color: #bfba87;
+}
+
+
+
+
 
 .mat-tooltip {
   font-size: 20px !important;
@@ -2865,12 +2891,16 @@ mat-card-title {
 mat-header-cell {
   text-align: left;
   justify-content: left;
-  font-size: 20px !important;
-  height: 40px;
-  background-color: #bfba87;  
+  font-size: 12px !important;
+  background-color: #bfba87;
 }
-mat_cell{
-    padding: 0px!important;
+
+mat-cell {
+  max-height: 40px;
+}
+
+.mat-header-row, .mat-row {
+  min-height: 40px;
 }
 
 .div-container {

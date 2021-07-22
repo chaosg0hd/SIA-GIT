@@ -3,14 +3,18 @@
 /*TANGINA JIV SABI KO IREVISE NYO TO TANGINA NAMAN*/
 
 
-mat-sidenav-container, mat-sidenav-content {
+mat-sidenav-container {
+  height: 100%;
+  width: 100%;
+}
+
+mat-sidenav-content {
   height: 100%;
 }
 
+
 mat-sidenav {
-  margin-left: 0px;
-  padding: 0px;
-  width: 240px;
+  width: 250px;
 }
 
 .sidebarcateg {
@@ -24,7 +28,6 @@ mat-sidenav {
 }
 
 .sidebarcontent {
-  margin-left: 10px;
   border-radius: 0px;
   border-radius: 0px !important;
   width: 100%;

@@ -41,50 +41,70 @@ export interface empTableColumnProp {
 
 export class EmployeepageComponent implements OnInit{
 
+  //Constructors Here
 
-  //@ViewChild(MatSort) sort!: MatSort;
+  constructor(private data: DataService, private datepipe: DatePipe, public dialog: MatDialog) { }
 
-  //@ViewChild(MatPaginator) paginator!: MatPaginator;
+  //View Child Goes Here
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  //ngLifeCycle Goes Here
+
+  ngOnInit(): void {
+    this.getUser();
+    this.pullAllEmp();      
+  }
+
+  ngAfterViewInit() {
+    this.empInfoTableDataSource.paginator = this.paginator;
+    this.empInfoTableDataSource.sort = this.sort;
+  }
+
+  //ngOnInitFunctions
+
+  //Get User Credentials
+
+  user: any;
+
+  getUser() {
+    this.user = localStorage.getItem('Name');
+  }
+
+  //Pull Employees
 
   empInfoTable: empTable[] = [];
-
-  /*leave for testing*/ 
-  /*editField: empTable[] = [];*/
-
-  empInfo: any = {};
-
   empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
-  empInfoTableLength = 0;
+  empInfoTableLastNo: any
 
-  
-  //StartDate
-  //Delete this
+  pullAllEmp() {
+    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
+      console.log(data + 'From Emp Page: Method pullAllEmp');
+      this.empInfoTable = data.payload;
+      console.log(this.empInfoTable + 'From Emp Page: Method pullAllEmp');
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Emp Page: Method pullAllEmp');
+      this.empInfoTableLastNo = this.empInfoTable[this.empInfoTable.length - 1].emp_no;
+      console.log(this.empInfoTableLastNo);
+    });
+  }
 
-  startDate = new Date(1990, 1, 1);
-
-  //Table Declarations
-  //Fucking fix Column Visibility
-  //fucking redo how tables work
-  //Fixed how tables work
-  //Could be Better
-  //Actually Just Merge
-
-  tabIndex = 0;
-
-  
+  //Main Table Functions
 
   //Table Columns Properties
 
   empInfoTableColumnsJSON: empTableColumnProp[] = [
+    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
+    { "columnName": "emp_firstname", "columnPrettyName": "Firstname", "columnisSticky": true, },
+    { "columnName": "emp_lastname", "columnPrettyName": "Lastname", "columnisSticky": true, },
     { "columnName": "emp_no", "columnPrettyName": "Emp no", "columnisSticky": false, },
     { "columnName": "emp_id", "columnPrettyName": "Emp ID", "columnisSticky": false, },
-    { "columnName": "emp_name", "columnPrettyName": "Employee Name", "columnisSticky": true, },
-    { "columnName": "emp_firstname", "columnPrettyName": "Firstname", "columnisSticky": false, },
-    { "columnName": "emp_lastname", "columnPrettyName": "Lastname", "columnisSticky": false, },
     { "columnName": "emp_middle", "columnPrettyName": "MI", "columnisSticky": false, },
-    { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false,},
-    { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false,},
-    { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false,},
+    { "columnName": "emp_address", "columnPrettyName": "Address", "columnisSticky": false, },
+    { "columnName": "emp_sex", "columnPrettyName": "Sex", "columnisSticky": false, },
+    { "columnName": "emp_datebirth", "columnPrettyName": "Date of Birth", "columnisSticky": false, },
     { "columnName": "emp_contact", "columnPrettyName": "Contact Info", "columnisSticky": false, },
     { "columnName": "emp_time_in", "columnPrettyName": "Time-in", "columnisSticky": false, },
     { "columnName": "emp_time_out", "columnPrettyName": "Time-out", "columnisSticky": false, },
@@ -93,18 +113,38 @@ export class EmployeepageComponent implements OnInit{
     { "columnName": "emp_start_date", "columnPrettyName": "Date Started", "columnisSticky": false, },
     { "columnName": "emp_status", "columnPrettyName": "Status", "columnisSticky": false, },
     { "columnName": "emp_position", "columnPrettyName": "Position", "columnisSticky": false, },
-    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false,},
+    { "columnName": "emp_last_mod_date", "columnPrettyName": "Date Last Modified", "columnisSticky": false, },
     { "columnName": "emp_last_mod_by", "columnPrettyName": "Last Modified By", "columnisSticky": false, },
     { "columnName": "emp_is_archived", "columnPrettyName": "Archive Status", "columnisSticky": false, },
   ]
 
-  //Maximized Table Columns
-  maxTableSize: string[] = [
-    "emp_no",
-    "emp_id",
-    "emp_name",
+  //Table Columns
+
+  empInfoTableColumns: string[] = [
     "emp_firstname",
     "emp_lastname",
+    "emp_id",
+    "emp_status",
+    "emp_address",
+    "emp_sex",
+    "emp_datebirth",
+    "emp_contact",
+    "emp_position",
+    "emp_department",
+    "emp_rate",
+    "emp_start_date",
+    "emp_time_in",
+    "emp_time_out",
+    "actions"
+  ]
+
+  //Maximized Table Columns
+
+  maxTableSize: string[] = [
+    "emp_firstname",
+    "emp_lastname",
+    "emp_no",
+    "emp_id",
     "emp_status",
     "emp_address",
     "emp_sex",
@@ -123,30 +163,14 @@ export class EmployeepageComponent implements OnInit{
 
   //Minimized Table Columns
   minTableSize: string[] = [
+    "emp_firstname",
+    "emp_lastname",
     "emp_id",
-    "emp_name",
     "emp_status",
     "emp_contact",
     "emp_position",
     "emp_department",
     "emp_rate",
-    "emp_time_in",
-    "emp_time_out",
-    "actions"
-  ]
-
-  defaultTableSize: string[] = [
-    "emp_id",
-    "emp_name",
-    "emp_status",
-    "emp_address",
-    "emp_sex",
-    "emp_datebirth",
-    "emp_contact",
-    "emp_position",
-    "emp_department",
-    "emp_rate",
-    "emp_start_date",
     "emp_time_in",
     "emp_time_out",
     "actions"
@@ -154,9 +178,10 @@ export class EmployeepageComponent implements OnInit{
 
 
   //Default Table Columns
-  empInfoTableColumns: string[] = [
+  defaultTableSize: string[] = [
+    "emp_firstname",
+    "emp_lastname",
     "emp_id",
-    "emp_name",
     "emp_status",
     "emp_address",
     "emp_sex",
@@ -170,44 +195,13 @@ export class EmployeepageComponent implements OnInit{
     "emp_time_out",
     "actions"
   ]
-    
-  //Components Shit
-  //Remove MatDialog when able
-  constructor(private data: DataService, private datepipe: DatePipe, public dialog: MatDialog) {  }
-    
-  ngOnInit(): void {
-    this.pullAllEmp();
-    this.getUser();
-  }
 
-  user: any;
-  getUser() {
-    this.user = localStorage.getItem('Name');
-  }
+  //Table Functions
 
-  //Sad na hindi ko apply pagination dito
-  //ngAfterViewInit() {
-  //  this.empInfoTableDataSource.paginator = this.paginator;
-  //  this.empInfoTableDataSource.sort = this.sort;
-  //}
-
-  //Methods
-
-  //Pull Employees
-
-  pullAllEmp() {
-    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
-      this.empInfoTable = data.payload;      
-      console.log(this.empInfoTable);      
-      console.log(this.empInfoTableLength + 'From Dashboard Page: Method pullAllEmp');
-      this.empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
-      this.empInfoTableDataSource.data = this.empInfoTable;
-      this.empInfoTableLength = this.empInfoTableDataSource.data.length;
-      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
-    });
-    
-  }
-
+  empInfo: any = {};
+  startDate = new Date(1995, 8, 27);
+  tabIndex = 0;    
+  
   //Edit Employees
 
   async editEmp(editEmpInfo: any) {
@@ -223,31 +217,21 @@ export class EmployeepageComponent implements OnInit{
 
   //Add Employees
 
-  //async addEmp(emp_id: number) {
-  //  this.empInfo = {}
-  //  emp_id = emp_id + 1;
-  //  this.empInfo.emp_id = ("XX-" + emp_id)
-  //  console.log(this.empInfo + ' From Dashboard Page: Method addEmp');    
-  //  this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {S
-  //    this.empInfoTable = data.payload;
-  //    console.log(this.empInfoTable);
-  //    this.empInfoTableDataSource.data = this.empInfoTable;
-  //    console.log(this.empInfoTableDataSource + ' From Employee Page: Method addEmp');
-  //    this.pullAllEmp();
-  //  });
-  //}
-
-  async addEmp(emp_id: number) {
+  async addEmp(emp_no: number) {
     this.empInfo = {}
-    emp_id = emp_id + 1;
+    emp_no = emp_no + 1
+    this.empInfoTableLastNo = emp_no;
+    this.empInfo.emp_no = emp_no
     this.empInfo.emp_start_date = this.startDate;
-    this.empInfo.emp_datebirth = this.startDate;    
-    this.empInfo.emp_id = ("XX-" + emp_id);
-    this.empInfo.emp_last_mod_by = this.user;    
-    console.log(this.empInfo + ' From Dashboard Page: Method addEmp');
+    this.empInfo.emp_datebirth = this.startDate;
+    this.empInfo.emp_id = (this.data.genID(emp_no));
+    this.empInfo.emp_last_mod_by = this.user;
+    this.empInfo.emp_time_in = '00:00'
+    this.empInfo.emp_time_out = '00:00'
+    console.log(this.empInfo + ' From Employee Page: Method addEmp');
     this.empInfoTableDataSource.data.push(this.empInfo);
     this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
-    this.empInfoTableLength = this.empInfoTableDataSource.data.length;
+    /*this.empInfoTableLength = this.empInfoTableDataSource.data.length;*/
     console.log(this.data);
     this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
       
@@ -287,8 +271,8 @@ export class EmployeepageComponent implements OnInit{
   isMin: boolean = false
   isMax: boolean = false
 
-  tableMaxWidth = 250;
-  tableWidth = 250;
+  tableMaxWidth = 150;
+  tableWidth = 150;
 
   minTable() {
     if (this.isMin == false) {
@@ -298,8 +282,8 @@ export class EmployeepageComponent implements OnInit{
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 250;
-      this.tableWidth = 250;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
       this.isMin = false;
     }    
   }
@@ -307,14 +291,14 @@ export class EmployeepageComponent implements OnInit{
   maxTable() {
     if (this.isMax == false) {
       this.empInfoTableColumns = this.maxTableSize;
-      this.tableWidth = 350;
-      this.tableMaxWidth = 300;
+      this.tableWidth = 200;
+      this.tableMaxWidth = 200;
       this.isMax = true;
     }
     else {
       this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 250;
-      this.tableWidth = 250;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
       this.isMax = false;
     }    
   }
