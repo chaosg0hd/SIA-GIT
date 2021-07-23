@@ -98,6 +98,7 @@ import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/
 import { TimeinComponent } from './timein/timein.component';
 import { FilterpipePipe } from './filterpipe.pipe';
 import { UserspageComponent } from './index/pages/userspage/userspage.component';
+import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeepingpage.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { UserspageComponent } from './index/pages/userspage/userspage.component'
     TimeinComponent,
     FilterpipePipe,
     UserspageComponent,
+    TimekeepingpageComponent,
      
   ],
   imports: [

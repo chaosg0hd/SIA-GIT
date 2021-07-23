@@ -14,20 +14,23 @@ import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
+import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeepingpage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-
   { path: 'login', component: LoginComponent },
-
  /* { path: '', redirectTo: 'timein', pathMatch: 'full' },*/
-
   { path: 'timein', component: TimeinComponent },
-
   {
     path: 'home', component: IndexComponent, children:
-      [        
+      [
         { path: '', component: DashboardpageComponent },
+      ]
+  },
+  {
+    path: 'timekeeping', component: IndexComponent, children:
+      [        
+        { path: '', component: TimekeepingpageComponent },
       ]
   },
   {

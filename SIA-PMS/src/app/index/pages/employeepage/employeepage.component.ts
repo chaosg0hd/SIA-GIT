@@ -7,6 +7,16 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+//INTERFACE
+
+export interface DialogData {
+  emp_id: any;
+  emp_name: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
+}
+
 export interface empTable {
   emp_no: any;
   emp_id: any;
@@ -200,138 +210,18 @@ export class EmployeepageComponent implements OnInit{
 
   empInfo: any = {};
   startDate = new Date(1995, 8, 27);
-  tabIndex = 0;    
+  tabIndex = 0;
+
   
-  //Edit Employees
-
-  async editEmp(editEmpInfo: any) {
-    this.empInfo.emp_last_mod_by = this.user
-    console.log(editEmpInfo + ' From Dashboard Page: Method editEmp');
-    this.data.sendApiRequest("editEmp", editEmpInfo).subscribe((data: any) => {
-        this.empInfoTable = data.payload;
-        console.log(this.empInfoTable);
-        this.empInfoTableDataSource.data = this.empInfoTable;
-        console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
-      });
-  }
-
-  //Add Employees
-
-  async addEmp(emp_no: number) {
-    this.empInfo = {}
-    emp_no = emp_no + 1
-    this.empInfoTableLastNo = emp_no;
-    this.empInfo.emp_no = emp_no
-    this.empInfo.emp_start_date = this.startDate;
-    this.empInfo.emp_datebirth = this.startDate;
-    this.empInfo.emp_id = (this.data.genID(emp_no));
-    this.empInfo.emp_last_mod_by = this.user;
-    this.empInfo.emp_time_in = '00:00'
-    this.empInfo.emp_time_out = '00:00'
-    console.log(this.empInfo + ' From Employee Page: Method addEmp');
-    this.empInfoTableDataSource.data.push(this.empInfo);
-    this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
-    /*this.empInfoTableLength = this.empInfoTableDataSource.data.length;*/
-    console.log(this.data);
-    this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
-      
-    });
-  }
-
-
-  //Del Employees
-
-  async delEmp(editEmpInfo: any) {
-    console.log(editEmpInfo)
-    this.data.sendApiRequest("delEmp", editEmpInfo).subscribe((data: any) => {
-      this.empInfoTable = data.payload;
-      console.log(this.empInfoTable);
-      this.empInfoTableDataSource.data = this.empInfoTable;
-      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
-    });
-  }  
-
-  //Not Really Needed
-  //Create Table
-
-  tableCreate() {
-    //for (let columns of this.empInfoTableColumnsJSON) {
-    //  this.empInfoTableColumns.push(columns.columnName);      
-    //  console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
-    //}
-    console.log(this.empInfoTableColumns + ' From Dashboard Page: tableCreate');
-  }
-
-  //Filter 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.empInfoTableDataSource.filter = filterValue;
-  }
-
-  isMin: boolean = false
-  isMax: boolean = false
-
-  tableMaxWidth = 150;
-  tableWidth = 150;
-
-  minTable() {
-    if (this.isMin == false) {
-      this.empInfoTableColumns = this.minTableSize;
-      this.tableMaxWidth = 100;
-      this.isMin = true;
-    }
-    else {
-      this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 150;
-      this.tableWidth = 150;
-      this.isMin = false;
-    }    
-  }
-
-  maxTable() {
-    if (this.isMax == false) {
-      this.empInfoTableColumns = this.maxTableSize;
-      this.tableWidth = 200;
-      this.tableMaxWidth = 200;
-      this.isMax = true;
-    }
-    else {
-      this.empInfoTableColumns = this.defaultTableSize;
-      this.tableMaxWidth = 150;
-      this.tableWidth = 150;
-      this.isMax = false;
-    }    
-  }
-
-
-  tabIndexStart() {
-    this.tabIndex = 0;
-    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
-    return <number>this.tabIndex;
-
-  }
-
-  tabIndexInc(index: number) {
-    if (this.tabIndex == 0) {
-      this.tabIndex = 1
-    }
-    else {
-      this.tabIndex = this.tabIndex + 1;
-    }
-    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
-    return<number>this.tabIndex;
-  }
-
-  //Leave for testing only
-  changeValue(id: string, property: string, event: any) {
-    console.log(event.target.value, property, id);
-  }
+  //////////////////////////////////// DO NOT COPY ////////////////////////////////////////////////
+  //////////////////////////////////// DO NOT COPY ////////////////////////////////////////////////
+  //////////////////////////////////// DO NOT COPY ////////////////////////////////////////////////
 
   //Rapid Edit Logic
   updateList(id: string, property: string, event: any) {
 
     //Fix API Problems still causing problems
-    console.log(event);
+    console.log(event + 'From Employees Page: Method updateList');
     console.log(event.target.value, property, id + 'From Employees Page: Method updateList');
 
     //Improve Null Value Check
@@ -449,92 +339,130 @@ export class EmployeepageComponent implements OnInit{
           }
         }
       }
+    }
+  }
+  
+  //Edit Employees
+
+  async editEmp(editEmpInfo: any) {
+    this.empInfo.emp_last_mod_by = this.user
+    console.log(editEmpInfo + ' From Emp Page: Method editEmp');
+    this.data.sendApiRequest("editEmp", editEmpInfo).subscribe((data: any) => {
+        this.empInfoTable = data.payload;
+        console.log(this.empInfoTable);
+        this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Emp Page: Method editEmp');
+      });
+  }
+
+  //----------------------------------------------------------------------------------------------------------------------
+  //Add Employees
+
+  async addEmp(emp_no: number) {
+
+    emp_no = emp_no + 1
+
+    this.empInfo = {}
+    
+    this.empInfoTableLastNo = emp_no;
+    this.empInfo.emp_no = emp_no
+    this.empInfo.emp_start_date = this.startDate;
+    this.empInfo.emp_datebirth = this.startDate;
+    this.empInfo.emp_id = (this.data.genID(emp_no));
+    this.empInfo.emp_last_mod_by = this.user;
+    this.empInfo.emp_time_in = '00:00'
+    this.empInfo.emp_time_out = '00:00'
+
+    console.log(this.empInfo + ' From Employee Page: Method addEmp');
+
+    this.empInfoTableDataSource.data.push(this.empInfo);
+
+    this.empInfoTableDataSource.data = this.empInfoTableDataSource.data.slice();
+
+    console.log(this.data);
+
+    this.data.sendApiRequest("addEmp", this.empInfo).subscribe((data: any) => {
+
+      
+    });
+  }
+
+  //Del Employees
+
+  async delEmp(editEmpInfo: any) {
+    console.log(editEmpInfo)
+    this.data.sendApiRequest("delEmp", editEmpInfo).subscribe((data: any) => {
+      this.empInfoTable = data.payload;
+      console.log(this.empInfoTable);
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
+    });
+  }  
+
+
+  //Filter Employees
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.empInfoTableDataSource.filter = filterValue;
+  }
+
+  //Set Table Size
+
+  isMin: boolean = false
+  isMax: boolean = false
+
+  tableMaxWidth = 150;
+  tableWidth = 150;
+
+  minTable() {
+    if (this.isMin == false) {
+      this.empInfoTableColumns = this.minTableSize;
+      this.tableMaxWidth = 100;
+      this.isMin = true;
+    }
+    else {
+      this.empInfoTableColumns = this.defaultTableSize;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
+      this.isMin = false;
     }    
   }
 
-  //Edit Employee Dialogconsole.log(this.editField)
-  //FUCKING TURN IT TO AN ARRAY
+  maxTable() {
+    if (this.isMax == false) {
+      this.empInfoTableColumns = this.maxTableSize;
+      this.tableWidth = 200;
+      this.tableMaxWidth = 200;
+      this.isMax = true;
+    }
+    else {
+      this.empInfoTableColumns = this.defaultTableSize;
+      this.tableMaxWidth = 150;
+      this.tableWidth = 150;
+      this.isMax = false;
+    }    
+  }
 
-  // pATULONG HERE JIV
+  //TabIndex FunctionS
 
+  tabIndexStart() {
+    this.tabIndex = 0;
+    //THIS IS TOO MAINGAY
+    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
+    return <number>this.tabIndex;
+  }
 
-  //editEmpDialog(
-  //  emp_id: any,
-  //  emp_name: any,
-  //  emp_position: any,
-  //  emp_start_date: any,
-  //  emp_status: any,
-  //  emp_last_mod_by: any ): void {
-  //  const dialogRef = this.dialog.open(EditemployeeDialog, {
-  //    width: '30%',
-  //    height: '80%',
-  //    data: { emp_id: emp_id, emp_name: emp_name, emp_position: emp_position, emp_start_date: emp_start_date, emp_status: emp_status}
-  //  });
-
-  //  dialogRef.afterClosed().subscribe(result => {
-  //    this.empInfo = result;
-  //    this.editEmp();
-  //    console.log(this.empInfo + ' From Employees Page: Method editEmpDialog');      
-  //  });
-  //}
-
-  //editEmp() {   
-  //  this.data.sendApiRequest("editEmp", JSON.parse(JSON.stringify(this.empInfo))).subscribe((data: any) => {
-
-  //  //FIX FUCKING API PROBLEMS HERE
-
-  //  });
-  //  this.pullAllEmp();
-  //  this.ngAfterViewInit()
-  //  console.log(this.empInfo + 'From Employees Page: Method editEmpDialog');
-  //}
-
-  ////Add Employee Dialog  
-
-  //addEmpDialog(
-  //  emp_id: any,
-  //  emp_name: any,
-  //  emp_position: any,
-  //  emp_start_date: any,
-  //  emp_status: any,
-  //  emp_last_mod_by : any  ): void {
-  //  const dialogRef = this.dialog.open(AddemployeeDialog, {
-  //    width: '30%',
-  //    height: '80%',
-  //    data: { emp_name: emp_name, emp_position: emp_position, emp_start_date: emp_start_date, emp_status: emp_status, }
-  //  });
-
-  //  dialogRef.afterClosed().subscribe(result => {
-  //    this.empInfo = result;
-  //    this.addEmp();
-  //    console.log(this.empInfo + ' From Employees Page: Method addEmpDialog');
-  //  });
-  //}
-
-  //addEmp() {
-  //  this.data.sendApiRequest("addEmp", JSON.parse(JSON.stringify(this.empInfo))).subscribe((data: any) => {
-
-  //  //FIX FUCKING API PROBLEMS HERE
-
-  //  });
-  //  this.pullAllEmp();
-  //  console.log(this.empInfo + 'From Employees Page: Method addEmpDialog');
-  //}
-
-  //delEmp(emp_id: any) {
-  //  this.empInfo.emp_id = emp_id;
-  //  console.log(this.empInfo.emp_id + ' From Employees Page: Method delEmp');
-  //  this.data.sendApiRequest("delEmp", this.empInfo).subscribe((data: any) => {
-
-
-  //    //FIX FUCKING API PROBLEMS HERE
-
-  //    this.emp = data.payload;
-  //    this.dataSource = new MatTableDataSource(this.emp);
-  //    this.ngAfterViewInit();
-  //  });
-  //} 
-
+  tabIndexInc(index: number) {
+    if (this.tabIndex == 0) {
+      this.tabIndex = 1
+    }
+    else {
+      this.tabIndex = this.tabIndex + 1;
+    }
+    //console.log(this.tabIndex + ' From Employees Page: Method tabIndex');
+    return<number>this.tabIndex;
+  }  
 
   //End of Methods
 }
@@ -543,7 +471,6 @@ export class EmployeepageComponent implements OnInit{
 
 //SubComponents
 
-//Maybe pag kelangan na pede na mag dialog data
 
 @Component({
   selector: 'editemployee',
@@ -577,15 +504,8 @@ export class AddemployeeDialog {
 
 }
 
-//Interfaces
-
-//Replace this, dont fcking need it
+//BACKREAD MUNA BAGO MAGDAGDAG NG FUNCTION DITO
 
 
-export interface DialogData {
-  emp_id: any;
-  emp_name: any;
-  emp_position: any;
-  emp_start_date: any;
-  emp_status: any;
-}
+
+
