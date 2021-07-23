@@ -396,6 +396,8 @@ export class EmployeepageComponent implements OnInit{
       console.log(this.empInfoTable);
       this.empInfoTableDataSource.data = this.empInfoTable;
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method editEmp');
+
+      //ngOnInit();
     });
   }  
 
