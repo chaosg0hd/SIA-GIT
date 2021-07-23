@@ -1,34 +1,54 @@
+<mat-card class="dtrCard mat-elevation-z5"><br>
+ 
+      <div class="row">
+          <div class="column">
+            <img src="./assets/faveIcon/cocodwlime.png">
+            <p class="dtrTitle">DAILY TIME RECORD</p>
+          </div>
+          
 
-<mat-card id="mat"  class="mat-elevation-z8">
-    <img src="./assets/faveIcon/cocolime.png">
+          <div class="column2">
+              
+              <h1 id="time">{{myDate | date: 'h:mm a'}}</h1>
+              <br><br><br>
+              <mat-form-field appearance="outline">
+                  <mat-icon class="icon" matPrefix>person</mat-icon>
+              
+                  <input class="input" type="text" matInput placeholder="Employee ID here...">
+              </mat-form-field><br>
 
-    <div class="column2">
-        <p id="text1">TIME IN | TIME OUT</p>
+      
+              <button mat-raised-button class="timein-btn" mat-raised-button ><mat-icon>alarm_add</mat-icon>TIME IN</button>
+              <button mat-raised-button class="timeout-btn" mat-raised-button ><mat-icon>alarm_minus</mat-icon>TIME OUT</button>
+              
+              
+          </div>
       </div>
-  
-    <!--<input class="mat-elevation-z5" id="time" type="text" name="time">-->
-    <p id="time">{{myDate | date: 'h:mm a'}}</p>
 
+      <table class="mat-elevation-z5" style="width:70%; margin-left: 15%;">
+        <tr>
+          <th>EMPLOYEE NAME</th>
+          <th>TIME IN</th> 
+          <th>TIME OUT</th> 
+        </tr>
+        <!--sample lang-->
+        <tr>
+          <td>SAMPLE</td>
+          <td>SAMPLE</td> 
+          <td>SAMPLE</td>
+          
+        </tr>
+        <tr>
+          <td>SAMPLE</td>
+          <td>SAMPLE</td> 
+          <td>SAMPLE</td>
+          
+        </tr>
+      </table>
+  
+      
 
-    <div class="input">
-    <input class="mat-elevation-z5" id="inputname" type="text" placeholder="Enter Data Here">
-    </div>
-    
-    <button id="buttontime" class="mat-elevation-z8" mat-raised-button ><mat-icon>alarm_add</mat-icon>Time In</button>
-  
-    <table class="mat-elevation-z5" style="width:70%; margin-left: 15%;">
-      <tr>
-        <th>Employee Name</th>
-        <th>Time In</th> 
-        <th>Time Out</th> 
-      </tr>
-      <!--sample lang-->
-      <tr>
-        <td></td>
-        <td></td> 
-        <td></td>
-      </tr>
-    </table>
-  
-  </mat-card>
+</mat-card>
+
+   
   

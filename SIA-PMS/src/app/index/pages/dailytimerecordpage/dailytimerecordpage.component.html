@@ -29,7 +29,7 @@
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
       </mat-menu>
-      <button mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
+      <button (click)="downloadPDF()" mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
     </mat-toolbar>
   </mat-card-title>
 
