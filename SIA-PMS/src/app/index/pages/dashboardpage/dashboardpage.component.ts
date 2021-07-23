@@ -122,10 +122,8 @@ export class DashboardpageComponent implements OnInit {
     this.noti.open("hello", "ok");
     console.log("Index Running")
   }
-
-
-
-  
-  
-
+  tableData:any = [
+    {firstN : 'Cyril', middleN : 'Jivan', lastN: 'Balatbat'},
+    {firstN : 'Cyril', middleN : 'Jivan', lastN: 'Balatbat'}
+  ]
 }
