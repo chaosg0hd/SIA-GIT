@@ -29,6 +29,7 @@
     "date-fns": "^2.22.1",
     "flatpickr": "^4.6.9",
     "html2canvas": "^1.1.4",
+    "html2pdf.js": "^0.9.3",
     "jspdf": "^2.3.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

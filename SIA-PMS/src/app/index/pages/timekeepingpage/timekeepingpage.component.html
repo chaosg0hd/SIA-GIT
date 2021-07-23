@@ -56,21 +56,17 @@
           <mat-tab label="{{empInfoTable.emp_id}} : {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" matTooltip="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}">
 
             <ng-template matTabContent>
-                  <mat-card style="width: 100%; height: auto; margin: 0 auto; padding-top: 40px !important; padding-bottom: 40px !important;">
+                  <mat-card style="width: 75%; height: auto; margin: 0 auto; padding-top: 40px !important; padding-bottom: 40px !important;">
+                    <mat-card-title>
+                      <br />
+                      <p>DTR ID : {{activeEmp}}_{{month_year}}</p>
 
+                    </mat-card-title>
                     <mat-card-content>
-                      <!--time keeping card-->
 
                       <ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
                         <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_id+'_'+month_year;">
-                          <mat-grid-list cols="1" rowHeight="">
                             <div class="content" #content>
-                              <mat-grid-tile>
-                                <mat-card style="width: 70%; height: 100%; align-items:center">
-                                  <mat-card-title style="padding:8px; height:30px; font-size: 36px;">
-                                    <p style="margin-top: 4px;">  {{month}} {{year}} </p>
-                                  </mat-card-title>
-                                  <mat-card-content style="padding:12px; ">
                                     <table id="table" class="">
                                       <tr>
                                         <th>Employee ID: {{empInfoTable.emp_id}}</th>
@@ -147,11 +143,7 @@
                                         </tr>
                                       </ng-container>
                                     </table>
-                                  </mat-card-content>
-                                </mat-card>
-                              </mat-grid-tile>
                             </div>
-                          </mat-grid-list>
                         </ng-container>
                       </ng-container>
 
