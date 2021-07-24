@@ -29,3 +29,12 @@ table, th, td {
     margin-left: 67%;
     margin-top: 20px;
 }
+
+.addManage{
+    font-family: Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+  }
+  
+  .toolbar-buttons{
+    font-family: Arial, Helvetica, sans-serif;
+  }

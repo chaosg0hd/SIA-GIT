@@ -17,6 +17,18 @@ mat-sidenav {
   width: 250px;
 }
 
+mat-sidenav button {
+font-family: Arial, Helvetica, sans-serif;
+}
+
+mat-sidenav img {
+ padding-top: 10px;
+  }
+
+.hello{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .sidebarcateg {
   background-color: #bfba87;
   border-radius: 0px !important;
@@ -41,3 +53,13 @@ mat-sidenav-content{
 }
 
 
+#matToolbar{
+  color: white; 
+  position: sticky; 
+  top: 0; z-index: 1000;
+}
+h2{
+  font-weight: 400; 
+  font-size:larger; 
+  font-family: Arial, Helvetica, sans-serif;
+}

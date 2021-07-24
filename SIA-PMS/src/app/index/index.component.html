@@ -25,15 +25,15 @@
 
   <!--Contents-->
   <mat-sidenav-content>
-    <mat-toolbar class="mat-elevation-z12" color="primary" style="color: white; position: sticky; top: 0; z-index: 1000;">
+    <mat-toolbar class="mat-elevation-z12" color="primary" id="matToolbar">
       <button mat-icon-button class="example-icon" aria-label="" mat-button (click)="drawer.toggle()" matTooltip="Hide Sidebar">
         <mat-icon>menu</mat-icon>
       </button>
       &nbsp;
-      <h2 style="font-weight: 400; font-size:larger; letter-spacing: 10px;">Payroll + DTR Management System</h2>
+      <h2>Payroll + DTR Management System</h2>
       &nbsp;
       <span style="flex: 1 1 auto;"> </span>
-      <h3 class="">Hello! &nbsp; {{user}}  </h3>
+      <h3 class="hello">Hello! &nbsp; {{user}}  </h3>
       <button mat-icon-button class="" aria-label="" matTooltip="Account Settings">
         <mat-icon>person</mat-icon>
       </button>

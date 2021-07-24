@@ -1,18 +1,20 @@
 <div class="loginDiv">
 
-  <mat-card class="loginCard mat-elevation-z5">
+  <mat-card class="loginCard mat-elevation-z5" style="height:95vh;">
     <br>
-    <mat-grid-list cols="2" rowHeight="2:1">
-      <div class="row">
+
+      <div class="twoTableRow">
         <div class="column">
           <img src="./assets/faveIcon/cocodwlime.png" class="inventory-logo">
         </div>
-
-        <div class="column2">
+<!-- <div class="vl"></div> -->
+        
+          <div class="column2">
+            <div class="right">
           <p id="text1">ADMIN LOGIN</p>
           <p id="text2">SIGN IN | ADMINISTRATOR</p><br>
           <mat-form-field id="parent">
-            <mat-icon id="username1" class="icon" matPrefix>person</mat-icon>
+            <mat-icon id="username1" class="icon1" matPrefix>person</mat-icon>
             <input id="username" [(ngModel)]="user_name" type="text" matInput placeholder="Username">
           </mat-form-field><br>
 
@@ -24,9 +26,9 @@
           <br><br>
 
           <button mat-raised-button class="mat-elevation-z8" id="login" (click)="loginUser()">LOGIN</button><br><br>
-
+        </div>
         </div>
       </div>
-    </mat-grid-list>
+
   </mat-card>
 </div>
