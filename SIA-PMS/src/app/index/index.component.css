@@ -17,16 +17,14 @@ mat-sidenav {
   width: 250px;
 }
 
-mat-sidenav button {
-font-family: Arial, Helvetica, sans-serif;
-}
-
-mat-sidenav img {
- padding-top: 10px;
+  mat-sidenav button {
   }
 
-.hello{
-  font-family: Arial, Helvetica, sans-serif;
+  mat-sidenav img {
+    padding-top: 10px;
+  }
+
+.hello {
 }
 
 .sidebarcateg {
@@ -48,18 +46,19 @@ mat-sidenav img {
   padding: 4px;
 }
 
-mat-sidenav-content{
+mat-sidenav-content {
   padding: 0px !important;
 }
 
 
-#matToolbar{
-  color: white; 
-  position: sticky; 
-  top: 0; z-index: 1000;
+#matToolbar {
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-h2{
-  font-weight: 400; 
-  font-size:larger; 
-  font-family: Arial, Helvetica, sans-serif;
+
+h2 {
+  font-weight: 400;
+  font-size: larger;
 }

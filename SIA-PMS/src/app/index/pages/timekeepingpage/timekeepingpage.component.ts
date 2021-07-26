@@ -58,7 +58,7 @@ export class TimekeepingpageComponent implements OnInit {
 
   //CONSTRUCTORS
 
-  constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe) { }
+  constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe,) { }
 
   //ViewChild
 
@@ -107,6 +107,7 @@ export class TimekeepingpageComponent implements OnInit {
     //Sets Tab Index
     this.dateIndex = this.monthinNum;
   }
+
 
   //Generate Days Array
   dayArray: any;
@@ -309,6 +310,12 @@ export class TimekeepingpageComponent implements OnInit {
     }
     this.editDTR(this.dtrJSONTable, dtr_id);
   }
+
+  //filterValue: any;
+  //applyFilter(event: Event) {
+  //  this.filterValue = (event.target as HTMLInputElement).value;
+  //  console.log(this.filterValue);
+  //}
 
 
   am_time_in: any;

@@ -96,7 +96,7 @@ import { AddemployeeDialog } from './index/pages/employeepage/employeepage.compo
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { TimeinComponent } from './timein/timein.component';
-import { FilterpipePipe } from './filterpipe.pipe';
+/*import { FilterpipePipe } from './filterpipe.pipe';*/
 import { UserspageComponent } from './index/pages/userspage/userspage.component';
 import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeepingpage.component';
 
@@ -119,7 +119,7 @@ import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeep
     SalarypageComponent,
     DailytimerecordpageComponent,
     TimeinComponent,
-    FilterpipePipe,
+    /*FilterpipePipe,*/
     UserspageComponent,
     TimekeepingpageComponent,
      

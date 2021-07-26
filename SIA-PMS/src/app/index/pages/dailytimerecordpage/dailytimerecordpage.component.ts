@@ -259,10 +259,11 @@ export class DailytimerecordpageComponent implements OnInit {
 
   //Need to ReImplement Filter 
   ////Filter 
-  //applyFilter(event: Event) {
-  //  const filterValue = (event.target as HTMLInputElement).value;
-  //  this.empInfoTableDataSource.filter = filterValue;
-  //}
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    this.empInfoTable = this.empInfoTable.filter((emp_name) => { filterValue })
+  }
 
   
 
