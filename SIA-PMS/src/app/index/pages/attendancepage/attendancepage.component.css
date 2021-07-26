@@ -18,3 +18,19 @@
 }
 
 */
+.empManagement{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar-buttons{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.searchBar{
+  height: 100% !important; 
+  width: 25%; 
+  padding: 0px !important; 
+  color: white; 
+  background-color: #706e5a;
+  font-family: Arial, Helvetica, sans-serif;
+}

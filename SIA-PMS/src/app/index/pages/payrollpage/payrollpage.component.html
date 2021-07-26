@@ -8,7 +8,7 @@
       &nbsp;
       &nbsp;
 
-      <h1 style="vertical-align: middle;">Payroll Record</h1>
+      <h1 class="payManage" style="vertical-align: middle;">Payroll Record</h1>
       <span style="flex: 1 1 auto;"> </span>
       <div style="height: 100% !important ; width: 20%; padding: 0px !important; color: white; background-color: #706e5a;">
         <mat-form-field appearance="fill" style="font-size: large; height: 100% !important; width: 100%;" matTooltip="Search">
@@ -19,17 +19,17 @@
       </div>
       <!--Toolbar-->
       <!--Import & Export Buttons-->
-      <button mat-button [matMenuTriggerFor]="Import" class="" style="color:white;background-color: #706e5a; font-size:large; height: 100%; border-radius: 0px !important">Import &nbsp;<mat-icon>south</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="Import" class="btn1">Import &nbsp;<mat-icon>south</mat-icon></button>
       <mat-menu #Import="matMenu">
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
       </mat-menu>
-      <button mat-button [matMenuTriggerFor]="Export" class="" style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important">Export &nbsp;<mat-icon>north</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="Export" class="btn2" style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important">Export &nbsp;<mat-icon>north</mat-icon></button>
       <mat-menu #Export="matMenu">
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
       </mat-menu>
-      <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important;" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
+      <button mat-button class="btn3" style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important;" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
       <!--<button mat-mini-fab class="" style="background-color: darkred; color: white" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;-->
     </mat-toolbar>
   </mat-card-title>

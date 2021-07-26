@@ -108,3 +108,11 @@ mat-form-field {
 .mat-input-container.app-input-no-underline .mat-input-underline {
   display: none !important;
 }
+
+.empManage{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar-buttons{
+  font-family: Arial, Helvetica, sans-serif;
+}
