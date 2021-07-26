@@ -24,8 +24,22 @@
   </div>
 </mat-card>
 
+
 <mat-card class="dtrCard2 mat-elevation-z5">
-  <p class="sign">error or okay sign</p>
+
+  <div class="column3">
+  <mat-form-field class="mat-elevation-z5" appearance="fill" style="background-color: white; border-radius: 20px;">
+    
+    <input disabled class="error" type="text" matInput placeholder="Error">
+  </mat-form-field>
+
+  <mat-form-field class="mat-elevation-z5" appearance="fill" style="background-color: white; border-radius: 20px;">
+    
+    <input disabled class="okay" type="text" matInput placeholder="okay">
+  </mat-form-field>
+</div>
+
+
   <table class="mat-elevation-z5" style="width:70%; margin-left: 15%; background-color: whitesmoke;">
     <tr>
       <th>EMPLOYEE NAME</th>
@@ -48,5 +62,6 @@
   </table>
 
 </mat-card>
+<button mat-raised-button class="new-btn"><mat-icon>lock</mat-icon>New Button</button>
 
 
