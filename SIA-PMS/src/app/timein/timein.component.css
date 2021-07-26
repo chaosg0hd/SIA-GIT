@@ -4,19 +4,13 @@
   float: left;
   font-family: "digital";
   font-size: 50px;
-  margin-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  color: red;
-}
-.clock2{
-  float: right;
-  margin-right: 45%;
+  padding: 30px;
+  margin-left: 40%;
   border: 1px solid black; 
   border-radius: 5px;
   background-color: rgb(0, 0, 0);
+  color: red;
 }
-
 
 
 img {
