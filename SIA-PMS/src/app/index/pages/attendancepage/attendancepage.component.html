@@ -44,7 +44,7 @@
               <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort style="width:200vh;">
 
                 <ng-container matColumnDef="emp_name" sticky>
-                  <mat-header-cell *matHeaderCellDef>Employee First Name</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
                   <mat-cell class="" *matCellDef="let element">
                     <p>{{element.emp_firstname}}</p> &nbsp;
                     <p>{{element.emp_lastname}}</p>
@@ -58,6 +58,12 @@
                       <p>0</p>
                     </mat-cell>
                   </ng-container>
+                </ng-container>
+
+                <ng-container matColumnDef="total" stickyEnd>
+                  <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
+                  <mat-cell class="" *matCellDef="let element">
+                  </mat-cell>
                 </ng-container>
 
                 <!--Row Definitions-->

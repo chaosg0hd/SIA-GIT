@@ -40,6 +40,13 @@ mat-cell {
   justify-content: left;
 }
 
+.mat-column-total {
+  flex: 5% !important;
+  max-width: 50px;
+  background-color: #d1d4ce;
+  justify-content: center;
+}
+
 .attendance-cell {
   font-size: 14px;
 }

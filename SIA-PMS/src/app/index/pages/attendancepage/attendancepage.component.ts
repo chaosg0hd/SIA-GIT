@@ -33,11 +33,15 @@ export interface empTable {
 }
 
 export interface dtrTable {
-  dtr_no: any;
-  dtr_id: any;
+  emp_id: string;
+  emp_firstname: string;
+  emp_lastname: string;
+  emp_address: string;
+}
+
+export interface attendanceTable {
   emp_id: any;
-  dtr_content: JSON;
-  dtr_month_year: any;
+  attendanceJSON: JSON;
 }
 
 export interface dtrJSON {
@@ -72,13 +76,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getDate();
     this.getMonsArray();
-    ////this.getMonth()
-    //this.getFirstDayofThisMonth();
-    //this.getLastDayofThisMonth();
-    //this.getDaysArray(this.month);    
-    //this.pullAllAtt();
-    //this.notify();
-    //this.getMonsArray();
     this.pullAllEmp();
     this.buildTable();
   }
@@ -252,6 +249,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.attendanceColumns = [];
     this.attendanceColumns.push("emp_name");
     this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
+    this.attendanceColumns.push("total");
   }
 
   //  //Implement Dedicated Functions
