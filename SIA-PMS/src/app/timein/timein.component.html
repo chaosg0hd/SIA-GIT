@@ -1,15 +1,16 @@
 <mat-card class="dtrCard mat-elevation-z5">
   <br>
 
+    <p class="clock">{{time | date: 'h:mm:ss a'}}</p>
+    
   <div class="row">
     <div class="column">
-      <img src="./assets/faveIcon/cocodwlime.png">
+      <img src="./assets/faveIcon/cocrodwlime.png">
       <p class="dtrTitle">DAILY TIME RECORD</p>
     </div>
 
-
+      
     <div class="column2">
-      <p>{{time | date: 'h:mm:ss a'}}</p>
       <br><br><br>
       <mat-form-field appearance="outline">
         <mat-icon class="icon" matPrefix>person</mat-icon>
@@ -20,8 +21,11 @@
 
     </div>
   </div>
+</mat-card>
 
-  <table class="mat-elevation-z5" style="width:70%; margin-left: 15%;">
+  <mat-card class="dtrCard2 mat-elevation-z5">
+  <p class="sign">error or okay sign</p>
+  <table class="mat-elevation-z5" style="width:70%; margin-left: 15%; background-color: whitesmoke;">
     <tr>
       <th>EMPLOYEE NAME</th>
       <th>TIME IN</th>

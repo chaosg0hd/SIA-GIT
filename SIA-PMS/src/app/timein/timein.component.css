@@ -1,4 +1,18 @@
 
+
+.clock{
+  float: left;
+  font-family: "digital";
+  font-size: 50px;
+  padding: 30px;
+  margin-left: 40%;
+  border: 1px solid black; 
+  border-radius: 5px;
+  background-color: rgb(0, 0, 0);
+  color: red;
+}
+
+
 img {
     height: 150px;
     margin-bottom: -10px;
@@ -59,7 +73,16 @@ table, th{
     font-size: 28px;
     color: #787977;
   }
-
+.sign{
+  float: right;  
+  margin-right: 16%; 
+  margin-top: 10%; 
+  border: 1px solid black; 
+  border-radius: 5px;
+  padding: 20px; 
+  font-size: 25px;
+  background-color: whitesmoke;
+}
 
  
   
@@ -72,8 +95,16 @@ table, th{
   }
   
   .dtrCard {
-    width: 60%;
-    margin-left: 350px;
+    background-color: #bfba87 ;
+    width: 80%;
+    margin-left: 175px;
+    
+  }
+  .dtrCard2 {
+    background-color: whitesmoke ;
+    width: 80%;
+    height: 50%;
+    margin-left: 175px;
     
   }
   
@@ -145,10 +176,12 @@ table, th{
     float: left;
     width: 50%;
     padding-top: 70px;
+    margin-top: 30px;
   }
   
   .column2 {
     float: left;
+    margin-top: 55px;
     width: 50%;
     padding: 25px;
     text-align: center;
