@@ -46,7 +46,6 @@ export interface dtrJSON {
   ot_time_out: any;
   mhrs: number;
   remarks: string;
-
 }
 
 @Component({

@@ -1,54 +1,47 @@
-<mat-card class="dtrCard mat-elevation-z5"><br>
- 
-      <div class="row">
-          <div class="column">
-            <img src="./assets/faveIcon/cocodwlime.png">
-            <p class="dtrTitle">DAILY TIME RECORD</p>
-          </div>
-          
+<mat-card class="dtrCard mat-elevation-z5">
+  <br>
 
-          <div class="column2">
-              
-              <h1 id="time">{{myDate | date: 'h:mm a'}}</h1>
-              <br><br><br>
-              <mat-form-field appearance="outline">
-                  <mat-icon class="icon" matPrefix>person</mat-icon>
-              
-                  <input class="input" type="text" matInput placeholder="Employee ID here...">
-              </mat-form-field><br>
+  <div class="row">
+    <div class="column">
+      <img src="./assets/faveIcon/cocodwlime.png">
+      <p class="dtrTitle">DAILY TIME RECORD</p>
+    </div>
 
-      
-              <button mat-raised-button class="timein-btn" mat-raised-button ><mat-icon>alarm_add</mat-icon>TIME IN</button>
-              <button mat-raised-button class="timeout-btn" mat-raised-button ><mat-icon>alarm_minus</mat-icon>TIME OUT</button>
-              
-              
-          </div>
-      </div>
 
-      <table class="mat-elevation-z5" style="width:70%; margin-left: 15%;">
-        <tr>
-          <th>EMPLOYEE NAME</th>
-          <th>TIME IN</th> 
-          <th>TIME OUT</th> 
-        </tr>
-        <!--sample lang-->
-        <tr>
-          <td>SAMPLE</td>
-          <td>SAMPLE</td> 
-          <td>SAMPLE</td>
-          
-        </tr>
-        <tr>
-          <td>SAMPLE</td>
-          <td>SAMPLE</td> 
-          <td>SAMPLE</td>
-          
-        </tr>
-      </table>
-  
-      
+    <div class="column2">
+      <p>{{time | date: 'h:mm:ss a'}}</p>
+      <br><br><br>
+      <mat-form-field appearance="outline">
+        <mat-icon class="icon" matPrefix>person</mat-icon>
+        <input class="input" type="text" [(ngModel)]="emp_id" matInput placeholder="Employee ID here...">
+      </mat-form-field><br>
+      <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')"><mat-icon>alarm_add</mat-icon>TIME IN</button>
+      <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')"><mat-icon>alarm_minus</mat-icon>TIME OUT</button>
+
+    </div>
+  </div>
+
+  <table class="mat-elevation-z5" style="width:70%; margin-left: 15%;">
+    <tr>
+      <th>EMPLOYEE NAME</th>
+      <th>TIME IN</th>
+      <th>TIME OUT</th>
+    </tr>
+    <!--sample lang-->
+    <tr>
+      <td>SAMPLE</td>
+      <td>SAMPLE</td>
+      <td>SAMPLE</td>
+
+    </tr>
+    <tr>
+      <td>SAMPLE</td>
+      <td>SAMPLE</td>
+      <td>SAMPLE</td>
+
+    </tr>
+  </table>
 
 </mat-card>
 
-   
-  
+
