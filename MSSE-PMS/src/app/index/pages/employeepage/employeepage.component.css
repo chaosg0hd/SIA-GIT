@@ -1,0 +1,118 @@
+/*#spacing {
+  margin-top: 13px;
+}*/
+
+mat-cell {
+  font-size: 12px;
+  border: dotted 1px;
+  border-collapse: collapse !important;
+  border-color: grey;
+  text-align: left
+}
+
+mat-header-cell {
+  border: dotted 1px;
+  justify-content: left;
+}
+
+.mat-column-emp_firstname {
+  flex: 10% !important;
+  max-width: 160px;
+  background-color: #d1d4ce;
+}
+
+.mat-column-emp_lastname {
+  flex: 10% !important;
+  max-width: 160px;
+  background-color: #d1d4ce;
+}
+
+.mat-column-emp_no {
+  font-size: 12px;
+  max-width: 80px;
+}
+
+.mat-column-emp_id {
+  max-width: 80px;
+  font-size: 12px;
+}
+
+.mat-column-emp_status {
+  max-width: 150px;
+}
+
+.mat-column-emp_address {
+  flex: 15% !important;
+}
+
+.mat-column-emp_sex {
+  max-width: 60px;
+}
+
+.mat-column-emp_datebirth {
+  max-width: 200px;
+}
+
+.mat-column-emp_contact{
+  max-width: 200px;
+}
+
+.mat-column-emp_position {
+  max-width: 200px;
+}
+
+.mat-column-emp_department {
+  max-width: 200px;
+}
+
+.mat-column-emp_rate {
+  max-width: 120px;
+}
+
+.mat-column-emp_start_date {
+  max-width: 200px;
+}
+
+.mat-column-emp_time_in {
+  max-width: 100px;
+}
+
+.mat-column-emp_time_out {
+  max-width: 100px;
+}
+
+.mat-column-emp_last_mod_date {
+  max-width: 200px;
+}
+
+.mat-column-emp_last_mod_by {
+  max-width: 200px;
+}
+
+.mat-column-actions {
+  color: white;
+  
+  min-width: 300px;
+
+  max-width: 350px;
+  align-content: center;
+  justify-content: center;
+  background-color: #706e5a;
+}
+
+mat-form-field {
+  max-width: 70%;
+  max-height: 70%;
+}
+
+.mat-input-container.app-input-no-underline .mat-input-underline {
+  display: none !important;
+}
+
+.empManage{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar-buttons{
+  font-family: Arial, Helvetica, sans-serif;
+}

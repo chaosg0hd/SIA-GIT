@@ -15,12 +15,15 @@ import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.comp
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
 import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeepingpage.component';
+import { UserspageComponent } from './index/pages/userspage/userspage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
- /* { path: '', redirectTo: 'timein', pathMatch: 'full' },*/
+
   { path: 'timein', component: TimeinComponent },
+
   {
     path: 'home', component: IndexComponent, children:
       [
@@ -86,6 +89,12 @@ const routes: Routes = [
     path: 'master', component: IndexComponent,
     children: [
       { path: '', component: MasterpageComponent }
+    ]
+  },
+  {
+    path: 'users', component: IndexComponent,
+    children: [
+      { path: '', component: UserspageComponent }
     ]
   }
 

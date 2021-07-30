@@ -1,0 +1,24 @@
+.DTR-card > table, tr, th, td {
+  border: 1px solid;
+  padding: 8px;
+}
+
+table {
+  border: 1px solid;
+  padding: 8px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  text-align: left;
+}
+.timeManage{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar-buttons{
+  font-family: Arial, Helvetica, sans-serif;
+}

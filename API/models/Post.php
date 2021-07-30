@@ -29,6 +29,8 @@ class Post{
     }
 
     public function delEmp($d) {
+      
+      $code = 0;
       $data = $d;
       $emp_id = $data->emp_id;
       $res = $this->gm->delete('employees_tb', $data, "emp_id = '$emp_id'");

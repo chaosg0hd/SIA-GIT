@@ -19,6 +19,18 @@
 
 			switch($req[0]) {
 
+		// System Settings
+
+			case 'pullAllSettings':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo $d;
+			if(count($req)>1) {                       
+						echo json_encode($get->pullAllSettings($d), JSON_PRETTY_PRINT);
+					} else {
+						echo json_encode($get->pullAllSettings($d), JSON_PRETTY_PRINT);
+					}
+				break;
+
       // User and Auth Operations
 
         case 'pullAllUser':
@@ -168,6 +180,18 @@
 						echo json_encode($get->pullAllWage($d), JSON_PRETTY_PRINT);
 					}
 				break;
+
+		// System Settings
+
+		case 'pullAllAP':
+				$d = json_decode(base64_decode(file_get_contents("php://input")));
+				echo $d;
+		if(count($req)>1) {                       
+					echo json_encode($get->pullAllAP($d), JSON_PRETTY_PRINT);
+				} else {
+					echo json_encode($get->pullAllAP($d), JSON_PRETTY_PRINT);
+				}
+			break;
 
 		//Dump Operations
 

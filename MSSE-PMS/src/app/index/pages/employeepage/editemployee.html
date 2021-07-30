@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Edit Employee</h1>
+<mat-divider></mat-divider>
+<mat-card>
+  <mat-card-title>
+    <p>
+      This is a title
+    </p>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <p>
+      This is a subtitle
+    </p>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+      <p>{{data.emp_name}}</p>
+      <!--<mat-form-field>
+        <mat-label>Employee ID</mat-label>
+        <input matInput [(ngModel)]="data.emp_id" placeholder="{{data.emp_id}}">
+      </mat-form-field>-->
+      <mat-form-field>
+        <mat-label>Employee Name</mat-label>
+        <input matInput [(ngModel)]="data.emp_name" placeholder="{{data.emp_name}}">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Employee Position</mat-label>
+        <input matInput [(ngModel)]="data.emp_position" placeholder="{{data.emp_position}}">
+      </mat-form-field>
+      <mat-form-field>
+        <!--Fix Fucking Label-->
+        <mat-label>Date Joined </mat-label>
+        <input type="date" matInput [(ngModel)]="data.emp_start_date" placeholder="{{data.emp_start_date | date: 'yyyy-MM-dd'}}">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Employee Status</mat-label>
+        <input matInput [(ngModel)]="data.emp_status" placeholder="{{data.emp_status}}">
+      </mat-form-field>
+    </mat-dialog-content>
+  </mat-card-content>
+</mat-card>
+
+<mat-dialog-actions>
+  <button style="background-color:#4A5D23; color: white;" mat-button (click)="onNoClick()">Cancel</button>
+  <button style="background-color:#4A5D23; color: white;" mat-button [mat-dialog-close]="data">Ok</button>
+</mat-dialog-actions>
+
