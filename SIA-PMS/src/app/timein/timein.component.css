@@ -71,15 +71,14 @@ table, th{
     font-size: 28px;
     color: #787977;
   }
-.sign{
-  float: right;  
-  margin-right: 16%; 
-  margin-top: 10%; 
-  border: 1px solid black; 
-  border-radius: 5px;
-  padding: 20px; 
-  font-size: 25px;
-  background-color: whitesmoke;
+.okay{
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.error{
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
 }
 
  
@@ -163,6 +162,16 @@ table, th{
     font-size: 16px;
     margin-left: 20px;
   }
+  .new-btn {
+    background-color: rgb(196, 195, 195);
+    font-family:  Arial, Helvetica, sans-serif;
+    color: gray;
+    border-radius: 25px;
+    width: 10%;
+    height: 45px;
+    font-size: 16px;
+    margin-left: 20px;
+  }
 
   * {
     box-sizing: border-box;
@@ -179,6 +188,13 @@ table, th{
   
   .column2 {
     float: left;
+    margin-top: 55px;
+    width: 50%;
+    padding: 25px;
+    text-align: center;
+  }
+  .column3 {
+    float: right;
     margin-top: 55px;
     width: 50%;
     padding: 25px;
