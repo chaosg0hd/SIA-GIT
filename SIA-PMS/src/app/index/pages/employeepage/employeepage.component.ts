@@ -87,7 +87,7 @@ export class EmployeepageComponent implements OnInit{
 
   empInfoTable: empTable[] = [];
   empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
-  empInfoTableLastNo: any
+  empInfoTableLastNo: any;
 
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {

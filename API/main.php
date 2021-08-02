@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require_once("./config/Config.php");
 
 	$db = new Connection();
@@ -15,7 +15,7 @@
 	}
 
 	switch($_SERVER['REQUEST_METHOD']) {
-		case 'POST':			
+		case 'POST':
 
 			switch($req[0]) {
 
@@ -24,7 +24,7 @@
 			case 'pullAllSettings':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-			if(count($req)>1) {                       
+			if(count($req)>1) {
 						echo json_encode($get->pullAllSettings($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllSettings($d), JSON_PRETTY_PRINT);
@@ -35,7 +35,7 @@
 
         case 'pullAllUser':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllUser($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllUser($d), JSON_PRETTY_PRINT);
@@ -44,7 +44,7 @@
 
 				case 'pullSpecUser':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullSpecUser($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullSpecUser($d), JSON_PRETTY_PRINT);
@@ -81,7 +81,7 @@
         case 'pullAllEmp':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllEmp($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllEmp($d), JSON_PRETTY_PRINT);
@@ -91,12 +91,12 @@
         case 'pullSpecEmp':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullSpecEmp($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullSpecEmp($d), JSON_PRETTY_PRINT);
 					}
-				break;  
+				break;
 
 		case 'editEmp':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
@@ -123,7 +123,7 @@
 		case 'pullAllDTR':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllDTR($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllDTR($d), JSON_PRETTY_PRINT);
@@ -133,12 +133,12 @@
 		case 'pullSpecDTR':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullSpecDTR($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullSpecDTR($d), JSON_PRETTY_PRINT);
 					}
-				break;  
+				break;
 
 		case 'addDTR':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
@@ -162,7 +162,7 @@
 		case 'pullAllAtt':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllAtt($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllAtt($d), JSON_PRETTY_PRINT);
@@ -174,7 +174,7 @@
 		case 'pullAllWage':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllWage($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllWage($d), JSON_PRETTY_PRINT);
@@ -186,7 +186,7 @@
 		case 'pullAllAP':
 				$d = json_decode(base64_decode(file_get_contents("php://input")));
 				echo $d;
-		if(count($req)>1) {                       
+		if(count($req)>1) {
 					echo json_encode($get->pullAllAP($d), JSON_PRETTY_PRINT);
 				} else {
 					echo json_encode($get->pullAllAP($d), JSON_PRETTY_PRINT);
@@ -198,7 +198,7 @@
 		case 'cumDump':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($gm->cumDump($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($gm->cumDump($d), JSON_PRETTY_PRINT);
@@ -206,11 +206,11 @@
 				break;
 
 		//CHEATSHEET
-				
+
 		case 'pullAllAdd':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullAllEmp($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullAllEmp($d), JSON_PRETTY_PRINT);
@@ -220,12 +220,12 @@
         case 'pullSpecAdd':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo $d;
-            if(count($req)>1) {                       
+            if(count($req)>1) {
 						echo json_encode($get->pullSpecEmp($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullSpecEmp($d), JSON_PRETTY_PRINT);
 					}
-				break; 
+				break;
 
         case 'addReq':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
@@ -246,7 +246,7 @@
 
         case 'pullCom':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
-          if(count($req)>1) {                       
+          if(count($req)>1) {
 						echo json_encode($get->pullCom($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullCom($d), JSON_PRETTY_PRINT);
@@ -268,30 +268,30 @@
 					echo json_encode($post->editCom($d), JSON_PRETTY_PRINT);
 				break;
 
-				// TO BE REMOVED      
+				// TO BE REMOVED
 
 		case 'reqs':
 			$d = json_decode(base64_decode(file_get_contents("php://input")));
 			if(count($req)>1) {
-						   
+
 				echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
 			} else {
 				echo json_encode($get->pullReqs($d), JSON_PRETTY_PRINT);
-			}	
+			}
 		break;
 
         case 'reqt':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					if(count($req)>1) {
-						   
+
 						echo json_encode($get->pullReqt($d), JSON_PRETTY_PRINT);
 					} else {
 						echo json_encode($get->pullReqt($d), JSON_PRETTY_PRINT);
-					}	
+					}
 				break;
 
-        // TO BE REMOVED 
-				
+        // TO BE REMOVED
+
 			}
 		break;
 

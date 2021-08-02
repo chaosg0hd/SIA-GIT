@@ -116,8 +116,6 @@ class Post{
       return $this->gm->sendPayload($payload, $remarks, $message, $code);
     }
 
-
-
     //CHEATSHEETS
 
     public function addReq($data) {
