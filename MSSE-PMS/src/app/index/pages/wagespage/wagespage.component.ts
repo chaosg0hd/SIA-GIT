@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ElementRef, Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe, Time } from '@angular/common';
 import { LowerCasePipe } from '@angular/common';
-
+import jspdf from 'jspdf';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 import { RouterModule } from '@angular/router';
+import html2canvas from 'html2canvas';
 
 
 export interface empTable {
@@ -64,6 +65,17 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private datepipe: DatePipe, private noti: MatSnackBar, public lowercasepipe: LowerCasePipe, private data: DataService, private router: RouterModule) { }
+
+  @ViewChild('content', { static: false }) es!: ElementRef;
+
+  downloadPDF() {
+    let pdf = new jspdf('l', 'px', 'a2');
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("dtr.pdf");
+      }
+    });
+  }  
 
   ngOnInit(): void {
     this.getDate();

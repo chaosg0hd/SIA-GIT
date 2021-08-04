@@ -67,6 +67,17 @@ export interface dtrJSON {
 export class AttendancepageComponent implements OnInit, AfterViewInit {
 
 
+  @ViewChild('content', { static: false }) es!: ElementRef;
+
+  downloadPDF() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("employees.pdf");
+      }
+    });
+  }  
+  
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  

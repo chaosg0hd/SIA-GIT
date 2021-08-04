@@ -29,7 +29,7 @@
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
       </mat-menu>
-      <button mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
+      <button (click)="downloadPDF()" mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
     </mat-toolbar>
   </mat-card-title>
   <mat-card-content style="height: 75vh !important">
@@ -37,7 +37,7 @@
     <div class="div-container mat-elevation-z4" style="width: 100% !important">
 
       <!--<p> {{currentDate}} </p>
-      <p> {{month}} </p>
+      <p> {{month}} </p> 
       <p> {{monthinNum}} </p>
       <p> {{year}} </p>
       <p> {{month_year}} </p>
@@ -57,13 +57,14 @@
           <mat-tab label="{{empInfoTable.emp_no}}: {{empInfoTable.emp_id}} {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" matTooltip="{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}" >
 
             <ng-template matTabContent>
-              <mat-card style="width: 70%; height: auto; margin: 0 auto; padding-top: 40px !important; padding-bottom: 40px !important;">
+              
+              <mat-card style="width: 90%; height: auto; margin: 0 auto; padding-top: 40px !important; padding-bottom: 40px !important;">
                 <mat-card-title>
                   <br />
                   <div>
-                    <p>{{empInfoTable.emp_id}} {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</p>
-                    <p style="font-size: xx-small">DTR ID : {{activeEmp}}_{{month_year}}</p>
-                    <button mat-raised-button style="background-color: darkred; color: white" matTooltip="Delete DTR"><mat-icon>delete</mat-icon>&nbsp; Delete DTR</button><br />
+                    <p>{{empInfoTable.emp_id}} {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}
+                      (DTR ID : {{activeEmp}}_{{month_year}})
+                    <button mat-raised-button style="background-color: darkred; color: white" matTooltip="Delete DTR"><mat-icon>delete</mat-icon>&nbsp; DELETE</button><br/></p>
                   </div>
 
                 </mat-card-title>
@@ -73,29 +74,46 @@
                   <ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
                     <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_no+'_'+month_year;">
 
-                      <mat-grid-list cols="2" rowHeight="900">
+                      <div id="content" #content>
+                      <mat-grid-list cols="2" rowHeight="1300">
 
                         <mat-grid-tile>
 
                           <mat-card style="width: 90%; height: 100%; align-items:center">
                             <div class="content" #content>
-                              <table id="table" class="">
+                              <table id="table" class="wew">
                                 <tr>
                                   <th>Employee ID: {{empInfoTable.emp_id}}</th>
-                                  <th>Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
-                                </tr>
-                                <tr>
-                                  <th>Gender: {{empInfoTable.emp_sex}}</th>
-                                  <th>Department: {{empInfoTable.emp_department}}</th>
+                                  <th>Employee Name: <br>{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
                                 </tr>
                               </table>
                               <table class="">
                                 <tr>
-                                  <th style="width:41%">Position: {{empInfoTable.emp_position}}</th>
+                                  <th>Gender: {{empInfoTable.emp_sex}}</th>
+                                  <th>Department: {{empInfoTable.emp_department}}</th>
+                                  <th>Contact No.: <br>{{empInfoTable.emp_contact}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                                  <th style="width:35%">Address: {{empInfoTable.emp_address}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                                  <th style="width:15%">Position: {{empInfoTable.emp_position}}</th>
+                                  <th style="width:14%">Date of Birth: <br>{{empInfoTable.emp_datebirth}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                      
                                   <th style="width:14%">Time In: {{empInfoTable.emp_time_in}}</th>
                                   <th style="width:14%">Time Out: {{empInfoTable.emp_time_out}}</th>
                                 </tr>
                               </table>
+                    
+                              <div class="table1">
                               <table class="">
                                 <tr>
                                   <th>Date</th>
@@ -112,7 +130,7 @@
                                   <th style="width:14%">Out</th>
                                   <!--<th style="width:14%">In</th>
                                   <th style="width:14%">Out</th>-->
-                                  <th style="width:16%">Hours</th>
+                                  <th style="width:14%">Hours</th>
                                   <th style="width:14%">Remarks</th>
                                 </tr>
                                 <!--Loop de loop-->
@@ -163,30 +181,48 @@
                                   </tr>
                                 </ng-container>
                               </table>
+                              </div>
                             </div>
                           </mat-card>
+                          
                         </mat-grid-tile>
 
+                        
                         <mat-grid-tile>
                           <mat-card style="width: 90%; height: 100%; align-items:center">
                             <div class="content" #content>
-                              <table id="table" class="">
+                              <table id="table" class="wew">
                                 <tr>
                                   <th>Employee ID: {{empInfoTable.emp_id}}</th>
-                                  <th>Employee Name: {{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
-                                </tr>
-                                <tr>
-                                  <th>Gender: {{empInfoTable.emp_sex}}</th>
-                                  <th>Department: {{empInfoTable.emp_department}}</th>
+                                  <th>Employee Name: <br>{{empInfoTable.emp_firstname}} {{empInfoTable.emp_lastname}}</th>
                                 </tr>
                               </table>
                               <table class="">
                                 <tr>
-                                  <th style="width:41%">Position: {{empInfoTable.emp_position}}</th>
+                                  <th>Gender: {{empInfoTable.emp_sex}}</th>
+                                  <th>Department: {{empInfoTable.emp_department}}</th>
+                                  <th>Contact No.: <br>{{empInfoTable.emp_contact}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                                  <th style="width:35%">Address: {{empInfoTable.emp_address}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                                  <th style="width:15%">Position: {{empInfoTable.emp_position}}</th>
+                                  <th style="width:14%">Date of Birth: <br>{{empInfoTable.emp_datebirth}}</th>
+                                </tr>
+                              </table>
+                              <table class="">
+                                <tr>
+                      
                                   <th style="width:14%">Time In: {{empInfoTable.emp_time_in}}</th>
                                   <th style="width:14%">Time Out: {{empInfoTable.emp_time_out}}</th>
                                 </tr>
                               </table>
+                              
                               <table class="">
                                 <tr>
                                   <th>Date</th>
@@ -257,7 +293,9 @@
                             </div>
                           </mat-card>
                         </mat-grid-tile>
+                     
                       </mat-grid-list>
+                    </div>
                     </ng-container>
                   </ng-container>
 

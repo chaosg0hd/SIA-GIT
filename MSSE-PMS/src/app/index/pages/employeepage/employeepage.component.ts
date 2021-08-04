@@ -53,6 +53,17 @@ export class EmployeepageComponent implements OnInit{
 
   //View Child Goes Here
 
+  @ViewChild('content', { static: false }) es!: ElementRef;
+
+  downloadPDF() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("employees.pdf");
+      }
+    });
+  }  
+  
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

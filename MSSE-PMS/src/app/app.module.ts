@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxPrintModule } from 'ngx-print';
 
 //App Modules
 
@@ -120,7 +121,7 @@ import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeep
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-
+    NgxPrintModule,
     HttpClientModule,
 
     FontAwesomeModule,

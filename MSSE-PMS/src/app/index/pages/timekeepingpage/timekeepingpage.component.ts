@@ -73,6 +73,15 @@ export class TimekeepingpageComponent implements OnInit {
 
   @ViewChild('content', { static: false }) es!: ElementRef;
 
+  downloadPDF() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("timekeeping.pdf");
+      }
+    });
+  }  
+
   //ngLifeCycle Goes Here
 
   ngOnInit(): void {
