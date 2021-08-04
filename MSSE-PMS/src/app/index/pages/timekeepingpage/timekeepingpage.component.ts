@@ -35,7 +35,7 @@ export interface empTable {
 export interface dtrTable {
   dtr_no: any;
   dtr_id: any;
-  emp_id: any;
+  emp_no: any;
   dtr_content: dtrJSON [];
   dtr_month_year: any;
 }
