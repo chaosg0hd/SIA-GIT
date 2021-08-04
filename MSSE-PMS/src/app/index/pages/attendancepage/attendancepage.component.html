@@ -44,7 +44,7 @@
                 <div class="content" #content>
                 <ng-container matColumnDef="emp_name" sticky>
                   <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
-                  <mat-cell class="" *matCellDef="let element">
+                  <mat-cell class="" *matCellDef="let element" matTooltip="{{element.emp_firstname}} {{element.emp_lastname}}">
                     <p>{{element.emp_firstname}}</p> &nbsp;
                     <p>{{element.emp_lastname}}</p>
                   </mat-cell>
@@ -54,7 +54,7 @@
                 <ng-container *ngFor="let dayArray of dayArray">
                   <ng-container matColumnDef="{{dayArray}}">
                     <mat-header-cell style="justify-content:center" *matHeaderCellDef>{{dayArray | date : 'EE'}}<br />{{dayArray | date : 'MMM d'}}</mat-header-cell>
-                    <mat-cell class="attendance-cell" *matCellDef="let element" [style.background-color]="getHours(element.emp_no, dayArray) < 0 ? 'red' : null || getHours(element.emp_no, dayArray) > 12 ? 'green' : null">
+                    <mat-cell class="attendance-cell" *matCellDef="let element" [style.background-color]="getHours(element.emp_no, dayArray) < 0 ? 'red' : null || getHours(element.emp_no, dayArray) > 12 ? 'green' : null" matTooltip={{element.emp_firstname}}>
 
                       {{addtoTotal(getHours(element.emp_no, dayArray))}}
                       <p>{{getHours(element.emp_no, dayArray)}}</p>

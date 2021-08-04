@@ -439,16 +439,11 @@ export class TimekeepingpageComponent implements OnInit {
       minute = 0;
     }
 
-    //if (is_am == 'pm') {
-    //  hour = hour - 12;
-    //}
-
     hour = hour + minute;
     return (hour);
   }
 
   computehrs(dtr_id: any, date: any, mhrs: any) {
-
 
     var am_total = this.gethour(this.am_time_out, 'am') - this.gethour(this.am_time_in, 'am'); 
     this.am_time_in = 0;
@@ -457,11 +452,6 @@ export class TimekeepingpageComponent implements OnInit {
     var pm_total = this.gethour(this.pm_time_out, 'pm') - this.gethour(this.pm_time_in, 'pm');
     this.pm_time_in = 0;
     this.pm_time_out = 0;
-
-    //var ot_total = this.gethour(this.ot_time_out, 'ot') - this.gethour(this.ot_time_in, 'ot');
-    //this.ot_time_in = 0;
-    //this.ot_time_out = 0;
-
 
     if (am_total != am_total) {
       am_total = 0;

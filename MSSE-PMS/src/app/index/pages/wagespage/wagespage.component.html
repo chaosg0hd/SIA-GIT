@@ -81,10 +81,10 @@
                 <ng-container *ngFor="let dayArray of dayArray">
                   <ng-container matColumnDef="{{dayArray}}">
                     <mat-header-cell class="attendance-cell" style="justify-content:center" *matHeaderCellDef>{{dayArray | date : 'EE'}}<br />{{dayArray | date : 'MMM d'}}</mat-header-cell>
-                    <mat-cell class="attendance-cell" *matCellDef="let element" [style.background-color]="getHours(element.emp_id, dayArray) < 0 ? 'red' : null || getHours(element.emp_id, dayArray) > 12 ? 'green' : null">
+                    <mat-cell class="attendance-cell" *matCellDef="let element" [style.background-color]="getHours(element.emp_no, dayArray) < 0 ? 'red' : null || getHours(element.emp_no, dayArray) > 12 ? 'green' : null">
 
-                      {{addtoTotal(getHours(element.emp_id, dayArray))}}
-                      <p>{{getHours(element.emp_id, dayArray)}}</p>
+                      {{addtoTotal(getWage(getHours(element.emp_no, dayArray), element.emp_rate))}}
+                      <p>{{getWage(getHours(element.emp_no, dayArray), element.emp_rate)}}</p>
                     </mat-cell>
                   </ng-container>
                 </ng-container>

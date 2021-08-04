@@ -2,36 +2,40 @@ import { AfterViewInit, ElementRef, Component, OnInit, ViewChild } from '@angula
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe, Time } from '@angular/common';
 import { LowerCasePipe } from '@angular/common';
-import jspdf from 'jspdf';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { RouterModule } from '@angular/router';
+import jspdf from 'jspdf';
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-
 export interface empTable {
-  emp_id: string;
-  emp_firstname: string;
-  emp_lastname: string;
-  emp_rate: number;
+  emp_no: any;
+  emp_id: any;
+  emp_firstname: any;
+  emp_lastname: any;
+  emp_address: any;
+  emp_datebirth: any;
+  emp_contact: any;
+  emp_time_in: any;
+  emp_time_out: any;
+  emp_department: any;
+  emp_is_archived: any;
+  emp_sex: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
+  emp_last_mod_date: any;
+  emp_last_mod_by: any;
   emp_attendance: attendanceTable[];
-
-}
-
-export interface aPTable {
-  ap_no: string;
-  ap_name: string;
-  ap_arguments: string;
 }
 
 export interface dtrTable {
   dtr_no: any;
   dtr_id: any;
-  emp_id: any;
+  emp_no: any;
   dtr_content: dtrJSON[];
   dtr_month_year: any;
 }
@@ -52,6 +56,14 @@ export interface dtrJSON {
   mhrs: number;
   remarks: string;
 }
+
+export interface aPTable {
+  ap_no: string;
+  ap_name: string;
+  ap_arguments: string;
+}
+
+
 
 @Component({
   selector: 'app-wagespage',
@@ -78,11 +90,11 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   }  
 
   ngOnInit(): void {
-    this.getDate();
-    this.getMonsArray();
+    this.loadDate();
     this.pullAllEmp();
-    this.buildTable();
     this.pullAllDTR();
+    this.dateIndex = this.monthinNum;
+    this.buildTable();
     
   }
 
@@ -91,7 +103,13 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     //this.empInfoTableDataSource.sort = this.sort;
   }
 
-  //Set Date Functions
+  loadDate() {
+    this.getDate();
+    this.getMonths();
+    this.getDaysArray(this.monthinNum);
+  }
+
+  //Sets Date Variables
 
   currentDate: any;
   month: any;
@@ -101,35 +119,57 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   month_year: any;
   dateIndex: any;
 
-  //Sets Date Variables
-
   getDate() {
 
     //Sets Date
     this.currentDate = new Date(this.data.getDate());
     console.log(this.currentDate + " From DTR Page: Method getDate");
-    //Sets Month and MonthYear Var
+    //Sets Month and MonthYear Varables
+    //gets month in natural number form
     this.monthinNum = this.data.getMonthinNum();
+    //gets month in text form
     this.month = this.data.getMonth();
-    console.log(this.month + " From DTR Page: Method getDate ++++++++++++++++++");
     this.monthintText = this.lowercasepipe.transform(this.month);
-    console.log(this.monthintText + " From DTR Page: Method getDate");
+    //gets year
     this.year = this.data.getYear();
+    //generates monthyear needed in dtr id
     this.month_year = this.monthintText + '_' + this.year;
-    console.log(this.month_year + " From DTR Page: Method getDate");
-    //Generate Days
-    this.getDaysArray(this.monthinNum);
-    //Sets Tab Index
-    this.dateIndex = this.monthinNum;
   }
 
+  //Generate Months Array
+  monthsArray: any;
+  getMonths() {
+    this.monthsArray = this.data.generateMonsArray();
+    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
+  }
 
-  ////Generate Days Array
-  //dayArray: any;
-  //getDaysArray(month: number) {
-  //  this.dayArray = this.data.generateDaysArray(month);
-  //  console.log(this.dayArray + 'From DTR Page: Method getDayArray');
-  //}
+  //Generate Days Array
+  dayArray: any;
+  getDaysArray(month: number) {
+    this.dayArray = this.data.generateDaysArray(month);
+    console.log(this.dayArray + 'From DTR Page: Method getDayArray');
+  }
+
+  //High Tab
+  hightabClick(event: any) {
+
+    // !!! Has one vulnelrabillity still not sure where
+
+    var string = event.tab.textLabel;
+    //sets month_year needed by dtr card
+    string = string.split(':');
+    var month = string[0].replace(/^\s+|\s+$/g, "");
+    this.month = month;
+    //changes active month
+    this.monthintText = this.lowercasepipe.transform(this.month);
+    console.log(this.monthintText + " From DTR Page: Method hightabClick");
+    this.month_year = this.monthintText + '_' + this.year;
+    console.log(this.month_year + " From DTR Page: Method hightabClick +++++++++++++++++++++++++");
+    //reload arrays of Days
+    this.getDaysArray(this.monthinNum);
+    //pull dtr not sure why
+    this.pullAllDTR();
+  }
 
   changeStartDay(event: any) {
 
@@ -151,14 +191,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   startDay: any = '1';
   endDay: any;
-
-  //Generate   Days Array
-  dayArray: any;
-  getDaysArray(month: number) {
-    this.dayArray = this.data.generateDaysArray(month);
-    console.log(this.dayArray + 'From DTR Page: Method getDayArray');
-    this.endDay = this.dayArray.length
-  }
+  
 
   //Generate Limited Days Array
   getLimitedDaysArray(month: number) {
@@ -166,38 +199,8 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     console.log(this.dayArray + 'From DTR Page: Method getLimitedDaysArray');
     this.buildTable();
 
-  }
+  }  
   
-  //Generate Months Array
-  monthsArray: any;
-  getMonsArray() {
-    this.monthsArray = this.data.generateMonsArray();
-    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
-  }
-
-
-
-  hightabClick(event: any) {
-
-    //Big Buttons Sa taas
-    var string = event.tab.textLabel;
-    string = string.split(':');
-    var month = string[0].replace(/^\s+|\s+$/g, "");
-    console.log(month + 'From DTR Page: Method hightabClick');
-    this.month = month;
-    console.log(this.month + " From DTR Page: Method hightabClick");
-    this.monthinNum = event.index
-    console.log(this.monthinNum + " From DTR Page: Method hightabClick");
-    this.monthintText = this.lowercasepipe.transform(this.month);
-    console.log(this.monthintText + " From DTR Page: Method hightabClick");
-    this.month_year = this.monthintText + '_' + this.year;
-    console.log(this.month_year + " From DTR Page: Method hightabClick +++++++++++++++++++++++++");
-
-    this.dateIndex = this.monthinNum;
-    this.getDaysArray(this.monthinNum);
-    this.buildTable();
-    /*this.pullAllDTR();*/
-  }
 
   empInfoTable: empTable[] = [];
   dtrInfoTable: dtrTable[] = [];
@@ -232,12 +235,9 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   //COMMENTS HERE ARE SOOO LONG
 
-  getHours(emp_id: any, date: any) {
-    //console.log(emp_id);
-    //console.log(date);
+  getHours(emp_no: any, date: any) {
     for (let dtrInfoTable of this.dtrInfoTable) {
-      if (dtrInfoTable.emp_id === emp_id) {
-        /*console.log('Match Found')*/
+      if (dtrInfoTable.emp_no == emp_no) {
         var attendanceDate: Date;
         var attendanceHour: number;
 
@@ -245,43 +245,25 @@ export class WagespageComponent implements OnInit, AfterViewInit {
           attendanceDate = dtrContent.date
           attendanceHour = dtrContent.mhrs
           if (attendanceDate === date) {
-            //console.log('Match Found--------------------------------')
-            //console.log(attendanceDate)
-            //console.log(attendanceHour)
-
             if (attendanceHour < 0) {
               attendanceHour = -1
             }
-
             return <any>(attendanceHour)
           }
-
         }
         ; break
       }
     }
   }
 
-  //consolelog(string: any) {
-  //  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  //  console.log(string)
-  //}
-
-
-  //tabClick(event: any) {
-  //  console.log(event + "From Attendance Page: tabClick")
-  //  this.getDaysArray(event.index);
-
-  //}
-
-  ////Time Methods
-  //date: any;
-  //month!: number;
-
-  ////To be Deleted
-  //monthNumbertoText(monthNumber: number) {
-
-  //}
+  getWage(hours: any, rate: any) {
+    var wage;
+    wage = hours * rate;
+    if (wage < 0) {
+      wage = 0;
+    }
+    return <any>(wage);
+  }
 
   ////Filter 
 
@@ -289,42 +271,6 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.empInfoTableDataSource.filter = filterValue;
   }
-
-  ////Get Current Date
-  //currentDate: any;
-  //getDate() {
-  //  //Sets Date
-  //  this.currentDate = this.data.getDate();
-  //  this.month = Number( this.datepipe.transform(this.currentDate, 'MM'));
-  //  //Sets Month
-  //  this.month = this.month - 1;
-  //  console.log(this.month + "From Attendance Page: Method getDate")
-  //}
-
-
-  ////These 2 are useless really, 
-  ////Get First Date
-  //firstDay: any;
-  //getFirstDayofThisMonth() {
-  //  var month
-  //  this.date = new Date();
-  //  month = this.date.getMonth();
-  //  this.firstDay = this.data.getFirstDayofMonth(month);
-  //}
-  ////Get Last Date
-  //lastDay: any;
-  //getLastDayofThisMonth() {
-  //  var month
-  //  this.date = new Date();
-  //  month = this.date.getMonth();
-  //  this.lastDay = this.data.getLastDayofMonth(month);
-  //}
-  ////Generate Days Array
-  //dayArray: string[] = [];
-
-  //getDaysArray(month: number) {
-  //  this.dayArray = this.data.generateDaysArray(month);
-  //  console.log(this.dayArray + 'From Attendance Page: Method getDayArray');
 
 
 
@@ -360,27 +306,6 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     this.attendanceColumns.push("total_wage");
   }
 
-  //  //Implement Dedicated Functions
-  //  this.attendanceColumns = [];
-
-  //  //add First Columns
-  //  this.attendanceColumns.push("emp_name");
-  //  //add Days columns    
-  //  this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
-  //  //add End Columns
-  //  this.attendanceColumns.push("total");
-  //  //Reload Emp
-  //  this.pullAllEmp();
-  //  console.log(this.attendanceColumns + 'From Attendance Page: Method getDayArray');
-  //}
-
-  ////Generate Mons Array
-  //monthsArray: string[] = [];
-
-  //getMonsArray() {
-  //  this.monthsArray = this.data.generateMonsArray();
-  //  console.log(this.monthsArray + 'From Attendance Page: Method generateMonsArray');    
-  //}
 
   //Pull Emp Data
   pullAllEmp() {
@@ -394,6 +319,8 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
 
   //Calculations
+
+
 
   currentTotal: number = 0;
 
