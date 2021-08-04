@@ -1,7 +1,12 @@
-
+.cont {
+  padding-top: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
 .clock {
-  
   font-family: "digital";
   font-size: 100px;
   padding: 30px;
@@ -10,201 +15,191 @@
   color: white;
 }
 
-
 img {
-    height: 150px;
-    margin-bottom: -10px;
-  }
-
-.title{
-    font-size: 50px;
-    margin-top: 20px;
-    margin-right: 17%;
+  height: 150px;
+  margin-bottom: -10px;
 }
 
-#inputname{
-    margin-right: 10px;
-    width: 200px;
-    height: 50px;
-    font-size: 25px;
-    border-radius: 8px;
+.title {
+  font-size: 50px;
+  margin-top: 20px;
+  margin-right: 17%;
 }
 
-#time{
-    align-self: center;
-    margin-top: 5%;
-    font-size: 100px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+#inputname {
+  margin-right: 10px;
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 8px;
 }
 
+#time {
+  align-self: center;
+  margin-top: 5%;
+  font-size: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-table, th{
-    margin-top: 1%;
-    border: 2px solid #8b8989;
-    border-collapse: collapse;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bolder;
-  }
+table,
+th {
+  margin-top: 1%;
+  border: 2px solid #8b8989;
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+}
 
-  td{
-    margin-top: 1%;
-    border: 2px solid #8b8989;
-    border-collapse: collapse;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-  }
+td {
+  margin-top: 1%;
+  border: 2px solid #8b8989;
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
 
-    
-  #text1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    color: #787977;
-  }
-  
-  #text2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    font-size: 28px;
-    color: #787977;
-  }
-.okay{
+#text1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: #787977;
+}
+
+#text2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 28px;
+  color: #787977;
+}
+.okay {
   font-size: 20px;
   font-family: "Poppins", sans-serif;
 }
 
-.error{
+.error {
   font-size: 20px;
   font-family: "Poppins", sans-serif;
 }
 
- 
-  
-  h2 {
-    font-family: "Poppins", sans-serif;
-    font-weight: bold;
-    font-size: 25px;
-    color: #367655;
-    margin-bottom: 5%;
-  }
-  
-  .dtrCard {
-    background-color: #bfba87 ;
-    width: 80%;
-    margin-left: 175px;
-    
-  }
-  .dtrCard2 {
-    background-color: whitesmoke ;
-    width: 80%;
-    height: 50%;
-    margin-left: 175px;
-    
-  }
-  
-  .dtrTitle {
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    color: #367655;
-    font-size: 30px;
-  }
-  
-  .logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    height: 34%;
-    margin-top: 15%;
-  }
-  
-  .icon {
-    font-size: 24px;
-  }
-  
-  .input {
-    font-size: 20px;
-    margin-left: 7%;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  mat-form-field {
-    width: 60%;
-  }
-  
-  p {
-    font-size: 16px;
-  }
-  
-  
-  
-  .timein-btn {
-    background-color: #367655;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    border-radius: 25px;
-    width: 27%;
-    height: 45px;
-    font-size: 16px;
-  }
-  
-   
-  .timeout-btn {
-    background-color: #367655;
-    font-family:  Arial, Helvetica, sans-serif;
-    color: white;
-    border-radius: 25px;
-    width: 27%;
-    height: 45px;
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  .new-btn {
-    background-color: rgb(196, 195, 195);
-    font-family:  Arial, Helvetica, sans-serif;
-    color: gray;
-    border-radius: 25px;
-    width: 10%;
-    height: 45px;
-    font-size: 16px;
-    margin-left: 20px;
-  }
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  color: #367655;
+  margin-bottom: 5%;
+}
 
-  * {
-    box-sizing: border-box;
-  }
-  
-  /* Create two equal columns that floats next to each other */
-  
-  .column {
-    float: left;
-    width: 50%;
-    padding-top: 70px;
-    margin-top: 30px;
-  }
-  
-  .column2 {
-    float: left;
-    margin-top: 55px;
-    width: 50%;
-    padding: 25px;
-    text-align: center;
-  }
-  .column3 {
-    float: right;
-    margin-top: 55px;
-    width: 50%;
-    padding: 25px;
-    text-align: center;
-  }
-  
-  /* Clear floats after the columns */
-  
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+.dtrCard {
+  background-color: #bfba87;
+  width: 80%;
+}
+.dtrCard2 {
+  background-color: whitesmoke;
+  width: 80%;
+  height: 50%;
+  margin-left: 175px;
+}
+
+.dtrTitle {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  color: #367655;
+  font-size: 30px;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  height: 34%;
+  margin-top: 15%;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.input {
+  font-size: 20px;
+  margin-left: 7%;
+  font-family: "Poppins", sans-serif;
+}
+
+mat-form-field {
+  width: 60%;
+}
+
+p {
+  font-size: 16px;
+}
+
+.timein-btn {
+  background-color: #367655;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  border-radius: 25px;
+  width: 27%;
+  height: 45px;
+  font-size: 16px;
+}
+
+.timeout-btn {
+  background-color: #367655;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  border-radius: 25px;
+  width: 27%;
+  height: 45px;
+  font-size: 16px;
+  margin-left: 20px;
+}
+.new-btn {
+  background-color: rgb(196, 195, 195);
+  font-family: Arial, Helvetica, sans-serif;
+  color: gray;
+  border-radius: 25px;
+  width: 10%;
+  height: 45px;
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+
+.column {
+  float: left;
+  width: 50%;
+  padding-top: 70px;
+  margin-top: 30px;
+}
+
+.column2 {
+  float: left;
+  margin-top: 55px;
+  width: 50%;
+  padding: 25px;
+  text-align: center;
+}
+.column3 {
+  float: right;
+  margin-top: 55px;
+  width: 50%;
+  padding: 25px;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
