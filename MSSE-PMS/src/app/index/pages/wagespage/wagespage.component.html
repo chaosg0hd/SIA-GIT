@@ -107,29 +107,32 @@
                 </ng-container>
 
                 <ng-container matColumnDef="total_hours" stickyEnd>
-                  <mat-header-cell *matHeaderCellDef>Total Hours</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Computed Wage</mat-header-cell>
                   <mat-cell class="" *matCellDef="let element">
                     <p>{{getTotalHours()}}</p>
                   </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="rate" stickyEnd>
-                  <mat-header-cell *matHeaderCellDef>Rate</mat-header-cell>
+                <ng-container matColumnDef="daily_rate" stickyEnd>
+                  <mat-header-cell *matHeaderCellDef>Daily Rate</mat-header-cell>
                   <mat-cell class="" *matCellDef="let element">
-                    <p>{{element.emp_rate}}</p>
+                    <p>{{getDailyRate(element.emp_rate)}}</p>
                   </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="total_wage" stickyEnd>
                   <mat-header-cell *matHeaderCellDef>Total Wage</mat-header-cell>
                   <mat-cell class="" *matCellDef="let element">
-                    <p>{{getTotalWage(element.emp_rate)}}</p>
+                    <p>{{getTotalWage()}}</p>
                   </mat-cell>
                 </ng-container>
 
                 <!--Row Definitions-->
                 <mat-header-row *matHeaderRowDef="attendanceColumns; sticky: true"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: attendanceColumns;"></mat-row>
+
+                <!--<mat-footer-row *matFooterRowDef="attendanceColumns; sticky: true"></mat-footer-row>
+                <mat-row *matFooterRowDef="let row; columns: attendanceColumns;"></mat-row>-->
 
               </mat-table>
 

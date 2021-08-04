@@ -160,6 +160,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     string = string.split(':');
     var month = string[0].replace(/^\s+|\s+$/g, "");
     this.month = month;
+    this.monthinNum = event.index;
     //changes active month
     this.monthintText = this.lowercasepipe.transform(this.month);
     console.log(this.monthintText + " From DTR Page: Method hightabClick");
@@ -169,6 +170,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     this.getDaysArray(this.monthinNum);
     //pull dtr not sure why
     this.pullAllDTR();
+    this.buildTable();
   }
 
   changeStartDay(event: any) {
@@ -259,6 +261,9 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   getWage(hours: any, rate: any) {
     var wage;
     wage = hours * rate;
+    if (wage != wage) {
+      wage = 0;
+    }
     if (wage < 0) {
       wage = 0;
     }
@@ -302,7 +307,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   pushEnding() {
     this.attendanceColumns.push("cash_advance");
     this.attendanceColumns.push("total_hours");
-    this.attendanceColumns.push("rate");
+    this.attendanceColumns.push("daily_rate");
     this.attendanceColumns.push("total_wage");
   }
 
@@ -351,16 +356,22 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   totalWage!: number;
 
-  getTotalWage(rate: number) {
+  getTotalWage() {
     this.totalWage = this.currentTotal;
     this.currentTotal = 0;
     if (this.totalWage != this.totalWage) {
       this.totalWage = 0;
     }
 
-    this.totalWage = this.totalWage * rate;
+    /*this.totalWage = this.totalWage * rate;*/
 
     return (this.totalWage)
+  }
+
+  getDailyRate(rate: number) {
+    var daily;
+    daily = rate * 8;
+    return (daily);
   }
 
 

@@ -140,6 +140,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   //Generate Days Array
   dayArray: any;
+  
   getDaysArray(month: number) {
     this.dayArray = this.data.generateDaysArray(month);
     console.log(this.dayArray + 'From DTR Page: Method getDayArray');
@@ -155,6 +156,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     string = string.split(':');
     var month = string[0].replace(/^\s+|\s+$/g, "");
     this.month = month;
+    this.monthinNum = event.index;
     //changes active month
     this.monthintText = this.lowercasepipe.transform(this.month);
     console.log(this.monthintText + " From DTR Page: Method hightabClick");
@@ -164,6 +166,8 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.getDaysArray(this.monthinNum);
     //pull dtr not sure why
     this.pullAllDTR();
+
+    this.buildTable();
   }
 
   empInfoTable: empTable[] = [];
@@ -198,10 +202,10 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   attendanceTableInfo: attendanceTable[] = [];
 
   getHours(emp_no: any, date: any) {
-    console.log(emp_no)
+    /*console.log(emp_no)*/
     for (let dtrInfoTable of this.dtrInfoTable) {
         if (dtrInfoTable.emp_no == emp_no) {
-          console.log('Match Found')
+          /*console.log('Match Found')*/
           
           var attendanceDate: Date;
           var attendanceHour: number;
@@ -282,6 +286,9 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     }
     return(this.total)
   }
+
+
+
 
 
 
