@@ -1,9 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
-import { DatePipe, Time } from '@angular/common';
-import { LowerCasePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe, LowerCasePipe, Time } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { RouterModule } from '@angular/router';
 import jspdf from 'jspdf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -11,21 +13,22 @@ import html2canvas from 'html2canvas';
 //INTERFACES
 
 export interface empTable {
-  emp_id: string;
-  emp_firstname: string;
-  emp_lastname: string;
-  emp_address: string;
-  emp_datebirth: Date;
-  emp_contact: string;
-  emp_time_in: Time;
-  emp_time_out: Time;
-  emp_department: string;
-  emp_is_archived: string;
-  emp_sex: string;
-  emp_position: string;
-  emp_start_date: Date;
-  emp_status: string;
-  emp_last_mod_date: Date;
+  emp_no: any;
+  emp_id: any;
+  emp_firstname: any;
+  emp_lastname: any;
+  emp_address: any;
+  emp_datebirth: any;
+  emp_contact: any;
+  emp_time_in: any;
+  emp_time_out: any;
+  emp_department: any;
+  emp_is_archived: any;
+  emp_sex: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
+  emp_last_mod_date: any;
   emp_last_mod_by: any;
 }
 
@@ -38,15 +41,15 @@ export interface dtrTable {
 }
 
 export interface dtrJSON {
-  date: Date;
+  date: any;
   am_time_in: any;
   am_time_out: any;
   pm_time_in: any;
   pm_time_out: any;
   ot_time_in: any;
   ot_time_out: any;
-  mhrs: number;
-  remarks: string;
+  mhrs: any;
+  remarks: any;
 }
 
 @Component({
@@ -58,25 +61,44 @@ export class TimekeepingpageComponent implements OnInit {
 
   //CONSTRUCTORS
 
-  constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe,) { }
+  constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe, public snackbar: MatSnackBar) { }
 
   //ViewChild
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  //Pakirename to into something na may context
 
   @ViewChild('content', { static: false }) es!: ElementRef;
 
   //ngLifeCycle Goes Here
 
   ngOnInit(): void {
-    this.getDate();
-    this.getMonsArray();
+    this.loadDate();
     this.pullAllEmp();
     this.pullAllDTR();
+    this.dateIndex = this.monthinNum;
 
+  }
+
+  ngAfterViewInit() {
+    this.empInfoTableDataSource.paginator = this.paginator;
+    this.empInfoTableDataSource.sort = this.sort;
   }
 
   //ngOnInit Functions
 
   //Set Date Functions
+
+  loadDate() {
+    this.getDate();
+    this.getMonths();
+    this.getDaysArray(this.monthinNum);
+  }  
+
+  //Sets Date Variables
 
   currentDate: any;
   month: any;
@@ -86,28 +108,29 @@ export class TimekeepingpageComponent implements OnInit {
   month_year: any;
   dateIndex: any;
 
-  //Sets Date Variables
-
   getDate() {
 
     //Sets Date
     this.currentDate = new Date(this.data.getDate());
     console.log(this.currentDate + " From DTR Page: Method getDate");
-    //Sets Month and MonthYear Var
+    //Sets Month and MonthYear Varables
+    //gets month in natural number form
     this.monthinNum = this.data.getMonthinNum();
+    //gets month in text form
     this.month = this.data.getMonth();
-    console.log(this.month + " From DTR Page: Method getDate ++++++++++++++++++");
     this.monthintText = this.lowercasepipe.transform(this.month);
-    console.log(this.monthintText + " From DTR Page: Method getDate");
+    //gets year
     this.year = this.data.getYear();
+    //generates monthyear needed in dtr id
     this.month_year = this.monthintText + '_' + this.year;
-    console.log(this.month_year + " From DTR Page: Method getDate");
-    //Generate Days
-    this.getDaysArray(this.monthinNum);
-    //Sets Tab Index
-    this.dateIndex = this.monthinNum;
   }
 
+  //Generate Months Array
+  monthsArray: any;
+  getMonths() {
+    this.monthsArray = this.data.generateMonsArray();
+    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
+  }
 
   //Generate Days Array
   dayArray: any;
@@ -116,52 +139,63 @@ export class TimekeepingpageComponent implements OnInit {
     console.log(this.dayArray + 'From DTR Page: Method getDayArray');
   }
 
-  //Generate Months Array
-  monthsArray: any;
-  getMonsArray() {
-    this.monthsArray = this.data.generateMonsArray();
-    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
-  }  
-
+  //High Tab
   hightabClick(event: any) {
 
-    //Big Buttons Sa taas
+    // !!! Has one vulnelrabillity still not sure where
+    
     var string = event.tab.textLabel;
+    //sets month_year needed by dtr card
     string = string.split(':');
-    var month = string[0].replace(/^\s+|\s+$/g, "");
-    console.log(month + 'From DTR Page: Method hightabClick');
+    var month = string[0].replace(/^\s+|\s+$/g, "");    
     this.month = month;
-    console.log(this.month + " From DTR Page: Method hightabClick");
+    //changes active month
     this.monthinNum = event.index
     console.log(this.monthinNum + " From DTR Page: Method hightabClick");
     this.monthintText = this.lowercasepipe.transform(this.month);
     console.log(this.monthintText + " From DTR Page: Method hightabClick");
     this.month_year = this.monthintText + '_' + this.year;
     console.log(this.month_year + " From DTR Page: Method hightabClick +++++++++++++++++++++++++");
-
+    //change date index
     this.dateIndex = this.monthinNum
+    //reload arrays of Days
     this.getDaysArray(this.monthinNum);
+    //pull dtr not sure why
     this.pullAllDTR();
+  }
 
+  tabClick(event: any) {
+
+    //Small Buttons Sa taas
+    var string = event.tab.textLabel;
+    string = string.split(':');
+    var emp_no = string[0].replace(/^\s+|\s+$/g, "");
+    console.log(emp_no + 'From DTR Page: Method tabClick');
+    this.activeEmp = emp_no;
+    this.pullAllDTR();
   }
 
   empInfoTable: empTable[] = [];
+  empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
   dtrInfoTable: dtrTable[] = [];
   dtrJSONTable: dtrJSON[] = [];
 
   empInfo: any = {};
   dtrInfo: any = {};
-  dtrJSONInfo: any = {};  
+  dtrJSONInfo: any = {};
 
-  //Pull Emps
+  //Pull Employees
+
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
-      /*console.log(JSON.parse(data.payload));*/
+      console.log("PULLING DATA");
       this.empInfoTable = data.payload;
-      console.log(this.empInfoTable + ' From DTR Page: Method pullAllEmp');
-      /*this.pullAllDTR();*/
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource.data);
+      console.log("DATA PULLED")
     });
   }
+
 
   pullAllDTR() {
     this.data.sendApiRequest("pullAllDTR", null).subscribe((data: any) => {
@@ -177,15 +211,15 @@ export class TimekeepingpageComponent implements OnInit {
   activeEmp: any;
   hasDTRbool: any;
 
-  pullDTR(emp_id: string) {
-    this.activeEmp = emp_id;
-    console.log(emp_id + ' From DTR Page: Method pullDTRContents');
+  pullDTR(emp_no: string) {
+    this.activeEmp = emp_no;
+    console.log(emp_no + ' From DTR Page: Method pullDTRContents');
     this.dtrJSONTable = [];
     this.hasDTRbool = false;
 
     for (let dtrInfoTable of this.dtrInfoTable) {
-      console.log(emp_id + '_' + this.month_year);
-      if (dtrInfoTable.dtr_id === emp_id + '_' + this.month_year) {
+      console.log(emp_no + '_' + this.month_year);
+      if (dtrInfoTable.dtr_id === emp_no + '_' + this.month_year) {
         console.log('MAAAAAAAAATCH   ' + dtrInfoTable.dtr_id)
         this.hasDTRbool = true;
         this.jsonData = dtrInfoTable.dtr_content;
@@ -196,20 +230,9 @@ export class TimekeepingpageComponent implements OnInit {
         console.log('NO MAAAAAAAAATCH   ' + dtrInfoTable.dtr_id)
       }
     }
-  }
+  }  
 
-  tabClick(event: any) {
-
-    //Small Buttons Sa taas
-    var string = event.tab.textLabel;
-    string = string.split(':');
-    var emp_id = string[0].replace(/^\s+|\s+$/g, "");
-    console.log(emp_id + 'From DTR Page: Method tabClick');
-    this.activeEmp = emp_id;
-    this.pullAllDTR();
-  }
-
-  generateDTR(emp_id: string) {
+  generateDTR(emp_no: string) {
     this.addemptyDTR();
   }  
 
@@ -218,7 +241,7 @@ export class TimekeepingpageComponent implements OnInit {
     //DTR INFO
     this.dtrJSONTable = [];
     this.dtrInfo = {};
-    this.dtrInfo.emp_id = this.activeEmp;
+    this.dtrInfo.emp_no = this.activeEmp;
     this.dtrInfo.dtr_month_year = this.month_year;
     this.dtrInfo.dtr_id = this.activeEmp + '_' + this.month_year;
     for (let dayArray of this.dayArray) {
@@ -240,7 +263,7 @@ export class TimekeepingpageComponent implements OnInit {
     this.dtrInfo.dtr_content = JSON.stringify(this.dtrJSONTable);
     console.log(this.dtrInfo + ' From DTR Page: Method addEmp');
     this.data.sendApiRequest("addDTR", this.dtrInfo).subscribe((data: any) => {
-      this.pullAllDTR();
+      this.ngOnInit();
     });    
 
   }
@@ -349,14 +372,6 @@ export class TimekeepingpageComponent implements OnInit {
     }
     this.editDTR(this.dtrJSONTableCopy, dtr_id);
   }
- 
-
-  //filterValue: any;
-  //applyFilter(event: Event) {
-  //  this.filterValue = (event.target as HTMLInputElement).value;
-  //  console.log(this.filterValue);
-  //}
-
 
   am_time_in: any;
   am_time_out: any;
@@ -429,12 +444,14 @@ export class TimekeepingpageComponent implements OnInit {
     var am_total = this.gethour(this.am_time_out, 'am') - this.gethour(this.am_time_in, 'am'); 
     this.am_time_in = 0;
     this.am_time_out = 0;
+
     var pm_total = this.gethour(this.pm_time_out, 'pm') - this.gethour(this.pm_time_in, 'pm');
     this.pm_time_in = 0;
     this.pm_time_out = 0;
-    var ot_total = this.gethour(this.ot_time_out, 'ot') - this.gethour(this.ot_time_in, 'ot');
-    this.pm_time_in = 0;
-    this.pm_time_out = 0;
+
+    //var ot_total = this.gethour(this.ot_time_out, 'ot') - this.gethour(this.ot_time_in, 'ot');
+    //this.ot_time_in = 0;
+    //this.ot_time_out = 0;
 
 
     if (am_total != am_total) {
@@ -445,13 +462,13 @@ export class TimekeepingpageComponent implements OnInit {
       pm_total = 0;
     }
 
-    if (ot_total != ot_total) {
-      ot_total = 0;
-    }
+    //if (ot_total != ot_total) {
+    //  ot_total = 0;
+    //}
 
     /*console.log(mhrs+'xxxxxxxxxxxxxxxxxxxx')*/
 
-    var total = am_total + pm_total + ot_total;
+    var total = am_total + pm_total
 
     total = Math.floor(total);
 
@@ -461,14 +478,34 @@ export class TimekeepingpageComponent implements OnInit {
     }
 
     if (mhrs != total) {
-      console.log(' no matched ---------- xxxxxxxxxxxxxxxxxxxx');
+      console.log('no matched ---------- xxxxxxxxxxxxxxxxxxxx');
       this.updateRemark(dtr_id, total, 'mhrs', date);
     }
-
 
     /*this.updateRemark(dtr_id, total, 'mhrs', date);*/
 
     return (total);
+  }
+
+  //Filter Employees
+
+  applyFilter(event: Event) {
+
+    const filterValue = (event.target as HTMLInputElement).value;   
+
+    if ((event.target as HTMLInputElement).value === "") {
+      console.log("No Filter")
+      this.ngOnInit();
+    }
+
+    this.empInfoTableDataSource.filter = filterValue;
+    this.empInfoTableDataSource.data = this.empInfoTableDataSource.filteredData
+  }
+
+  //SnackBar
+
+  notify(message: string, action: string) {
+    this.snackbar.open(message, action, { duration: 3000 });
   }
 
 

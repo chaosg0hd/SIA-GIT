@@ -7,29 +7,14 @@
     <mat-toolbar class="" style=" background-color: #706e5a">
       <span style="flex: 1 1 auto;"> </span>
       <!--Search Bar-->
-      <div style="height: 100% !important;
-                  width: 25%;
-                  padding: 0px !important;
-                  color: white;
-                  background-color: #706e5a;"><mat-form-field appearance="fill"
-                                                                style="font-size: 16px;
-                                                                       height: 100% !important;
-                                                                       width: 100%;"
-                                                                matTooltip="Search"><mat-label style="font-size: large;
-                                                                                               color: white; "
-                                                                                               floatLabel="never">
-                                                                                    Search
-                                                                                    </mat-label>
-                                                                                    <input (keyup)="applyFilter($event)"
-                                                                                           #input
-                                                                                           matInput><mat-icon style="font-size: 24px;"
-                                                                                                              matSuffix>
-                                                                                                    search
-                                                                                                    </mat-icon>
-                                                </mat-form-field>
+      <div style="height: 100% !important; width: 25%; padding: 0px !important; color: white; background-color: #706e5a;">
+        <mat-form-field appearance="fill" style="font-size: 16px; height: 100% !important; width: 100%;" matTooltip="Search">
+          <mat-label style="font-size: large; color: white;" floatLabel="never">Search</mat-label>
+          <input (keyup)="applyFilter($event)" #input matInput><mat-icon style="font-size: 24px;" matSuffix>search</mat-icon>
+        </mat-form-field>
       </div>
-      <!--Add Emp-->
-      <button mat-button class="toolbar-buttons" matTooltip="Add Employee" (click)="addEmp(empInfoTableLastNo)">Add Employee &nbsp;<mat-icon>person_add</mat-icon></button>
+      <!--Add Emp Button-->
+      <button mat-button class="toolbar-buttons" matTooltip="Add Employee" (click)="addEmp()">Add Employee &nbsp;<mat-icon>person_add</mat-icon></button>
       <!--Import & Export Buttons-->
       <button mat-button class="toolbar-buttons" [matMenuTriggerFor]="Import">Import &nbsp;<mat-icon>south</mat-icon></button>
       <mat-menu #Import="matMenu">
@@ -43,117 +28,109 @@
       </mat-menu>
       <button mat-button class="toolbar-buttons" matTooltip="Maximize Columns" (click)="maxTable()">Maximize &nbsp;<mat-icon>arrow_forward</mat-icon></button>
       <button mat-button class="toolbar-buttons" matTooltip="Minimize Columns" (click)="minTable()">Minimize &nbsp;<mat-icon>arrow_back</mat-icon></button>
-      <button mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>      
+      <button mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
     </mat-toolbar>
   </mat-card-title>
-
 
   <mat-card-content style="height: 75vh !important">
     <div class="div-container mat-elevation-z4" style="width: 100% !important">
       <ng-container>
         <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
 
-          <!--Implemented For Loop
-          Table Generation-->
+          <!--Table Generation-->
           <ng-container *ngFor="let empInfoTableColumnsJSON of empInfoTableColumnsJSON">
             <ng-container *ngFor="let empInfoTableColumns of empInfoTableColumns">
               <ng-container *ngIf="empInfoTableColumnsJSON.columnName === empInfoTableColumns">
-
                 <ng-container matColumnDef="{{empInfoTableColumnsJSON.columnName}}" sticky="{{empInfoTableColumnsJSON.columnisSticky}}">
-                  <mat-header-cell *matHeaderCellDef>&nbsp; &nbsp; {{empInfoTableColumnsJSON.columnPrettyName}} </mat-header-cell>
-                  <mat-cell *matCellDef="let element;" style="max-height: 10px;">
-                    &nbsp; &nbsp;&nbsp; &nbsp;
-                    <!--Try to make this part part of loop-->
+                  <mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;{{empInfoTableColumnsJSON.columnPrettyName}}</mat-header-cell>
+                  <mat-cell *matCellDef="let element;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--Emp No -->
+                    <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_no'">
+                      <input type="text" matInput placeholder="{{element.emp_no}}"
+                             disabled/>
+                    </ng-container>
                     <!--Emp First Name-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_firstname'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_firstname', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_firstname', $event)"
                              type="text" matInput placeholder="{{element.emp_firstname}}"
                              tabindex="{{tabIndexStart()}}"
-                             matTooltip="{{element.emp_firstname}}">
+                             matTooltip="{{element.emp_firstname}}"/>
                     </ng-container>
-                    <!--Emp First Last Name-->
+                    <!--Emp Last Name-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_lastname'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_lastname', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_lastname', $event)"
                              type="text" matInput placeholder="{{element.emp_lastname}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
-                             matTooltip="{{element.emp_lastname}}">
-                    </ng-container>
-                    <!--Emp NO-->
-                    <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_no'">
-                      <input (blur)="updateList(element.emp_no, empInfoTableColumnsJSON.columnName, $event)"
-                             tabindex="{{tabIndexInc(tabIndex)}}"
-                             type="text" matInput placeholder="{{element.emp_no}}"
-                             matTooltip="{{element.emp_no}}"
-                             disabled>
+                             matTooltip="{{element.emp_lastname}}"/>
                     </ng-container>
                     <!--Emp ID-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_id'">
-                      <input mat-input (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)"
-                             tabindex="{{tabIndexStart()}}"
+                      <input (keyup)="updateList(element.emp_no, 'emp_id', $event)"                             
                              type="text" matInput placeholder="{{element.emp_id}}"
-                             matTooltip="{{element.emp_id}}">
+                             tabindex="{{tabIndexInc(tabIndex)}}"
+                             matTooltip="{{element.emp_id}}"/>
                     </ng-container>
                     <!--Emp Status-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_status'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_status', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_status', $event)"
                              type="text" matInput placeholder="{{element.emp_status}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
-                             matTooltip="{{element.emp_status}}">
+                             matTooltip="{{element.emp_status}}"/>
                     </ng-container>
                     <!--Emp Address-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_address'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_address', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_address', $event)"
                              type="text" matInput placeholder="{{element.emp_address}}"
-                             matTooltip="{{element.emp_address}}"
-                             tabindex="{{tabIndexInc(tabIndex)}}">
+                             tabindex="{{tabIndexInc(tabIndex)}}"
+                             matTooltip="{{element.emp_address}}"/>
                     </ng-container>
                     <!--Emp Sex-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_sex'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_sex', $event)"
-                             type="text" matInput placeholder="{{element.emp_sex}}"
-                             matTooltip="{{element.emp_sex}}"
-                             tabindex="{{tabIndexInc(tabIndex)}}">
+                      <input (keyup)="updateList(element.emp_no, 'emp_sex', $event)"
+                             type="text" matInput placeholder="{{element.emp_sex}}"                                 
+                             tabindex="{{tabIndexInc(tabIndex)}}"
+                             matTooltip="{{element.emp_sex}}">
                     </ng-container>
-                    <!--DateBirth-->
-                    <!--TO BE REDONE-->
+                    <!--Date of Birth-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_datebirth'">
                       <mat-form-field appearance="fill" floatLabel="never">
-                        <mat-datepicker-toggle matPrefix [for]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
                           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-label floatLabel="never">{{element.emp_datebirth}}</mat-label>
                         <input matInput [matDatepicker]="picker"
-                               (dateChange)="updateList(element.emp_id, 'emp_datebirth', $event)"
-                               tabindex="{{tabIndexInc(tabIndex)}}"
+                               (dateChange)="updateList(element.emp_no, 'emp_datebirth', $event)"
                                style="width:100% !important; height: 85% !important;"
+                               tabindex="{{tabIndexInc(tabIndex)}}"
                                matTooltip="{{element.emp_datebirth | date : 'MMM dd yyyy' }}">
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Contact-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_contact'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_contact', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_contact', $event)"
                              type="tel" matInput placeholder="{{element.emp_contact}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_contact}}">
                     </ng-container>
                     <!--Emp Position-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_position'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_position', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_position', $event)"
                              type="text" matInput placeholder="{{element.emp_position}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_position}}">
                     </ng-container>
                     <!--Emp Department-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_department'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_department', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_department', $event)"
                              type="text" matInput placeholder="{{element.emp_department}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_department}}">
                     </ng-container>
                     <!--Emp Rate-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_rate'">
-                      <input (blur)="updateList(element.emp_id, 'emp_rate', $event)"
+                      <input (keyup)="updateList(element.emp_no, 'emp_rate', $event)"
                              type="number" matInput placeholder="{{element.emp_rate}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_rate}}">
@@ -161,44 +138,41 @@
                     <!--Date Start-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_start_date'">
                       <mat-form-field floatLabel="never" appearance="fill">
-                        <mat-label>{{element.emp_start_date | date : 'MMM dd yyyy' }}</mat-label>
-                        <input matInput [matDatepicker]="picker"
-                               (keyup)="updateList(element.emp_id, 'emp_start_date', $event)"
-                               (click)="updateList(element.emp_id, 'emp_start_date', $event)"
+                        <mat-label>{{element.emp_start_date}}</mat-label>
+                        <input matInput [matDatepicker]="picker2"                                
+                               (dateChange)="updateList(element.emp_no, 'emp_start_date', $event)"
                                tabindex="{{tabIndexInc(tabIndex)}}"
                                matTooltip="{{element.emp_start_date | date : 'MMM dd yyyy' }}">
-                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
                           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-datepicker #picker2></mat-datepicker>
                       </mat-form-field>
                     </ng-container>
                     <!--Emp Time-In-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_time_in'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_time-in', $event)"
-                             type="number" matInput placeholder="{{'01/01/1900 ' + element.emp_time_in | date: 'hh:mm'}}"
+                      <input (keyup)="updateList(element.emp_no, 'emp_time_in', $event)"
+                             type="text" matInput placeholder="{{'01/01/1900 ' + element.emp_time_in | date: 'hh:mm a'}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_time_in}}">
                     </ng-container>
                     <!--Emp Time-Out-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_time_out'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_time-out', $event)"
-                             type="number" matInput placeholder="{{'01/01/1900 ' + element.emp_time_out | date: 'hh:mm'}}"
+                      <input (keyup)="updateList(element.emp_no, 'emp_time_out', $event)"
+                             type="text" matInput placeholder="{{'01/01/1900 ' + element.emp_time_out | date: 'hh:mm a'}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_time_out}}">
                     </ng-container>
                     <!--Emp Last Mod Date-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_date'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_time-out', $event)"
-                             type="number" matInput placeholder="{{element.emp_last_mod_date | date: 'MMM dd yyyy  hh:mm'}}"
+                      <input type="number" matInput placeholder="{{element.emp_last_mod_date | date: 'MMM dd yyyy  hh:mm'}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_last_mod_date | date: 'MMM dd yyyy  hh:mm'}}"
                              disabled>
                     </ng-container>
                     <!--Emp Last Mod By-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_by'">
-                      <input (keyup)="updateList(element.emp_id, 'emp_time-out', $event)"
-                             type="number" matInput placeholder="{{element.emp_last_mod_by}}"
+                      <input type="number" matInput placeholder="{{element.emp_last_mod_by}}"
                              tabindex="{{tabIndexInc(tabIndex)}}"
                              matTooltip="{{element.emp_last_mod_by}}"
                              disabled>
@@ -210,15 +184,14 @@
           </ng-container>
 
           <ng-container matColumnDef="actions" stickyEnd>
-            <mat-header-cell *matHeaderCellDef style="">&nbsp; Actions </mat-header-cell>
-            <mat-cell *matCellDef="let element" style="">
+            <mat-header-cell *matHeaderCellDef>&nbsp; Actions </mat-header-cell>
+            <mat-cell *matCellDef="let element">
               &nbsp;&nbsp;&nbsp;
               <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="View">View &nbsp;<mat-icon>pageview</mat-icon></button>
               <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Print">Print &nbsp;<mat-icon>print</mat-icon></button>
-              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Delete" (click)="delEmp(element.emp_id)">Delete &nbsp;<mat-icon>delete</mat-icon></button>
+              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Delete" (click)="delEmp(element.emp_no)">Delete &nbsp;<mat-icon>delete</mat-icon></button>
             </mat-cell>
           </ng-container>
-
           <mat-header-row *matHeaderRowDef="empInfoTableColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: empInfoTableColumns;"></mat-row>
         </mat-table>
@@ -227,210 +200,3 @@
   </mat-card-content>
 </mat-card>
 
-
-
-
-
-
-
-
-<!--<mat-card class="mat-elevation-z6">
-
-
-  <mat-card-content>
-    <br />
-    <div class="div-container mat-elevation-z4">
-      <br />
-      <ng-container>
-        <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" id="mat-table1" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
-<!--Implemented For Loop-->
-<!--Table Generation-->
-<!--<ng-container *ngFor="let empInfoTableColumnsJSON of empInfoTableColumnsJSON">
-  <ng-container *ngFor="let empInfoTableColumns of empInfoTableColumns">
-    <ng-container *ngIf="empInfoTableColumnsJSON.columnName === empInfoTableColumns">
-
-      <ng-container matColumnDef="{{empInfoTableColumnsJSON.columnName}}" sticky="{{empInfoTableColumnsJSON.columnisSticky}}">
-        <mat-header-cell *matHeaderCellDef>&nbsp; &nbsp; {{empInfoTableColumnsJSON.columnPrettyName}} </mat-header-cell>
-        <mat-cell *matCellDef="let element;" style="max-height: 10px;">
-          &nbsp; &nbsp; &nbsp;-->
-<!--Try to make this part part of loop-->
-<!--Emp #-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_no'">
-  <mat-form-field floatLabel="never">
-    <input (blur)="updateList(element.emp_no, empInfoTableColumnsJSON.columnName, $event)"
-           tabindex="{{tabIndexStart()}}"
-           type="text" matInput placeholder="{{element.emp_no}}"
-           disabled>
-  </mat-form-field>
-</ng-container>-->
-<!--Emp ID-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_id'">
-  <mat-form-field floatLabel="never">
-    <input (blur)="updateList(element.emp_id, empInfoTableColumnsJSON.columnName, $event)"
-           tabindex="{{tabIndexStart()}}"
-           type="text" matInput placeholder="{{element.emp_id}}"
-           disabled>
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Name-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_name'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_firstname', $event)"
-           type="text" matInput placeholder="{{element.emp_firstname}} {{element.emp_lastname}}"
-           tabindex="{{tabIndexInc(tabIndex)}}"
-           disabled>
-  </mat-form-field>
-</ng-container>-->
-<!--Emp First Name-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_firstname'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_firstname', $event)"
-           type="text" matInput placeholder="{{element.emp_firstname}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp First Last Name-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_lastname'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_lastname', $event)"
-           type="text" matInput placeholder="{{element.emp_lastname}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Address-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_address'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_address', $event)"
-           type="text" matInput placeholder="{{element.emp_address}}"
-           matTooltip="{{element.emp_address}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Sex-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_sex'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_sex', $event)"
-           type="text" matInput placeholder="{{element.emp_sex}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp DateBirth-->
-<!--TO BE REDONE-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_datebirth'">-->
-<!--<mat-form-field floatLabel="never" appearance="fill">
-  <mat-datepicker-toggle matPrefix [for]="picker">
-    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-  </mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>-->
-<!--<mat-label>{{element.emp_datebirth | date : 'MMM dd yyyy' }}</mat-label>-->
-<!--<input matInput [matDatepicker]="picker"
-         (keyup)="updateList(element.emp_id, 'emp_datebirth', $event)"
-         (click)="updateList(element.emp_id, 'emp_datebirth', $event)"
-         tabindex="{{tabIndexInc(tabIndex)}}">
-</mat-form-field>-->
-<!--</ng-container>-->
-<!--Emp Contact-->
-<!--Phone Pipe Here-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_contact'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_contact', $event)"
-           type="tel" matInput placeholder="{{element.emp_contact}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Position-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_position'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_position', $event)"
-           type="text" matInput placeholder="{{element.emp_position}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Department-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_department'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_department', $event)"
-           type="text" matInput placeholder="{{element.emp_department}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Rate-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_rate'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_rate', $event)"
-           type="number" matInput placeholder="{{element.emp_rate}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Time-In-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_time_in'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_time-in', $event)"
-           type="number" matInput placeholder="{{element.emp_time_in}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Time-Out-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_time_out'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_time-out', $event)"
-           type="number" matInput placeholder="{{element.emp_time_out}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Date Started-->
-<!--TO BE REDONE-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_start_date'">-->
-<!--<mat-form-field floatLabel="never" appearance="fill">
-  <mat-label>{{element.emp_start_date | date : 'MMM dd yyyy' }}</mat-label>
-  <input matInput [matDatepicker]="picker"
-         (keyup)="updateList(element.emp_id, 'emp_start_date', $event)"
-         (click)="updateList(element.emp_id, 'emp_start_date', $event)"
-         tabindex="{{tabIndexInc(tabIndex)}}">
-  <mat-datepicker-toggle matSuffix [for]="picker">
-    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-  </mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>-->
-<!--</ng-container>-->
-<!--Emp Status-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_status'">
-  <mat-form-field floatLabel="never">
-    <input (keyup)="updateList(element.emp_id, 'emp_status', $event)"
-           type="text" matInput placeholder="{{element.emp_status}}"
-           tabindex="{{tabIndexInc(tabIndex)}}">
-  </mat-form-field>
-</ng-container>-->
-<!--Emp Last Mod Date-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_date'">
-  <p style="font-size: 12px">{{element.emp_last_mod_date | date: 'MMM dd yyyy  hh:mm'}}</p>
-</ng-container>-->
-<!--Emp Last Mod By-->
-<!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_last_mod_by'">
-                      <p style="font-size: 12px">{{element.emp_last_mod_by}}</p>
-                    </ng-container>
-                  </mat-cell>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-
-          <ng-container matColumnDef="actions" stickyEnd>
-            <mat-header-cell *matHeaderCellDef style="padding-left: 20px">&nbsp; Actions </mat-header-cell>
-            <mat-cell *matCellDef="let element" style="padding-left: 20px">
-              &nbsp;&nbsp;&nbsp;
-              <button mat-button class="mat-elevation-z4" style="background-color: #bfba87;color: white;" aria-label="">View</button> &nbsp;
-              <button mat-mini-fab style="background-color: #bfba87;" aria-label="" matTooltip="Print"><mat-icon>print</mat-icon></button>  &nbsp;
-              <button mat-mini-fab style="background-color: darkred;" aria-label="" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;
-            </mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="empInfoTableColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: empInfoTableColumns;"></mat-row>
-        </mat-table>
-      </ng-container>
-    </div>
-    <br />
-
-  </mat-card-content>
-</mat-card>-->

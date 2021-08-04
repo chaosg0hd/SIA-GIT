@@ -1,24 +1,37 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe, Time } from '@angular/common';
 import { LowerCasePipe } from '@angular/common';
-
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { RouterModule } from '@angular/router';
+import jspdf from 'jspdf';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 //INTERFACES
 
 export interface empTable {
-  emp_id: string;
-  emp_firstname: string;
-  emp_lastname: string;
+  emp_no: any;
+  emp_id: any;
+  emp_firstname: any;
+  emp_lastname: any;
+  emp_address: any;
+  emp_datebirth: any;
+  emp_contact: any;
+  emp_time_in: any;
+  emp_time_out: any;
+  emp_department: any;
+  emp_is_archived: any;
+  emp_sex: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
+  emp_last_mod_date: any;
+  emp_last_mod_by: any;
   emp_attendance: attendanceTable[];
-
 }
 
 export interface dtrTable {
@@ -53,13 +66,10 @@ export interface dtrJSON {
 })
 export class AttendancepageComponent implements OnInit, AfterViewInit {
 
-  isDoneLoading = "false";
 
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  
-
-
 
 
   constructor(private datepipe: DatePipe, private noti: MatSnackBar, public lowercasepipe: LowerCasePipe, private data: DataService, private router: RouterModule) { }
@@ -70,7 +80,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.pullAllEmp();
     this.buildTable();
     this.pullAllDTR();
-    this.storetoData()
   }
 
   ngAfterViewInit(): void {
@@ -210,13 +219,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       }
   }
 
-  //storeToArray
-
-  storetoData() {
-    
-    this.data.store(this.empInfoTableDataSource);
-    
-  }
 
   //consolelog(string: any) {
   //  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")

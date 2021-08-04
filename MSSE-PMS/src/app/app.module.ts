@@ -88,11 +88,6 @@ import { DashboardpageComponent } from './index/pages/dashboardpage/dashboardpag
 import { AttendancepageComponent } from './index/pages/attendancepage/attendancepage.component';
 import { PayrollpageComponent } from './index/pages/payrollpage/payrollpage.component';
 import { MasterpageComponent } from './index/pages/masterpage/masterpage.component';
-
-//Dialog Modules
-
-import { EditemployeeDialog } from './index/pages/employeepage/employeepage.component';
-import { AddemployeeDialog } from './index/pages/employeepage/employeepage.component';
 import { SalarypageComponent } from './index/pages/salarypage/salarypage.component';
 import { DailytimerecordpageComponent } from './index/pages/dailytimerecordpage/dailytimerecordpage.component';
 import { TimeinComponent } from './timein/timein.component';
@@ -113,13 +108,9 @@ import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeep
     AttendancepageComponent,
     PayrollpageComponent,
     MasterpageComponent,
-
-    EditemployeeDialog,
-    AddemployeeDialog,
     SalarypageComponent,
     DailytimerecordpageComponent,
     TimeinComponent,
-    /*FilterpipePipe,*/
     UserspageComponent,
     TimekeepingpageComponent,
      
@@ -183,11 +174,13 @@ import { TimekeepingpageComponent } from './index/pages/timekeepingpage/timekeep
     MatSortModule,
     MatTableModule
   ],
-  providers: [DatePipe, LowerCasePipe],
+  providers:
+    [
+      DatePipe,
+      LowerCasePipe,
+    ],
   bootstrap: [AppComponent],
   entryComponents: [
-    EditemployeeDialog,
-    AddemployeeDialog,
   ]
 })
 export class AppModule { }

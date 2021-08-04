@@ -66,11 +66,6 @@
 					echo json_encode($post->editUser($d), JSON_PRETTY_PRINT);
 				break;
 
-		case 'editUser': // Incomplete
-					$d = json_decode(base64_decode(file_get_contents("php://input")));
-					echo json_encode($post->editUser($d), JSON_PRETTY_PRINT);
-				break;
-
 		case 'loginUser': // Do not Touch
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($auth->loginUser($d), JSON_PRETTY_PRINT);
@@ -111,11 +106,6 @@
 		case 'delEmp':
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($post->delEmp($d), JSON_PRETTY_PRINT);
-				break;
-
-		case 'editEmp':
-					$d = json_decode(base64_decode(file_get_contents("php://input")));
-					echo json_encode($post->editEmp($d), JSON_PRETTY_PRINT);
 				break;
 
 
