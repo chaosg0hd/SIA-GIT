@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef,  ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef,  ViewChild, Inject, AfterViewInit, TemplateRef } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import jspdf from 'jspdf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { MatDialog } from '@angular/material/dialog';
 
 //INTERFACE
 
@@ -26,6 +27,7 @@ export interface empTable {
   emp_department: any;
   emp_is_archived: any;
   emp_sex: any;
+  emp_rate: any;
   emp_position: any;
   emp_start_date: any;
   emp_status: any;
@@ -47,9 +49,14 @@ export interface empTableColumnProp {
 
 export class EmployeepageComponent implements OnInit{
 
+  showMe:boolean=true 
+
+  toogleTag() {
+    this.showMe=!this.showMe
+  }
   //Constructors Here
 
-  constructor(private data: DataService, private datepipe: DatePipe, private snackbar: MatSnackBar) { }
+  constructor(private data: DataService, private datepipe: DatePipe, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   //View Child Goes Here
 
@@ -59,11 +66,23 @@ export class EmployeepageComponent implements OnInit{
     let pdf = new jspdf('p', 'px', [1500, 2000]);
     pdf.html(this.es.nativeElement,{
       callback: (pdf)=> {
-        pdf.save("employees.pdf");
+        pdf.save("listofemployees.pdf");
       }
     });
   }  
   
+
+  @ViewChild('modalcontent', { static: false }) as!: ElementRef;
+
+  download() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.as.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("individualemployee.pdf");
+      }
+    });
+  }  
+
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -491,7 +510,63 @@ export class EmployeepageComponent implements OnInit{
     this.snackbar.open(message, action,{duration: 3000});
   }
 
-  //End of Methods
+
+// modal
+
+fname: any;
+lname: any;
+empId: any;
+status: any;
+address: any;
+sex: any;
+dob: any;
+contact: any;
+position: any;
+department: any;
+rate: any;
+datestarted: any;
+timeIn: any;
+timeOut: any;
+
+
+
+@ViewChild('ViewDialog', { static: true }) ViewDialog!: TemplateRef<any>;
+
+viewModal = (i:any) => {
+    
+  this.dialog.open(this.ViewDialog);
+  this.fname = i.emp_firstname;
+  this.lname = i.emp_lastname;
+  this.empId = i.emp_id;
+  this.status = i.emp_status;
+  this.address = i.emp_address;
+  this.sex = i.emp_sex;
+  this.dob = i.emp_datebirth;
+  this.contact = i.emp_contact;
+  this.position = i.emp_position;
+  this.department = i.emp_department;
+  this.rate = i.emp_rate;
+  this.datestarted = i.emp_start_date;
+  this.timeIn = i.emp_time_in;
+  this.timeOut = i.emp_time_out
+
+  console.log(this.fname+ "\n" +this.lname+ "\n" +this.empId+ "\n" +this.status+ "\n" +this.address+ "\n" +this.sex+ "\n" +this.dob+ "\n" +this.contact+ "\n" +this.position+ "\n" +this.department+ "\n" +this.rate+ "\n" +this.datestarted+ "\n" +this.timeIn+ "\n" +this.timeOut);
+
+
+  // this.productForm.patchValue({
+  //   item_id: i.item_id,
+  //   item_name: i.item_name,
+  //   item_desc: i.item_desc,
+  //   item_quant: i.item_quant,
+  //   item_price: i.item_price,
+  //   item_minimum: i.item_minimum,
+  //   remarks: i.remarks,
+  //   date_expiry: i.date_expiry,
+  //   measurementType: i.measurementType
+  // })
+}
+
+
 }
 
 

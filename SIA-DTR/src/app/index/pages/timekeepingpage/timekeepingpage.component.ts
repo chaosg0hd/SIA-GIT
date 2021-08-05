@@ -59,6 +59,7 @@ export interface dtrJSON {
 })
 export class TimekeepingpageComponent implements OnInit {
 
+  
   //CONSTRUCTORS
 
   constructor(private data: DataService, public datepipe: DatePipe, public lowercasepipe: LowerCasePipe, public snackbar: MatSnackBar) { }

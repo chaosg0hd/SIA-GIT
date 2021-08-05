@@ -64,6 +64,17 @@ export class DailytimerecordpageComponent implements OnInit {
 
   @ViewChild('content', { static: false }) es!: ElementRef;
 
+  //Printing
+  downloadPDF() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("dtr.pdf");
+      }
+    });
+  }  
+
+ 
   //ngLifeCycle Goes Here
 
   ngOnInit(): void {
@@ -187,16 +198,6 @@ export class DailytimerecordpageComponent implements OnInit {
     }
   }
 
-  
-
-  downloadPDF() {
-    let pdf = new jspdf('l', 'px', 'a2');
-    pdf.html(this.es.nativeElement,{
-      callback: (pdf)=> {
-        pdf.save("dtr.pdf");
-      }
-    });
-  }  
 
   
 

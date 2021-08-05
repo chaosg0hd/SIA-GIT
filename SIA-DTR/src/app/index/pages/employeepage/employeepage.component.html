@@ -29,17 +29,17 @@
       <button mat-button class="toolbar-buttons" matTooltip="Maximize Columns" (click)="maxTable()">Maximize &nbsp;<mat-icon>arrow_forward</mat-icon></button>
       <button mat-button class="toolbar-buttons" matTooltip="Minimize Columns" (click)="minTable()">Minimize &nbsp;<mat-icon>arrow_back</mat-icon></button>
       <button (click)="downloadPDF()" mat-button class="toolbar-buttons" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
+      <button (click)="toogleTag()" mat-button class="toolbar-buttons"><mat-icon>keyboard_arrow_down</mat-icon></button>
     </mat-toolbar>
   </mat-card-title>
 
 
   <mat-card-content style="height: 75vh !important">
-    <div class="div-container mat-elevation-z4" style="width: 100% !important" #content>
+    <div class="div-container mat-elevation-z4" style="width: 100% !important">
       <ng-container>
         <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
 
           <!--Table Generation-->
-         <!--Print Start--><div id="content" #content>
           <ng-container *ngFor="let empInfoTableColumnsJSON of empInfoTableColumnsJSON">
             <ng-container *ngFor="let empInfoTableColumns of empInfoTableColumns">
               <ng-container *ngIf="empInfoTableColumnsJSON.columnName === empInfoTableColumns">
@@ -201,7 +201,7 @@
               </ng-container>
             </ng-container>
           </ng-container>
-              <!--Print End-->  </div>
+              
         
    
 
@@ -209,8 +209,7 @@
             <mat-header-cell *matHeaderCellDef>&nbsp; Actions </mat-header-cell>
             <mat-cell *matCellDef="let element">
               &nbsp;&nbsp;&nbsp;
-              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="View">View &nbsp;<mat-icon>pageview</mat-icon></button>
-              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Print">Print &nbsp;<mat-icon>print</mat-icon></button>
+              <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="View" (click) = "viewModal(element)">View&nbsp;<mat-icon>pageview</mat-icon></button>
               <button mat-button style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important; margin: 0px" aria-label="" matTooltip="Delete" (click)="delEmp(element.emp_no)">Delete &nbsp;<mat-icon>delete</mat-icon></button>
             </mat-cell>
           </ng-container>
@@ -220,6 +219,138 @@
       </ng-container>
     </div>
   </mat-card-content>
+  <br>
+  <h1 *ngIf="showMe">
+    <div class="content" #content>
+    <div class="container">
+      <table class="trapped">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Emp No.</th>
+            <th>Status</th>
+            <th>Address</th>
+            <th>Sex</th>
+            <th>Date of Birth</th>
+            <th>Contact Info.</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Rate</th>
+            <th>Date Started</th>
+            <th>Time in</th>
+            <th>Time out</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let empInfoTable of empInfoTable">
+          <td>{{empInfoTable.emp_firstname}}</td>
+          <td>{{empInfoTable.emp_lastname}}</td>
+          <td>{{empInfoTable.emp_id}}</td>
+          <td>{{empInfoTable.emp_status}}</td>
+          <td>{{empInfoTable.emp_address}}</td>
+          <td>{{empInfoTable.emp_sex}}</td>
+          <td>{{empInfoTable.emp_datebirth}}</td>
+          <td>{{empInfoTable.emp_contact}}</td>
+          <td>{{empInfoTable.emp_position}}</td>
+          <td>{{empInfoTable.emp_department}}</td>
+          <td>{{empInfoTable.emp_rate}}</td>
+          <td>{{empInfoTable.emp_start_date}}</td>
+          <td>{{empInfoTable.emp_time_in}}</td>
+          <td>{{empInfoTable.emp_time_out}}</td>
+        </tbody>
+      </table>
+    </div>
 
+  </div>
+  </h1>
+                  
+ 
 </mat-card>
+
+
+<!-- MODAL -->
+
+
+
+<ng-template #ViewDialog>
+
+  <mat-dialog-content style="height: 25rem !important; width: 50rem !important; ">
+    <button (click)="download()" mat-button style="color: white; background-color: #706e5a;" mat-button class="modalprint"><mat-icon>print</mat-icon></button>
+    <div class="modalcontent" #modalcontent>
+    <div style="white-space: nowrap; display: flex; flex-direction: column; justify-content: center; padding: 5%;">
+      <div style="display: flex; flex-direction: row; align-items: center;">
+       <div style="display: flex; flex-direction: column; width: 100%;">
+      <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Employee Name</p>
+      <h1>{{fname}}  {{lname}}</h1>
+      </div>
+
+      <div style="display: flex; flex-direction: column; width: 100%;">
+        <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Employee ID</p>
+        <h1>{{empId}}</h1>
+      </div>
+
+      </div>  
+
+      
+
+      <div style="display: flex; flex-direction: row; align-items: center;">
+ 
+        <div style="display: flex; flex-direction: column; width: 100%;">
+        <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Sex</p>
+        <h1>{{sex}}</h1>
+        </div>
+  
+        <div style="display: flex; flex-direction: column; width: 100%;">
+          <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Date of Birth</p>
+          <h1>{{dob}}</h1>
+        </div>
+
+        <div style="display: flex; flex-direction: column; width: 100%;">
+          <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Contact</p>
+          <h1>{{contact}}</h1>
+        </div>
+  
+        </div> 
+
+        <div style="display: flex; flex-direction: row; align-items: center;">
+ 
+          <div style="display: flex; flex-direction: column; width: 100%;">
+          <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Address</p>
+          <h1>{{address}}</h1>
+          </div>
+
+          <div style="display: flex; flex-direction: column; width: 100%;">
+            <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Position</p>
+            <h1>{{position}}</h1>
+            </div>
+  
+          </div> 
+
+          <div style="display: flex; flex-direction: row; align-items: center;">
+ 
+            <div style="display: flex; flex-direction: column; width: 100%;">
+
+            <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Rate</p>
+            <h1>{{rate}}</h1>
+
+            </div>
+  
+            <div style="display: flex; flex-direction: column; width: 100%;">
+              <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Time-in</p>
+              <h1>{{timeIn}}</h1>
+              </div>
+
+              <div style="display: flex; flex-direction: column; width: 100%;">
+                <p style="font-weight: bold; font-size: 12px; white-space: nowrap;">Time-out</p>
+                <h1>{{timeOut}}</h1>
+                </div>
+      
+                
+            </div> 
+    </div>  
+  </div>
+  </mat-dialog-content>
+
+
+</ng-template>
 

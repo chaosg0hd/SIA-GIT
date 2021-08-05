@@ -66,6 +66,11 @@ export interface dtrJSON {
 })
 export class AttendancepageComponent implements OnInit, AfterViewInit {
 
+  showMe:boolean=true 
+
+  toogleTag() {
+    this.showMe=!this.showMe
+  }
 
   @ViewChild('content', { static: false }) es!: ElementRef;
 
