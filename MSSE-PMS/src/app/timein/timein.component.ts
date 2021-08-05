@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 export interface empTable {
   emp_id: string;
+  emp_no: any;
   emp_firstname: string;
   emp_lastname: string;
   emp_address: string;
@@ -156,13 +157,13 @@ export class TimeinComponent implements OnInit {
   //Pull DTR Contents
   jsonData: any;
 
-  onClickEditDTR(emp_id: string, value: any, argument: any) {
-    console.log(emp_id + '_' + this.month_year + ' From DTR Page: Method pullDTRContents');
+  onClickEditDTR(emp_no: string, value: any, argument: any) {
+    console.log(emp_no + '_' + this.month_year + ' From DTR Page: Method pullDTRContents');
     this.dtrJSONTable = [];
 
     for (let dtrInfoTable of this.dtrInfoTable) {
-      console.log(emp_id + '_' + this.month_year);
-      if (dtrInfoTable.dtr_id === emp_id + '_' + this.month_year) {
+      console.log(emp_no + '_' + this.month_year);
+      if (dtrInfoTable.dtr_id === emp_no + '_' + this.month_year) {
         console.log('MAAAAAAAAATCH' + dtrInfoTable.dtr_id)
         this.jsonData = dtrInfoTable.dtr_content;
         this.dtrJSONTable = JSON.parse(this.jsonData);
@@ -200,7 +201,7 @@ export class TimeinComponent implements OnInit {
     for (let empInfoTable of this.empInfoTable) {
       if (empInfoTable.emp_id === input_emp_id) {
         console.log('Match Found');
-        this.onClickEditDTR(input_emp_id, time, argString);
+        this.onClickEditDTR(empInfoTable.emp_no, time, argString);
         
 
         ; break

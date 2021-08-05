@@ -258,6 +258,16 @@
 					echo json_encode($post->editCom($d), JSON_PRETTY_PRINT);
 				break;
 
+
+
+				// Pull users
+
+				case 'users':
+					$d = json_decode(base64_decode(file_get_contents("php://input")));
+					echo json_encode($get->users($d), JSON_PRETTY_PRINT);
+				break;
+
+
 				// TO BE REMOVED
 
 		case 'reqs':

@@ -29,8 +29,8 @@ class Get{
 
     //User Operations
 
-    public function pullAllUser ($d) {
-		  $sql = "SELECT * FROM tbl_user";
+    public function users ($d) {
+		  $sql = "SELECT * FROM user_tb";
 		
 		  $res = $this->gm->generalQuery($sql, "No records found");
 		  if ($res['code'] == 200) {
