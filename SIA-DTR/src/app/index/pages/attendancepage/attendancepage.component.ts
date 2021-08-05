@@ -1,30 +1,43 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { DatePipe, Time } from '@angular/common';
 import { LowerCasePipe } from '@angular/common';
-
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { RouterModule } from '@angular/router';
+import jspdf from 'jspdf';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 //INTERFACES
 
 export interface empTable {
-  emp_id: string;
-  emp_firstname: string;
-  emp_lastname: string;
+  emp_no: any;
+  emp_id: any;
+  emp_firstname: any;
+  emp_lastname: any;
+  emp_address: any;
+  emp_datebirth: any;
+  emp_contact: any;
+  emp_time_in: any;
+  emp_time_out: any;
+  emp_department: any;
+  emp_is_archived: any;
+  emp_sex: any;
+  emp_position: any;
+  emp_start_date: any;
+  emp_status: any;
+  emp_last_mod_date: any;
+  emp_last_mod_by: any;
   emp_attendance: attendanceTable[];
-
 }
 
 export interface dtrTable {
   dtr_no: any;
   dtr_id: any;
-  emp_id: any;
+  emp_no: any;
   dtr_content: dtrJSON[];
   dtr_month_year: any;
 }
@@ -53,24 +66,31 @@ export interface dtrJSON {
 })
 export class AttendancepageComponent implements OnInit, AfterViewInit {
 
-  isDoneLoading = "false";
 
+  @ViewChild('content', { static: false }) es!: ElementRef;
+
+  downloadPDF() {
+    let pdf = new jspdf('p', 'px', [1500, 2000]);
+    pdf.html(this.es.nativeElement,{
+      callback: (pdf)=> {
+        pdf.save("employees.pdf");
+      }
+    });
+  }  
+  
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  
 
 
-
-
   constructor(private datepipe: DatePipe, private noti: MatSnackBar, public lowercasepipe: LowerCasePipe, private data: DataService, private router: RouterModule) { }
 
   ngOnInit(): void {
-    this.getDate();
-    this.getMonsArray();
+    this.loadDate();
     this.pullAllEmp();
-    this.buildTable();
     this.pullAllDTR();
-    this.storetoData()
+    this.dateIndex = this.monthinNum;
+    this.buildTable();
   }
 
   ngAfterViewInit(): void {
@@ -78,7 +98,13 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     //this.empInfoTableDataSource.sort = this.sort;
   }
 
-  //Set Date Functions
+  loadDate() {
+    this.getDate();
+    this.getMonths();
+    this.getDaysArray(this.monthinNum);
+  }
+
+  //Sets Date Variables
 
   currentDate: any;
   month: any;
@@ -88,63 +114,60 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
   month_year: any;
   dateIndex: any;
 
-  //Sets Date Variables
-
   getDate() {
 
     //Sets Date
     this.currentDate = new Date(this.data.getDate());
     console.log(this.currentDate + " From DTR Page: Method getDate");
-    //Sets Month and MonthYear Var
+    //Sets Month and MonthYear Varables
+    //gets month in natural number form
     this.monthinNum = this.data.getMonthinNum();
+    //gets month in text form
     this.month = this.data.getMonth();
-    console.log(this.month + " From DTR Page: Method getDate ++++++++++++++++++");
     this.monthintText = this.lowercasepipe.transform(this.month);
-    console.log(this.monthintText + " From DTR Page: Method getDate");
+    //gets year
     this.year = this.data.getYear();
+    //generates monthyear needed in dtr id
     this.month_year = this.monthintText + '_' + this.year;
-    console.log(this.month_year + " From DTR Page: Method getDate");
-    //Generate Days
-    this.getDaysArray(this.monthinNum);
-    //Sets Tab Index
-    this.dateIndex = this.monthinNum;
   }
 
+  //Generate Months Array
+  monthsArray: any;
+  getMonths() {
+    this.monthsArray = this.data.generateMonsArray();
+    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
+  }
 
   //Generate Days Array
   dayArray: any;
+  
   getDaysArray(month: number) {
     this.dayArray = this.data.generateDaysArray(month);
     console.log(this.dayArray + 'From DTR Page: Method getDayArray');
   }
 
-  //Generate Months Array
-  monthsArray: any;
-  getMonsArray() {
-    this.monthsArray = this.data.generateMonsArray();
-    console.log(this.monthsArray + 'From DTR Page: Method generateMonsArray');
-  }
-
+  //High Tab
   hightabClick(event: any) {
 
-    //Big Buttons Sa taas
+    // !!! Has one vulnelrabillity still not sure where
+
     var string = event.tab.textLabel;
+    //sets month_year needed by dtr card
     string = string.split(':');
     var month = string[0].replace(/^\s+|\s+$/g, "");
-    console.log(month + 'From DTR Page: Method hightabClick');
     this.month = month;
-    console.log(this.month + " From DTR Page: Method hightabClick");
-    this.monthinNum = event.index
-    console.log(this.monthinNum + " From DTR Page: Method hightabClick");
+    this.monthinNum = event.index;
+    //changes active month
     this.monthintText = this.lowercasepipe.transform(this.month);
     console.log(this.monthintText + " From DTR Page: Method hightabClick");
     this.month_year = this.monthintText + '_' + this.year;
     console.log(this.month_year + " From DTR Page: Method hightabClick +++++++++++++++++++++++++");
-
-    this.dateIndex = this.monthinNum;
+    //reload arrays of Days
     this.getDaysArray(this.monthinNum);
+    //pull dtr not sure why
+    this.pullAllDTR();
+
     this.buildTable();
-    /*this.pullAllDTR();*/
   }
 
   empInfoTable: empTable[] = [];
@@ -178,12 +201,12 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
 
   attendanceTableInfo: attendanceTable[] = [];
 
-  getHours(emp_id: any, date: any) {
-    console.log(emp_id);
-    console.log(date);
-      for (let dtrInfoTable of this.dtrInfoTable) {
-        if (dtrInfoTable.emp_id === emp_id) {
+  getHours(emp_no: any, date: any) {
+    /*console.log(emp_no)*/
+    for (let dtrInfoTable of this.dtrInfoTable) {
+        if (dtrInfoTable.emp_no == emp_no) {
           /*console.log('Match Found')*/
+          
           var attendanceDate: Date;
           var attendanceHour: number;
 
@@ -198,91 +221,21 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
               if (attendanceHour < 0) {
                 attendanceHour = -1
               }
-
-
-
               return <any>(attendanceHour)
             }
-
           }
           ; break
         }
       }
   }
-
-  //storeToArray
-
-  storetoData() {
-    
-    this.data.store(this.empInfoTableDataSource);
-    
-  }
-
-  //consolelog(string: any) {
-  //  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  //  console.log(string)
-  //}
-
-
-  //tabClick(event: any) {
-  //  console.log(event + "From Attendance Page: tabClick")
-  //  this.getDaysArray(event.index);
-    
-  //}
-
-  ////Time Methods
-  //date: any;
-  //month!: number;
-
-  ////To be Deleted
-  //monthNumbertoText(monthNumber: number) {
-
-  //}
+  
 
   ////Filter 
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.empInfoTableDataSource.filter = filterValue;
-  }
-
-  ////Get Current Date
-  //currentDate: any;
-  //getDate() {
-  //  //Sets Date
-  //  this.currentDate = this.data.getDate();
-  //  this.month = Number( this.datepipe.transform(this.currentDate, 'MM'));
-  //  //Sets Month
-  //  this.month = this.month - 1;
-  //  console.log(this.month + "From Attendance Page: Method getDate")
-  //}
-
-  
-  ////These 2 are useless really, 
-  ////Get First Date
-  //firstDay: any;
-  //getFirstDayofThisMonth() {
-  //  var month
-  //  this.date = new Date();
-  //  month = this.date.getMonth();
-  //  this.firstDay = this.data.getFirstDayofMonth(month);
-  //}
-  ////Get Last Date
-  //lastDay: any;
-  //getLastDayofThisMonth() {
-  //  var month
-  //  this.date = new Date();
-  //  month = this.date.getMonth();
-  //  this.lastDay = this.data.getLastDayofMonth(month);
-  //}
-  ////Generate Days Array
-  //dayArray: string[] = [];
-
-  //getDaysArray(month: number) {
-  //  this.dayArray = this.data.generateDaysArray(month);
-  //  console.log(this.dayArray + 'From Attendance Page: Method getDayArray');
-
-
+  }  
 
   //TABLE BUILDER
 
@@ -295,28 +248,7 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     this.attendanceColumns.push("total");
   }
 
-  //  //Implement Dedicated Functions
-  //  this.attendanceColumns = [];
-
-  //  //add First Columns
-  //  this.attendanceColumns.push("emp_name");
-  //  //add Days columns    
-  //  this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
-  //  //add End Columns
-  //  this.attendanceColumns.push("total");
-  //  //Reload Emp
-  //  this.pullAllEmp();
-  //  console.log(this.attendanceColumns + 'From Attendance Page: Method getDayArray');
-  //}
-
-  ////Generate Mons Array
-  //monthsArray: string[] = [];
-
-  //getMonsArray() {
-  //  this.monthsArray = this.data.generateMonsArray();
-  //  console.log(this.monthsArray + 'From Attendance Page: Method generateMonsArray');    
-  //}
-
+  
   //Pull Emp Data
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
@@ -326,7 +258,6 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
     });     
   }
-
 
   //Calculations
 
@@ -338,15 +269,13 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
       value = 0;
     }
 
-    console.log(value);
+    /*console.log(value);*/
     this.currentTotal = this.currentTotal + value;
-    console.log(this.currentTotal);
+    /*console.log(this.currentTotal);*/
 
   }
 
-  total!: number
-
-  
+  total!: number  
 
 
   getTotal() {
@@ -358,31 +287,9 @@ export class AttendancepageComponent implements OnInit, AfterViewInit {
     return(this.total)
   }
 
-  ////Summate Hour, Needs Better Implementation
 
-  //totalHours = 0;
 
-  ////Reads per line needs to improve further
 
-  //addtoTotal(hour: any, id: any) {
-  //  //this.totalHours = this.totalHours + hour;
-  //  //console.log(this.totalHours + ' From Dashboard Page: Method addtoTotal');
-  //}
-
-  //getTotalHours(id: any) {
-  //  //var total;
-  //  //total = this.totalHours;
-  //  //this.totalHours = 0;
-  //  //return total;
-  //}
-
-  //pullAllAtt() {
-  //  this.data.sendApiRequest("pullAllAtt", null).subscribe((data: any) => {
-  //    this.attInfoTable = data.payload;
-  //    this.attInfoTableDataSource = new MatTableDataSource(this.attInfoTable);
-  //    console.log(this.attInfoTable + ' From Dashboard Page: Method pullAllAtt');
-  //  });
-  //}
 
 
 

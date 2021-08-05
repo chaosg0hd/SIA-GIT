@@ -1,4 +1,4 @@
-/* #parent {
+#parent {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,7 +109,7 @@ img {
 .vl {
   border-left: 6px solid #bfba87;
   height: 500px;
-} */
+}
 
 /* NEW CSS CODES */
 

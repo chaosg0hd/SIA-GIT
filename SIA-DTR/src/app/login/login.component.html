@@ -1,34 +1,35 @@
 <div class="loginDiv">
 
-  <mat-card class="loginCard mat-elevation-z5" style="height:95vh;">
+  <mat-card class="loginCard mat-elevation-z5">
     <br>
-
-      <div class="twoTableRow">
-        <div class="column" style="padding: 50px;" >
-          <img src="./assets/faveIcon/cocolime.png" style="margin: auto; width: auto; height: 50vh;">
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <div class="row">
+        <div class="column" >
+          <img src="./assets/faveIcon/cocolime.png" class="logo">
         </div>
 <!-- <div class="vl"></div> -->
         
           <div class="column2">
             <div class="right">
-          <p id="text1">ADMIN LOGIN</p>
-          <p id="text2">SIGN IN | ADMINISTRATOR</p><br>
-          <mat-form-field id="parent">
-            <mat-icon id="username1" class="icon1" matPrefix>person</mat-icon>
-            <input id="username" [(ngModel)]="user_name" type="text" matInput placeholder="Username">
+          <p  class="loginTitle">ADMIN LOGIN</p>
+          <p>Please login to your account</p><br>
+          <mat-form-field appearance="outline">
+            <mat-icon class="icon" matPrefix>person</mat-icon>
+            <input  class="input" [(ngModel)]="user_name" type="text" matInput placeholder="Username">
           </mat-form-field><br>
 
-          <mat-form-field id="parent">
-            <mat-icon id="password1" class="icon" matPrefix>lock</mat-icon>
-            <input id="password" [(ngModel)]="user_password" type="password" matInput placeholder="Password">
+          <mat-form-field appearance="outline">
+            <mat-icon class="icon" matPrefix>lock</mat-icon>
+            <input class="input" [(ngModel)]="user_password" type="password" matInput placeholder="Password">
           </mat-form-field>
 
           <br><br>
 
-          <button mat-raised-button class="mat-elevation-z8" id="login" (click)="loginUser()">LOGIN</button><br><br>
+          <button mat-raised-button  class="login-btn" (click)="loginUser()">LOGIN</button><br><br>
         </div>
         </div>
       </div>
 
+      </mat-grid-list>
   </mat-card>
 </div>

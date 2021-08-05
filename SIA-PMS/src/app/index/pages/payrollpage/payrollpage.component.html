@@ -29,13 +29,15 @@
         <button mat-menu-item>JSON</button>
         <button mat-menu-item>CSV</button>
       </mat-menu>
-      <button mat-button class="btn3" style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important;" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
+      <button printSectionId="demo" ngxPrint mat-button class="btn3" style="color: white; background-color: #706e5a; font-size: large; height: 100%; border-radius: 0px !important;" matTooltip="Print Employee Table"> Print &nbsp; <mat-icon>print</mat-icon></button>
       <!--<button mat-mini-fab class="" style="background-color: darkred; color: white" matTooltip="Delete"><mat-icon>delete</mat-icon></button> &nbsp;-->
     </mat-toolbar>
   </mat-card-title>
 
-
+  <div id="demo" class="content">
   <mat-card-content>
     sfafafafasf
   </mat-card-content>
+</div>
+
 </mat-card>
