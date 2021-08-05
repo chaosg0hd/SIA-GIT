@@ -44,6 +44,7 @@ export interface apJSON {
 }
 
 
+
 @Component({
   selector: 'app-additionpage',
   templateUrl: './additionpage.component.html',
@@ -60,7 +61,6 @@ export class AdditionpageComponent implements OnInit {
     this.buildTable();  
     this.pullAllAP();
     this.pullAllEmp();
-   
     
   }
   
@@ -69,26 +69,18 @@ export class AdditionpageComponent implements OnInit {
   aPInfoTableDataSource = new MatTableDataSource(this.aPInfoTable);
 
   jsonData: any;
+
   pullAllAP() {
     this.data.sendApiRequest("pullAllAP", null).subscribe((data: any) => {
       console.log(data.payload)
       this.aPInfoTable = data.payload;
       this.aPInfoTableDataSource.data = this.aPInfoTable;
-      /*console.log(this.aPInfoTableDataSource.data + ' From DTR Page: Method pullAllAP');*/
-
-      //for (let dtrInfoTable of this.dtrInfoTable) {
-      //  this.jsonData = dtrInfoTable.dtr_content;
-      //  this.dtrJSONTable = JSON.parse(this.jsonData);
-      //  dtrInfoTable.dtr_content = this.dtrJSONTable;
-      //}
 
       for (let aPInfoTable of this.aPInfoTable) {
         this.jsonData = aPInfoTable.ap_JSON;
         this.aPInfoTableJSON = JSON.parse(this.jsonData);
         aPInfoTable.ap_JSON = this.aPInfoTableJSON;
       }
-
-      /*console.log(this.aPInfoTable[0].ap_JSON[0].emp_no + 'XXXXXXXXXXXXXXXXXX')*/
 
     });
   }
@@ -126,18 +118,59 @@ export class AdditionpageComponent implements OnInit {
     }
   }
 
-  checkIfHasEmp(emp_no: any) {
-    var hasEmp : boolean = false
-    for (let empInfoTable of this.empInfoTable) {
-      console.log(empInfoTable.emp_no)
-      if (emp_no == empInfoTable.emp_no) {
-        console.log('match found')
-        hasEmp = true;
-        ;break
+  //checkIfHasEmp(emp_no: any, ap_name: any) {
+  //  var hasEmp: boolean = false;
+  //  console.log(ap_name)
+  //  for (let aPInfoTable of this.aPInfoTable) {
+  //    if (aPInfoTable.ap_name === ap_name) {
+  //      for (let ap_json of aPInfoTable.ap_JSON) {
+  //        if (ap_json.emp_no == emp_no ) {
+  //          console.log('maaaaaaaaaaaatch');
+  //          hasEmp = true;
+  //          ;break
+  //        }
+  //      }
+  //    }      
+  //  }
+  //  if (hasEmp == false) {
+  //    console.log('No maaaaaaaaaaaatch');
+  //    /*this.generateEmpty(this.aPInfoTableJSON, ap_name, emp_no);*/
+  //  }  
+    
+  //}
+
+  getAPRate(emp_no: any, ap_name: any) {
+    var rate = null;
+    console.log(ap_name)
+    for (let aPInfoTable of this.aPInfoTable) {
+      if (aPInfoTable.ap_name === ap_name) {
+        for (let ap_json of aPInfoTable.ap_JSON) {
+          if (ap_json.emp_no == emp_no) {
+            /*console.log('maaaaaaaaaaaatch');*/
+            rate = ap_json.ap_rate;
+            ; break
+          }
+        }
       }
-      hasEmp = false;
     }
-    return(hasEmp)
+    return (rate)
+  }
+
+  getAPFunction(emp_no: any, ap_name: any) {
+    var arg = null;
+    console.log(ap_name)
+    for (let aPInfoTable of this.aPInfoTable) {
+      if (aPInfoTable.ap_name === ap_name) {
+        for (let ap_json of aPInfoTable.ap_JSON) {
+          if (ap_json.emp_no == emp_no) {
+            /*console.log('maaaaaaaaaaaatch');*/
+            arg = ap_json.ap_argument;
+            ;break
+          }
+        }
+      }
+    }
+    return (arg)
   }
 
   additionsColumns: string[] = [];
@@ -150,7 +183,102 @@ export class AdditionpageComponent implements OnInit {
     this.additionsColumns.push("actions");
   }
 
-  updateList() {
+  aPInfoTableCopy: aPTable[] = [];
+
+  //generateEmpty(aPJSON : any, ap_name: any, emp_no : any) {
+  //  console.log(emp_no);
+  //  this.aPInfoTableCopy = this.aPInfoTable;
+  //  console.log(this.aPInfoTableCopy);
+  //  for (let aPInfoTableCopy of this.aPInfoTableCopy) {
+  //    console.log(aPInfoTableCopy)
+  //    aPInfoTableCopy.ap_JSON.push({ "emp_no": emp_no, "ap_rate": "0", "ap_argument": "none" })
+  //  }
+
+  //  console.log(this.aPInfoTableCopy[0].ap_JSON + 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+  //  console.log(this.aPInfoTable[0].ap_JSON);
+  
+
+  //  //for (let aPInfoTableCopy of this.aPInfoTableCopy) {
+  //  //  if (aPInfoTableCopy.ap_name === ap_name) {
+  //  //    aPInfoTableCopy.ap_JSON.push({ "emp_no": emp_no, "ap_rate": "0", "ap_argument": "none" });
+  //  //    console.log()
+  //  //    /*this.compileAP(aPInfoTableCopy.ap_JSON, aPInfoTableCopy.ap_no);*/
+  //  //  }      
+  //  //}
+    
+    
+  //}
+
+  updateList(event: any) {
+    console.log(event + '+++++++++ From DTR Page: Method updateList');
+    //for (let dtrJSONTable of this.dtrJSONTable) {
+    //  if (dtrJSONTable.date == date) {
+    //    console.log('Date Matched');
+    //    switch (argument) {
+    //      case "am_time_in": {
+    //        dtrJSONTable.am_time_in = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "am_time_out": {
+    //        dtrJSONTable.am_time_out = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "pm_time_in": {
+    //        dtrJSONTable.pm_time_in = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "pm_time_out": {
+    //        dtrJSONTable.pm_time_out = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "ot_time_in": {
+    //        dtrJSONTable.ot_time_in = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "ot_time_out": {
+    //        dtrJSONTable.ot_time_out = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "mhrs": {
+    //        dtrJSONTable.mhrs = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //      case "remarks": {
+    //        dtrJSONTable.remarks = event.target.value;
+    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+
+    //      default: {
+    //        console.log(argument + ': No Valid Argumments From DTR Page: Method updateList');
+    //        break;
+    //      }
+    //    }
+    //  }
+    //}
+    //this.editDTR(this.dtrJSONTable, dtr_id);
+  }
+
+
+  aPInfo: any = {};
+  async compileAP(aPJSON: any, ap_no: any) {
+    this.aPInfo = {};
+    this.aPInfo.ap_no = ap_no;
+    this.aPInfo.ap_JSON = JSON.stringify(aPJSON);
+
+    console.log(this.aPInfo.ap_JSON)
+    //this.data.sendApiRequest("editAP", this.aPInfo).subscribe((data: any) => {
+    //});
+  }
+
+  editAP() {
 
   }
 

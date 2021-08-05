@@ -183,6 +183,16 @@
 				}
 			break;
 
+		case 'pullAllDed':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo $d;
+			if(count($req)>1) {
+				echo json_encode($get->pullAllDed($d), JSON_PRETTY_PRINT);
+			} else {
+				echo json_encode($get->pullAllDed($d), JSON_PRETTY_PRINT);
+			}
+			break;
+
 		//Dump Operations
 
 		case 'cumDump':
@@ -257,6 +267,13 @@
 					$d = json_decode(base64_decode(file_get_contents("php://input")));
 					echo json_encode($post->editCom($d), JSON_PRETTY_PRINT);
 				break;
+
+				// APFUNCTIONS
+
+		case 'editAP':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo json_encode($post->editAP($d), JSON_PRETTY_PRINT);
+			break;
 
 				// TO BE REMOVED
 

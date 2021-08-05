@@ -47,21 +47,22 @@
                   <p>{{aPInfoTable.ap_name}}</p>
                 </mat-card-title>
                 <mat-table class="mat-elevation-z4 attendance-table" [dataSource]="empInfoTableDataSource" matSort>
-
+                   
 
                   <ng-container matColumnDef="emp_name" sticky>
                     <mat-header-cell *matHeaderCellDef>Employee Name</mat-header-cell>
                     <mat-cell class="" *matCellDef="let element" matTooltip="{{element.emp_firstname}} {{element.emp_lastname}}">
-                      <p>{{element.emp_firstname}}</p> &nbsp;
-                      <p>{{element.emp_lastname}}</p>
+                      
+                      <p>{{element.emp_firstname}} {{element.emp_lastname}}</p> 
                     </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="ap_rate">
                     <mat-header-cell *matHeaderCellDef>Rate</mat-header-cell>
                     <mat-cell class="" *matCellDef="let element">
-                      <input placeholder="" type="text"
-                             (keyup)="updateList()"
+                      
+                      <input placeholder="{{getAPRate(element.emp_no, aPInfoTable.ap_name)}}" type="text"
+                             (keyup)="updateList($event)"
                              matInput>
                     </mat-cell>
                   </ng-container>
@@ -69,8 +70,8 @@
                   <ng-container matColumnDef="ap_argument">
                     <mat-header-cell *matHeaderCellDef>Function</mat-header-cell>
                     <mat-cell class="" *matCellDef="let element">
-                      <input placeholder="" type="text"
-                             (keyup)="updateList()"
+                      <input placeholder="{{getAPFunction(element.emp_no, aPInfoTable.ap_name)}}" type="text"
+                             (keyup)="updateList($event)"
                              matInput>
                     </mat-cell>
                   </ng-container>

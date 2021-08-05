@@ -11,6 +11,20 @@ import jspdf from 'jspdf';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+
+
+export interface deTable {
+  ded_no: any;
+  ded_name: any;
+  ded_JSON: dedJSON[];
+}
+
+export interface dedJSON {
+  emp_no: any;
+  ded_rate: any
+  ded_argument: any;
+}
+
 export interface empTable {
   emp_no: any;
   emp_id: any;
@@ -58,9 +72,15 @@ export interface dtrJSON {
 }
 
 export interface aPTable {
-  ap_no: string;
-  ap_name: string;
-  ap_arguments: string;
+  ap_no: any;
+  ap_name: any;
+  ap_JSON: apJSON[];
+}
+
+export interface apJSON {
+  emp_no: any;
+  ap_rate: any
+  ap_argument: any;
 }
 
 
@@ -88,6 +108,9 @@ export class WagespageComponent implements OnInit, AfterViewInit {
       }
     });
   }  
+
+
+
 
   ngOnInit(): void {
     this.loadDate();
@@ -277,8 +300,6 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     this.empInfoTableDataSource.filter = filterValue;
   }
 
-
-
   //TABLE BUILDER
 
   attendanceColumns: string[] = [];
@@ -301,6 +322,24 @@ export class WagespageComponent implements OnInit, AfterViewInit {
         this.attendanceColumns.push(aPInfoTable.ap_name);
       }
       this.pushEnding() 
+    });
+  }
+
+  deInfoTable: deTable[] = [];
+  deInfoTableJSON: dedJSON[] = [];
+  deInfoTableDataSource = new MatTableDataSource(this.deInfoTable);
+
+
+  pullAllDed() {
+    this.data.sendApiRequest("pullAllDed", null).subscribe((data: any) => {
+      console.log(data.payload)
+      this.deInfoTable = data.payload;
+      this.deInfoTableDataSource.data = this.deInfoTable;
+
+      for (let deInfoTable of this.deInfoTable) {
+        this.attendanceColumns.push(deInfoTable.ded_name);
+      }
+
     });
   }
 
@@ -408,6 +447,8 @@ export class WagespageComponent implements OnInit, AfterViewInit {
   //  this.noti.open("hello", "ok");
   //  console.log("Index Running")
   //}
+
+
 
 
 
