@@ -331,6 +331,16 @@ export class EmployeepageComponent implements OnInit{
               this.editEmp(this.empInfo);
               break;
             }
+            case "emp_position": {
+              console.log(event.target.value + 'From Employees Page: Method updateList');
+              console.log('Arguments:' + property + 'From Employees Page: Method updateList');
+              this.empInfo = {};
+              this.empInfo.emp_no = no;
+              this.empInfo.emp_position = event.target.value;
+              console.log(this.empInfo + 'From Employees Page: Method updateList');
+              this.editEmp(this.empInfo);
+              break;
+            }
             case "emp_start_date": {
               console.log(event.target.value + 'From Employees Page: Method updateList');
               console.log('Arguments:' + property + 'From Employees Page: Method updateList');

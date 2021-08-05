@@ -61,7 +61,7 @@ mat-cell {
   justify-content: center;
 }
 
-.mat-column-rate {
+.mat-column-daily_rate {
   min-width: 100px;
   flex: 5% !important;
   max-width: 50px;
