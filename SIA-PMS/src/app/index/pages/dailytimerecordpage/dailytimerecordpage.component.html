@@ -66,13 +66,13 @@
           <ng-template matTabContent>
 
             <!--DTR CARD-->
-
+            <div class="content" #content>
             <ng-container *ngFor="let dtrInfoTable of dtrInfoTable">
               <ng-container *ngIf="dtrInfoTable.dtr_id === empInfoTable.emp_id+'_'+month_year;">
                 <mat-grid-list cols="1" rowHeight="">
                   <div class="content" #content>
                     <mat-grid-tile>
-                      <mat-card style="width: 70%; height: 100%; align-items:center">
+                      <mat-card style="width: 60%; height: 100%; align-items:center">
                         <mat-card-title style="padding:8px; height:30px; font-size: 36px;">
                           <p style="margin-top: 4px;">  {{month}} {{year}} </p>
                         </mat-card-title>
@@ -160,6 +160,7 @@
                 </mat-grid-list>
               </ng-container>
             </ng-container>
+          </div>
 
             <!--CHECK IF HAS DTR-->
             <ng-container *ngIf="hasDTRbool === false">

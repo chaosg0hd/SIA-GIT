@@ -21,6 +21,8 @@ export class PayrollpageComponent implements OnInit {
 }
 
 }
+
+
 @Component({
   selector: 'app-payrollpage',
   templateUrl: './sampledialog.component.html',
@@ -33,6 +35,9 @@ export class SampledialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+
+    
   }
 
+  
 }

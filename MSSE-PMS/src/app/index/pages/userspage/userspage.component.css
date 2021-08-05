@@ -1,0 +1,12 @@
+.tableSize {
+  width: 100% !important;
+  height: 53rem;
+  padding: 2%;
+  text-align: center;
+  font-family: Poppins !important;
+}
+
+th {
+  font-weight: bold !important;
+  font-size: 20px !important];
+}
