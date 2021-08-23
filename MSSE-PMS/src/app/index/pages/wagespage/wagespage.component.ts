@@ -7,13 +7,27 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { RouterModule } from '@angular/router';
+
+import { NgxPrintModule } from 'ngx-print';
+
 import jspdf from 'jspdf';
-import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 
 
-export interface deTable {
+export interface aPTable {
+  ap_no: any;
+  ap_name: any;
+  ap_JSON: apJSON[];
+}
+
+export interface apJSON {
+  emp_no: any;
+  ap_rate: any;
+}
+
+
+export interface dedTable {
   ded_no: any;
   ded_name: any;
   ded_JSON: dedJSON[];
@@ -22,7 +36,6 @@ export interface deTable {
 export interface dedJSON {
   emp_no: any;
   ded_rate: any
-  ded_argument: any;
 }
 
 export interface empTable {
@@ -71,17 +84,6 @@ export interface dtrJSON {
   remarks: string;
 }
 
-export interface aPTable {
-  ap_no: any;
-  ap_name: any;
-  ap_JSON: apJSON[];
-}
-
-export interface apJSON {
-  emp_no: any;
-  ap_rate: any
-  ap_argument: any;
-}
 
 
 
@@ -102,12 +104,12 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   downloadPDF() {
     let pdf = new jspdf('l', 'px', 'a2');
-    pdf.html(this.es.nativeElement,{
-      callback: (pdf)=> {
+    pdf.html(this.es.nativeElement, {
+      callback: (pdf) => {
         pdf.save("dtr.pdf");
       }
     });
-  }  
+  }
 
 
 
@@ -118,7 +120,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     this.pullAllDTR();
     this.dateIndex = this.monthinNum;
     this.buildTable();
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -216,7 +218,7 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   startDay: any = '1';
   endDay: any;
-  
+
 
   //Generate Limited Days Array
   getLimitedDaysArray(month: number) {
@@ -224,8 +226,8 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     console.log(this.dayArray + 'From DTR Page: Method getLimitedDaysArray');
     this.buildTable();
 
-  }  
-  
+  }
+
 
   empInfoTable: empTable[] = [];
   dtrInfoTable: dtrTable[] = [];
@@ -258,6 +260,137 @@ export class WagespageComponent implements OnInit, AfterViewInit {
 
   attendanceTableInfo: attendanceTable[] = [];
 
+  
+
+  ////Filter 
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.empInfoTableDataSource.filter = filterValue;
+  }
+
+  //TABLE BUILDER
+
+  attendanceColumns: string[] = [];
+
+  buildTable() {
+    this.attendanceColumns = [];
+    this.attendanceColumns.push("emp_name");
+    this.attendanceColumns.push("daily_rate");
+    this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
+    this.pullAllDed();
+    this.pullAllAP();
+    
+    
+  }
+
+
+  aPInfoTable: aPTable[] = [];
+
+  aPInfoTableJSON: apJSON[] = [];
+
+  pullAllAP() {
+    this.data.sendApiRequest("pullAllAP", null).subscribe((data: any) => {
+      this.aPInfoTable = data.payload;
+      console.log(this.aPInfoTable + ' From DTR Page: Method pullAllAP');
+
+      for (let aPInfoTable of this.aPInfoTable) {
+        this.jsonData = aPInfoTable.ap_JSON;
+        this.aPInfoTableJSON = JSON.parse(this.jsonData);
+        aPInfoTable.ap_JSON = this.aPInfoTableJSON;
+      }
+
+      for (let aPInfoTable of this.aPInfoTable) {
+        this.attendanceColumns.push(aPInfoTable.ap_name);
+      }
+      this.pushEnding()
+
+    });
+  }
+
+  getAPRate(ap_name: any, emp_no: any) {
+
+    var rate: number = 0
+
+    for (let aPInfoTable of this.aPInfoTable) {
+      if (aPInfoTable.ap_name == ap_name) {
+        for (let aPInfoTableJSON of aPInfoTable.ap_JSON) {
+          if (emp_no == aPInfoTableJSON.emp_no) {
+            rate = aPInfoTableJSON.ap_rate
+          }
+        }
+      }
+    }
+
+    if (rate != rate) {
+      rate = 0
+    }
+
+    return (rate)
+  }
+
+  dedInfoTable: dedTable[] = [];
+  dedInfoTableJSON: dedJSON[] = [];
+
+
+  pullAllDed() {
+    this.data.sendApiRequest("pullAllDed", null).subscribe((data: any) => {
+      console.log(data.payload)
+      this.dedInfoTable = data.payload;
+
+      for (let dedInfoTable of this.dedInfoTable) {
+        this.jsonData = dedInfoTable.ded_JSON;
+        this.dedInfoTableJSON = JSON.parse(this.jsonData);
+        dedInfoTable.ded_JSON = this.dedInfoTableJSON;
+      }
+
+      for (let dedInfoTable of this.dedInfoTable) {
+        this.attendanceColumns.push(dedInfoTable.ded_name);
+      }
+
+      
+    });
+  }
+
+  getDedRate(ded_name: any, emp_no: any) {
+
+    var rate: number = 0
+
+    for (let dedInfoTable of this.dedInfoTable) {
+      if (dedInfoTable.ded_name == ded_name) {
+        for (let dedInfoTableJSON of dedInfoTable.ded_JSON) {
+          if (emp_no == dedInfoTableJSON.emp_no) {
+            rate = dedInfoTableJSON.ded_rate
+          }
+        }
+      }
+    }
+
+    if (rate != rate) {
+      rate = 0
+    }
+    return (rate)
+  }
+
+  pushEnding() {
+    this.attendanceColumns.push("total_wage");
+    this.attendanceColumns.push("total_salary");
+  }
+
+
+  //Pull Emp Data
+  pullAllEmp() {
+    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
+      this.empInfoTable = data.payload;
+      console.log(this.empInfoTable);
+      this.empInfoTableDataSource.data = this.empInfoTable;
+      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
+    });
+  }
+
+
+  //Calculations
+
   //COMMENTS HERE ARE SOOO LONG
 
   getHours(emp_no: any, date: any) {
@@ -281,6 +414,12 @@ export class WagespageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getDailyRate(rate: number) {
+    var daily;
+    daily = rate * 8;
+    return (daily);
+  }
+
   getWage(hours: any, rate: any) {
     var wage;
     wage = hours * rate;
@@ -291,126 +430,74 @@ export class WagespageComponent implements OnInit, AfterViewInit {
       wage = 0;
     }
     return <any>(wage);
-  }
-
-  ////Filter 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.empInfoTableDataSource.filter = filterValue;
-  }
-
-  //TABLE BUILDER
-
-  attendanceColumns: string[] = [];
-
-  buildTable() {
-    this.attendanceColumns = [];
-    this.attendanceColumns.push("emp_name");
-    this.attendanceColumns = this.attendanceColumns.concat(this.dayArray);
-    this.pullAllAP();
-  }
-
-
-  aPInfoTable: aPTable[] = [];
-
-  pullAllAP() {
-    this.data.sendApiRequest("pullAllAP", null).subscribe((data: any) => {
-      this.aPInfoTable = data.payload;
-      console.log(this.aPInfoTable + ' From DTR Page: Method pullAllAP');
-      for (let aPInfoTable of this.aPInfoTable) {
-        this.attendanceColumns.push(aPInfoTable.ap_name);
-      }
-      this.pushEnding() 
-    });
-  }
-
-  deInfoTable: deTable[] = [];
-  deInfoTableJSON: dedJSON[] = [];
-  deInfoTableDataSource = new MatTableDataSource(this.deInfoTable);
-
-
-  pullAllDed() {
-    this.data.sendApiRequest("pullAllDed", null).subscribe((data: any) => {
-      console.log(data.payload)
-      this.deInfoTable = data.payload;
-      this.deInfoTableDataSource.data = this.deInfoTable;
-
-      for (let deInfoTable of this.deInfoTable) {
-        this.attendanceColumns.push(deInfoTable.ded_name);
-      }
-
-    });
-  }
-
-  pushEnding() {
-    this.attendanceColumns.push("cash_advance");
-    this.attendanceColumns.push("total_hours");
-    this.attendanceColumns.push("daily_rate");
-    this.attendanceColumns.push("total_wage");
-  }
-
-
-  //Pull Emp Data
-  pullAllEmp() {
-    this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
-      this.empInfoTable = data.payload;
-      console.log(this.empInfoTable);
-      this.empInfoTableDataSource.data = this.empInfoTable;
-      console.log(this.empInfoTableDataSource + ' From Dashboard Page: Method pullAllEmp');
-    });
-  }
-
-
-  //Calculations
-
-
+  }  
 
   currentTotal: number = 0;
 
   addtoTotal(value: number) {
-
     if (value != value) {
       value = 0;
     }
-
-    /*console.log(value);*/
     this.currentTotal = this.currentTotal + value;
-    /*console.log(this.currentTotal);*/
-
   }
 
-  //from attendance page modified to take rate
-
-  totalHours!: number;
-
-  getTotalHours() {
-    this.totalHours = this.currentTotal;
-    if (this.totalHours != this.totalHours) {
-      this.totalHours = 0;
-    }
-
-    return (this.totalHours)
-  }
-
-  totalWage!: number;
+  totalWage: number = 0;
 
   getTotalWage() {
     this.totalWage = this.currentTotal;
-    this.currentTotal = 0;
+    if (this.totalWage != this.totalWage) {
+      this.totalWage = 0;
+    }
+    return (this.totalWage)
+  }  
+
+  difference: number = 0;
+
+  addtoWage(number: any) {
+    this.difference = this.difference + number;
+  }
+
+  subtracttoWage(number: any) {
+    this.difference = this.difference - number;
+  }
+
+  totalSalary: number = 0
+
+  getTotalSalary() {
+    this.totalSalary = this.totalWage + this.difference;    
+
     if (this.totalWage != this.totalWage) {
       this.totalWage = 0;
     }
 
-    /*this.totalWage = this.totalWage * rate;*/
+    return (this.totalSalary)
+  }  
 
-    return (this.totalWage)
+  resetCalc() {
+
+    this.totalWage = 0
+    this.currentTotal = 0;
+    this.difference = 0;
+
+  }  
+
+  currentGrossTotal: number = 0;
+
+  addToGrossTotal(value: number) {
+
+    if (value != value) {
+      value = 0;
+    }
+    this.currentGrossTotal = this.currentGrossTotal + value;
   }
 
-  getDailyRate(rate: number) {
-    var daily;
-    daily = rate * 8;
-    return (daily);
+  getGrossTotal() {
+    var grossTotal = this.currentGrossTotal
+    return (grossTotal)   
+  }
+
+  resetGrossTotal() {
+    this.currentGrossTotal = 0;
   }
 
 

@@ -108,6 +108,33 @@
 					echo json_encode($post->delEmp($d), JSON_PRETTY_PRINT);
 				break;
 
+		// Emp Operations
+
+        case 'pullAllTodo':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo $d;
+            if(count($req)>1) {
+				echo json_encode($get->pullAllTodo($d), JSON_PRETTY_PRINT);
+			} else {
+				echo json_encode($get->pullAllTodo($d), JSON_PRETTY_PRINT);
+			}
+			break;
+
+		case 'addTodo':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo json_encode($post->addTodo($d), JSON_PRETTY_PRINT);
+			break;
+
+		case 'delTodo':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo json_encode($post->delTodo($d), JSON_PRETTY_PRINT);
+			break;
+
+		case 'editTodo':
+			$d = json_decode(base64_decode(file_get_contents("php://input")));
+			echo json_encode($post->editTodo($d), JSON_PRETTY_PRINT);
+			break;
+
 
 		//DTR Operations
 		case 'pullAllDTR':

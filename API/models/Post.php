@@ -10,6 +10,58 @@ class Post{
         $this->get = new Get($pdo);
     }
 
+	public function addTodo($data) {
+        $code = 401;
+        $payload = null;
+        $remarks = "failed";
+        $message = "Unable to retrieve data";
+        $reqInfo = $data;
+        $res = $this->gm->insert('todo_list', $reqInfo);
+        if($res['code']==200) {
+            $code = 200;
+            $payload = $res;
+            $remarks = "success";
+            $message = "Successfully retrieved data";
+        }
+        return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+	public function editTodo($d) {
+		$code = 0;
+		$data = $d;
+		$prod_no = $data->prod_no;
+		$res = $this->gm->edit('todo_list', $data, "prod_no = '$prod_no'");
+		if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+		return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+	public function delTodo($d) {
+
+		$code = 0;
+		$data = $d;
+		$prod_no = $data->prod_no;
+		$res = $this->gm->delete('todo_list', $data, "prod_no = '$prod_no'");
+		if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+		return $this->gm->sendPayload($payload, $remarks, $message, $code);
+    }
+
+
     // Emp Operations
 
     public function addEmp($data) {

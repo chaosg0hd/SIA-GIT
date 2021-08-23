@@ -49,6 +49,7 @@
     <mat-tab-group class="mat-elevation-z4" [selectedIndex]="dateIndex" animationDuration="1000ms" (selectedTabChange)="hightabClick($event)">
       <ng-container *ngFor="let monthsArray of monthsArray">
         <mat-tab label="{{monthsArray}}" matTooltip="{{monthsArray}}">
+
         </mat-tab>
       </ng-container>
     </mat-tab-group>

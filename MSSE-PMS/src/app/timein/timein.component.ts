@@ -6,8 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 
 export interface empTable {
-  emp_id: string;
   emp_no: any;
+  emp_id: string;
   emp_firstname: string;
   emp_lastname: string;
   emp_address: string;
@@ -107,7 +107,7 @@ export class TimeinComponent implements OnInit {
   monthintText: any;
   month_year: any;
 
-  
+
 
   //Sets Date Variables
   getDate() {
@@ -169,7 +169,7 @@ export class TimeinComponent implements OnInit {
         this.dtrJSONTable = JSON.parse(this.jsonData);
         console.log(this.dtrJSONTable + ' From DTR Page: Method pullDTRContents');
         this.updateList(dtrInfoTable.dtr_id, value, argument, this.datepipe.transform(this.currentDate, 'yyyy-MM-dd'));
-        ;break
+        ; break
       } else {
         console.log('NO MAAAAAAAAATCH' + dtrInfoTable.dtr_id)
       }
@@ -178,9 +178,9 @@ export class TimeinComponent implements OnInit {
 
   //onTimeClick
 
-  onTimeClick(input_emp_id: any, argument : any) {
+  onTimeClick(input_emp_id: any, argument: any) {
     console.log(input_emp_id)
-    this.openSnackBar(input_emp_id + 'has been entred', 'ok');
+    
     var time = this.datepipe.transform(this.time, 'h:mm');
     var isAMorPM = this.datepipe.transform(this.time, 'a');
     console.log(isAMorPM);
@@ -196,13 +196,14 @@ export class TimeinComponent implements OnInit {
 
     var argString = mString + '_' + argument;
 
-    console.log(mString+'_'+argument)
+    console.log(mString + '_' + argument)
 
     for (let empInfoTable of this.empInfoTable) {
       if (empInfoTable.emp_id === input_emp_id) {
+        this.openSnackBar('Match Found' + input_emp_id + 'has been entered', 'ok');
         console.log('Match Found');
         this.onClickEditDTR(empInfoTable.emp_no, time, argString);
-        
+
 
         ; break
       }
@@ -269,6 +270,6 @@ export class TimeinComponent implements OnInit {
     this.editDTR(this.dtrJSONTable, dtr_id);
   }
 
-  
+
 
 }

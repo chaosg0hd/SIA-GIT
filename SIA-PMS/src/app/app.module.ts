@@ -11,13 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { LowerCasePipe } from '@angular/common';
 
+import { DatePipe } from '@angular/common';
 //Font Awesome
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //Calender Module
 
-import { DatePipe } from '@angular/common';
 //import { FlatpickrModule } from 'angularx-flatpickr';
 //import { CalendarModule, DateAdapter } from 'angular-calendar';
 //import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';

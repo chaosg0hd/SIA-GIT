@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
-import { DatePipe, Time } from '@angular/common';
-import { LowerCasePipe } from '@angular/common';
+
+//import { DatePipe, Time } from '@angular/common';
+//import { LowerCasePipe } from '@angular/common';
 
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+//import { MatSnackBar } from '@angular/material/snack-bar';
+//import { MatTableDataSource } from '@angular/material/table';
+//import { MatPaginator } from '@angular/material/paginator';
+//import { MatSort } from '@angular/material/sort';
 
-import { RouterModule } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 
 export interface empTable {
   emp_no: any;
@@ -39,10 +40,8 @@ export interface aPTable {
 
 export interface apJSON {
   emp_no: any;
-  ap_rate: any
-  ap_argument: any;
+  ap_rate: any;
 }
-
 
 
 @Component({
@@ -53,28 +52,33 @@ export interface apJSON {
 export class AdditionpageComponent implements OnInit {
 
 
- /* apJSONSample: apJSON[] = [{ "emp_no" : "1", "ap_rate" : "100", "ap_argument" : "daily"}]*/
+  /* apJSONSample: apJSON[] = [{ "emp_no" : "1", "ap_rate" : "100", "ap_argument" : "daily"}]*/
 
   constructor(public data: DataService) { }
 
   ngOnInit(): void {
-    this.buildTable();  
-    this.pullAllAP();
     this.pullAllEmp();
-    
+    this.pullAllAP();
   }
-  
+
   aPInfoTable: aPTable[] = [];
   aPInfoTableJSON: apJSON[] = [];
-  aPInfoTableDataSource = new MatTableDataSource(this.aPInfoTable);
 
   jsonData: any;
 
   pullAllAP() {
     this.data.sendApiRequest("pullAllAP", null).subscribe((data: any) => {
-      console.log(data.payload)
+      console.log(data.payload);
       this.aPInfoTable = data.payload;
-      this.aPInfoTableDataSource.data = this.aPInfoTable;
+
+      //this.aPInfoTableDataSource.data = this.aPInfoTable;
+      //console.log(this.aPInfoTableDataSource.data + ' From DTR Page: Method pullAllAP');
+
+      //for (let dtrInfoTable of this.dtrInfoTable) {
+      //  this.jsonData = dtrInfoTable.dtr_content;
+      //  this.dtrJSONTable = JSON.parse(this.jsonData);
+      //  dtrInfoTable.dtr_content = this.dtrJSONTable;
+      //}
 
       for (let aPInfoTable of this.aPInfoTable) {
         this.jsonData = aPInfoTable.ap_JSON;
@@ -82,73 +86,32 @@ export class AdditionpageComponent implements OnInit {
         aPInfoTable.ap_JSON = this.aPInfoTableJSON;
       }
 
+      //console.log(this.aPInfoTable[0].ap_JSON[0].emp_no + 'XXXXXXXXXXXXXXXXXX')
+
     });
   }
 
   //Table Columns
 
-  displayedColumns: string[] = ['Employee No', 'Added Payments Name', 'Added Payments Arguments'];
-
   empInfoTable: empTable[] = [];
-  empInfoTableDataSource = new MatTableDataSource(this.empInfoTable);
 
   pullAllEmp() {
     this.data.sendApiRequest("pullAllEmp", null).subscribe((data: any) => {
       console.log("PULLING DATA");
       this.empInfoTable = data.payload;
-      this.empInfoTableDataSource.data = this.empInfoTable;
-      console.log(this.empInfoTableDataSource.data);
       console.log("DATA PULLED")
-
-      //for (let aPInfoTable of this.aPInfoTable) {
-      //  console.log(this.checkIfHasEmp(aPInfoTable.emp_no))
-      //  this.checkIfHasEmp(aPInfoTable.emp_no);
-
-      //}
-
-
     });
   }
 
-  getEmpName(emp_no : any) {
-    for (let empInfoTable of this.empInfoTable) {
-      if (emp_no == empInfoTable.emp_no) {
-        console.log(empInfoTable.emp_firstname)
-      }
-    }
-  }
+  getAPRate(ap_name: any, emp_no: any) {
 
-  //checkIfHasEmp(emp_no: any, ap_name: any) {
-  //  var hasEmp: boolean = false;
-  //  console.log(ap_name)
-  //  for (let aPInfoTable of this.aPInfoTable) {
-  //    if (aPInfoTable.ap_name === ap_name) {
-  //      for (let ap_json of aPInfoTable.ap_JSON) {
-  //        if (ap_json.emp_no == emp_no ) {
-  //          console.log('maaaaaaaaaaaatch');
-  //          hasEmp = true;
-  //          ;break
-  //        }
-  //      }
-  //    }      
-  //  }
-  //  if (hasEmp == false) {
-  //    console.log('No maaaaaaaaaaaatch');
-  //    /*this.generateEmpty(this.aPInfoTableJSON, ap_name, emp_no);*/
-  //  }  
-    
-  //}
+    var rate = 0
 
-  getAPRate(emp_no: any, ap_name: any) {
-    var rate = null;
-    console.log(ap_name)
     for (let aPInfoTable of this.aPInfoTable) {
-      if (aPInfoTable.ap_name === ap_name) {
-        for (let ap_json of aPInfoTable.ap_JSON) {
-          if (ap_json.emp_no == emp_no) {
-            /*console.log('maaaaaaaaaaaatch');*/
-            rate = ap_json.ap_rate;
-            ; break
+      if (aPInfoTable.ap_name == ap_name) {
+        for (let aPInfoTableJSON of aPInfoTable.ap_JSON) {
+          if (emp_no == aPInfoTableJSON.emp_no) {
+            rate = aPInfoTableJSON.ap_rate
           }
         }
       }
@@ -156,131 +119,87 @@ export class AdditionpageComponent implements OnInit {
     return (rate)
   }
 
-  getAPFunction(emp_no: any, ap_name: any) {
-    var arg = null;
-    console.log(ap_name)
+  updateRate(ap_name: any, emp_no: any, event: any) {
+    console.log(event.target.value)
+    var hasMatch = false;
+
+    console.log(ap_name, emp_no, event.target.value)
+
     for (let aPInfoTable of this.aPInfoTable) {
-      if (aPInfoTable.ap_name === ap_name) {
-        for (let ap_json of aPInfoTable.ap_JSON) {
-          if (ap_json.emp_no == emp_no) {
-            /*console.log('maaaaaaaaaaaatch');*/
-            arg = ap_json.ap_argument;
-            ;break
-          }
+      console.log('xxxxxxxxxxxxxxxxxxxxxxx')
+      if (ap_name === aPInfoTable.ap_name) {
+        for (let aPInfoTableJSON of aPInfoTable.ap_JSON) {
+          /*console.log(ap_name, emp_no, event.target.value)*/          
+          if (aPInfoTableJSON.emp_no == emp_no) {            
+            console.log('matched')
+            aPInfoTableJSON.ap_rate = event.target.value;
+            this.editAP(aPInfoTable.ap_no);
+            console.log(aPInfoTableJSON)
+            hasMatch = true            
+          }        
+          console.log(aPInfoTable.ap_JSON)
         }
+        
       }
     }
-    return (arg)
+    if (hasMatch == false) {
+      console.log('NO matched xxxxxxxxxxxxxxxxxxxxxxxx')
+      this.pushJSON(emp_no, ap_name)
+    } 
+
   }
 
-  additionsColumns: string[] = [];
+  //updateFunc(ap_name: any, emp_no: any, event: any, func: any) {
+  //  console.log(event.target.value)
+  //  for (let aPInfoTable of this.aPInfoTable) {
+  //    if (ap_name === aPInfoTable.ap_name) {
+  //      for (let aPInfoTableJSON of aPInfoTable.ap_JSON) {
+  //        if (aPInfoTableJSON.emp_no == emp_no) {
+  //          console.log('matched')
+  //          aPInfoTableJSON.ap_argument = event.target.value;
+  //          /*console.log(aPInfoTableJSON)*/
+  //          this.editAP(aPInfoTable.ap_no);
+  //        }
+  //        if (aPInfoTableJSON.emp_no != emp_no) {
+  //          this.pushJSON(emp_no, ap_name)
+  //        }
+  //        /*console.log(aPInfoTableJSON)*/
 
-  buildTable() {
-    this.additionsColumns = [];
-    this.additionsColumns.push("emp_name");
-    this.additionsColumns.push("ap_rate");
-    this.additionsColumns.push("ap_argument");
-    this.additionsColumns.push("actions");
-  }
 
-  aPInfoTableCopy: aPTable[] = [];
-
-  //generateEmpty(aPJSON : any, ap_name: any, emp_no : any) {
-  //  console.log(emp_no);
-  //  this.aPInfoTableCopy = this.aPInfoTable;
-  //  console.log(this.aPInfoTableCopy);
-  //  for (let aPInfoTableCopy of this.aPInfoTableCopy) {
-  //    console.log(aPInfoTableCopy)
-  //    aPInfoTableCopy.ap_JSON.push({ "emp_no": emp_no, "ap_rate": "0", "ap_argument": "none" })
+  //      }
+  //    }
   //  }
-
-  //  console.log(this.aPInfoTableCopy[0].ap_JSON + 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-  //  console.log(this.aPInfoTable[0].ap_JSON);
-  
-
-  //  //for (let aPInfoTableCopy of this.aPInfoTableCopy) {
-  //  //  if (aPInfoTableCopy.ap_name === ap_name) {
-  //  //    aPInfoTableCopy.ap_JSON.push({ "emp_no": emp_no, "ap_rate": "0", "ap_argument": "none" });
-  //  //    console.log()
-  //  //    /*this.compileAP(aPInfoTableCopy.ap_JSON, aPInfoTableCopy.ap_no);*/
-  //  //  }      
-  //  //}
-    
-    
   //}
 
-  updateList(event: any) {
-    console.log(event + '+++++++++ From DTR Page: Method updateList');
-    //for (let dtrJSONTable of this.dtrJSONTable) {
-    //  if (dtrJSONTable.date == date) {
-    //    console.log('Date Matched');
-    //    switch (argument) {
-    //      case "am_time_in": {
-    //        dtrJSONTable.am_time_in = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "am_time_out": {
-    //        dtrJSONTable.am_time_out = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "pm_time_in": {
-    //        dtrJSONTable.pm_time_in = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "pm_time_out": {
-    //        dtrJSONTable.pm_time_out = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "ot_time_in": {
-    //        dtrJSONTable.ot_time_in = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "ot_time_out": {
-    //        dtrJSONTable.ot_time_out = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "mhrs": {
-    //        dtrJSONTable.mhrs = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //      case "remarks": {
-    //        dtrJSONTable.remarks = event.target.value;
-    //        console.log(argument + ': Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-
-    //      default: {
-    //        console.log(argument + ': No Valid Argumments From DTR Page: Method updateList');
-    //        break;
-    //      }
-    //    }
-    //  }
-    //}
-    //this.editDTR(this.dtrJSONTable, dtr_id);
+  pushJSON(emp_no: any, ap_name: any) {
+    console.log('Trying to add one') 
+    for (let aPInfoTable of this.aPInfoTable) {
+      if (aPInfoTable.ap_name === ap_name) {
+            console.log('Will add one')        
+            aPInfoTable.ap_JSON.push({ "emp_no": emp_no , "ap_rate": "0" })         
+        
+      }     
+    }
+    console.log(this.aPInfoTableJSON)
   }
 
 
-  aPInfo: any = {};
-  async compileAP(aPJSON: any, ap_no: any) {
-    this.aPInfo = {};
-    this.aPInfo.ap_no = ap_no;
-    this.aPInfo.ap_JSON = JSON.stringify(aPJSON);
+  APInfo: any = {};
 
-    console.log(this.aPInfo.ap_JSON)
-    //this.data.sendApiRequest("editAP", this.aPInfo).subscribe((data: any) => {
-    //});
+  async editAP(ap_no: any) {
+    for (let aPInfoTable of this.aPInfoTable) {
+      if (aPInfoTable.ap_no == ap_no) {
+        this.APInfo.ap_no = ap_no;
+        this.APInfo.ap_JSON = JSON.stringify(aPInfoTable.ap_JSON);
+        console.log(this.APInfo);
+      }        
+    }        
+      
+    this.data.sendApiRequest("editAP", this.APInfo).subscribe((data: any) => {
+    });   
+     
   }
 
-  editAP() {
-
-  }
 
 
 
