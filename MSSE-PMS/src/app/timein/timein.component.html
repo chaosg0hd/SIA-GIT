@@ -6,7 +6,7 @@
 
   <div class="row">
     <div class="column">
-      <img src="./assets/faveIcon/logo.jpg" style="margin: auto; width: auto; height: 50vh; margin-bottom: -2%;" >
+      <img src="./assets/faveIcon/logo.jpg" style="margin: auto; width: auto; height: 40vh;" >  <br />
       <h1 style="font-size: 36px; color: white;">DAILY TIME RECORD</h1>
     </div>
 
@@ -16,8 +16,8 @@
         <mat-icon class="icon" matPrefix>person</mat-icon>
         <input class="input" type="text" [(ngModel)]="emp_id" matInput placeholder="Employee ID here...">
       </mat-form-field><br /><br />
-      <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')"><mat-icon>alarm_add</mat-icon>TIME IN</button>
-      <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')"><mat-icon>alarm_minus</mat-icon>TIME OUT</button>
+      <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')"><mat-icon>alarm_add</mat-icon>&nbsp;  TIME IN</button>
+      <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')"><mat-icon>alarm_minus</mat-icon>&nbsp;  TIME OUT</button>
 
     </div>
   </div>

@@ -39,7 +39,8 @@
         <mat-table [dataSource]="empInfoTableDataSource" class="mat-elevation-z8" [ngStyle]="{'max-width': tableMaxWidth+'%' , 'width': tableWidth+'%'}">
 
           <!--Table Generation-->
-         <!--Print Start--><div id="content" #content>
+         <!--Print Start-->
+          <div id="content" #content>
           <ng-container *ngFor="let empInfoTableColumnsJSON of empInfoTableColumnsJSON">
             <ng-container *ngFor="let empInfoTableColumns of empInfoTableColumns">
               <ng-container *ngIf="empInfoTableColumnsJSON.columnName === empInfoTableColumns">
@@ -108,7 +109,22 @@
                              matTooltip="{{element.emp_sex}}">
                     </ng-container>
                     <!--Date of Birth-->
-                    <div id="demo" class="content" role="main">
+
+                    <!--<ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_start_date'">
+                      <mat-form-field floatLabel="never" appearance="fill">
+                        <mat-label>{{element.emp_start_date}}</mat-label>
+                        <input matInput [matDatepicker]="picker2"                                
+                               (dateChange)="updateList(element.emp_no, 'emp_start_date', $event)"
+                               tabindex="{{tabIndexInc(tabIndex)}}"
+                               matTooltip="{{element.emp_start_date | date : 'MMM dd yyyy' }}">
+                        <mat-datepicker-toggle matSuffix [for]="picker2">
+                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </ng-container>-->
+
+                    <!--<div id="demo" class="content" role="main">-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_datebirth'">
                       <mat-form-field appearance="fill" floatLabel="never">
                         <mat-datepicker-toggle matSuffix [for]="picker">
@@ -123,7 +139,7 @@
                                matTooltip="{{element.emp_datebirth | date : 'MMM dd yyyy' }}">
                       </mat-form-field>
                     </ng-container>
-                    </div>
+                    <!--</div>-->
                     <!--Emp Contact-->
                     <ng-container *ngIf="empInfoTableColumnsJSON.columnName === 'emp_contact'">
                       <input (keyup)="updateList(element.emp_no, 'emp_contact', $event)"

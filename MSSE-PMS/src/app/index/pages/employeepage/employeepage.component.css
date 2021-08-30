@@ -33,7 +33,7 @@ mat-header-cell {
 }
 
 .mat-column-emp_id {
-  max-width: 80px;
+  max-width: 100px;
   font-size: 12px;
 }
 

@@ -10,6 +10,145 @@ class Get{
 
 	//Settings Operations
 
+	public function pullALLAsia ($d) {
+
+		$sql = "SELECT * FROM asia";
+
+		$res = $this->gm->generalQuery($sql, "No records found");
+		if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+		return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	}
+
+	  public function pullALLAfrica ($d) {
+
+		$sql = "SELECT * FROM africa";
+
+		$res = $this->gm->generalQuery($sql, "No records found");
+		if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+		return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	}
+
+	  public function pullALLNorthAmerica ($d) {
+
+		  $sql = "SELECT * FROM north_america";
+
+		  $res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+	  public function pullALLSouthAmerica ($d) {
+
+		  $sql = "SELECT * FROM south_america";
+
+		  $res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+	  public function pullALLAustralia ($d) {
+
+		  $sql = "SELECT * FROM australia";
+
+		  $res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+	  public function pullALLEurope ($d) {
+
+		  $sql = "SELECT * FROM europe";
+
+		  $res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+	  public function pullALLAntartica ($d) {
+
+		  $sql = "SELECT * FROM antartica";
+
+		  $res = $this->gm->generalQuery($sql, "No records found");
+		  if ($res['code'] == 200) {
+			  $payload = $res['data'];
+			  $remarks = "success";
+			  $message = "Successfully retrieved requested data";
+		  } else {
+			  $payload = null;
+			  $remarks = "failed";
+			  $message = $res['errmsg'];
+		  }
+		  return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	  }
+
+
+	public function pullALLCountries ($d) {
+
+		$sql = "SELECT * FROM countries_tb";
+
+		$res = $this->gm->generalQuery($sql, "No records found");
+		if ($res['code'] == 200) {
+			$payload = $res['data'];
+			$remarks = "success";
+			$message = "Successfully retrieved requested data";
+		} else {
+			$payload = null;
+			$remarks = "failed";
+			$message = $res['errmsg'];
+		}
+		return $this->gm->sendPayload($payload, $remarks, $message, $res['code']);
+	}
+
+	//Settings Operations
+
 	public function pullALLSettings ($d) {
 
 		$sql = "SELECT * FROM system_settings_tb";

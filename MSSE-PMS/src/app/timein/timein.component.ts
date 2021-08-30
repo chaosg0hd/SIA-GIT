@@ -200,7 +200,7 @@ export class TimeinComponent implements OnInit {
 
     for (let empInfoTable of this.empInfoTable) {
       if (empInfoTable.emp_id === input_emp_id) {
-        this.openSnackBar('Match Found' + input_emp_id + 'has been entered', 'ok');
+        this.openSnackBar('Match Found For:' + input_emp_id + ', Has Been Entered.', 'Ok');
         console.log('Match Found');
         this.onClickEditDTR(empInfoTable.emp_no, time, argString);
 
@@ -208,6 +208,7 @@ export class TimeinComponent implements OnInit {
         ; break
       }
       else {
+        this.openSnackBar('No Match Found For:' + input_emp_id + ', Pls Try Again.', 'Ok');
         console.log('No Match Found ')
       }
     }

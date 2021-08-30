@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Title</title>
+
+
+    <link rel="stylesheet" href="styles/style.css?v=1.0">
+
+</head>
+
+<body>
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div style="text-align: center">
+        <p> Please Select A Continent</p>
+        <fieldset>
+            <form>
+                <label for="c1"> <input type="radio" name="s" id="c1" onclick="test('Asia')" />Asia</label>
+                <label for="c2"> <input type="radio" name="s" id="c2" onclick="test('Africa')" />Africa</label>
+                <label for="c3"> <input type="radio" name="s" id="c3" onclick="test('NorthAmerica')">North America</label>
+                <label for="c4"> <input type="radio" name="s" id="c4" onclick="test('SouthAmerica')">South America</label>
+                <label for="c5"> <input type="radio" name="s" id="c5" onclick="test('Antartica')">Antartica</label>
+                <label for="c5"> <input type="radio" name="s" id="c5" onclick="test('Australia')">Australia</label>
+                <label for="c6"> <input type="radio" name="s" id="c6" onclick="test('Europe')">Europe</label>
+
+            </form>
+
+            <h1>List of Countries</h1>
+
+            <div id="textbox">
+
+
+            </div>
+
+        </fieldset>
+
+
+    </div>
+
+    <!--<input id="clickMe" type="button" value="clickme" onclick="httpGet("http://localhost/SIA-GIT/API/")" />-->
+
+    <script>
+
+        function test(continent) {
+
+            document.getElementById('textbox').innerHTML = "";
+
+            document.getElementById('c1').focus = false;
+
+            let json = this.httpGet("http://localhost/SIA-GIT/API/pullAll" + continent);
+
+            console.log(json)
+
+            //for (let json of this.json) {
+            //    console.log(json);
+            //}
+
+            for (let i = 0; i <= json.length - 1; i++) {
+                console.log(json[i].country_no);
+                                                                                                                            
+                document.getElementById('textbox').innerHTML = document.getElementById('textbox').innerHTML + "<p>" + json[i].country_no + ". "+ json[i].country_name + "<p>"
+                document.getElementById('textbox').innerHTML = document.getElementById('textbox').innerHTML + "<p id = 'green'>" + json[i].primary_lang + "<p>"
+
+                /*let json.country_lang*/
+
+                console.log(json[i].country_lang)
+
+                let json2 = JSON.parse(json[i].country_lang);
+
+                console.log(json2)
+
+                document.getElementById('textbox').innerHTML = document.getElementById('textbox').innerHTML + "<p>"
+
+                for (let j = 0; j <= json2.length - 1; j++) {
+
+                    console.log(json2[j].language);
+
+
+                    document.getElementById('textbox').innerHTML = document.getElementById('textbox').innerHTML + json2[j].language + ","
+
+
+
+                }
+                document.getElementById('textbox').innerHTML = document.getElementById('textbox').innerHTML + "<p>"
+
+
+            }
+
+
+            /*console.log(this.httpGet("http://localhost/SIA-GIT/API/pullAllAsia"));*/
+        }
+
+
+        function httpGet(theUrl) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false); // false for synchronous request
+            xmlHttp.send(null);
+
+            let json = JSON.parse(xmlHttp.responseText);
+            let payload = json.payload
+            console.log(payload);
+
+            return payload;
+        }
+
+
+
+    </script>
+</body>
+</html>

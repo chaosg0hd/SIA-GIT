@@ -16,7 +16,7 @@
 
 	// define database
 
-	define("DBASE", "cocolime_db");
+	define("DBASE", "countries_db");
 	define("USER", "root");
 	define("PW", "");
 	define("SERVER", "localhost");
