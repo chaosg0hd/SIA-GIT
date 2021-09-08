@@ -5,25 +5,20 @@
     <h1>Systems Dashboard</h1>
   </mat-card-title>
 
+  <mat-card-subtitle>
+    <br />
+    <p>
+      TO BE REDONE 
+
+    </p>
+  </mat-card-subtitle>
+
   <mat-card-content style="justify-content: center;">
-
-    <!--TESTING-->
-
-    <!--<p>
-      {{currentDate}}<br />
-      {{month}}<br />
-      {{monthinNum}}<br />
-      {{year}}<br />
-      {{monthintText}}<br />
-      {{month_year}}<br />
-      {{dateIndex}}<br />
-      {{empDami}}<br />
-    </p>-->
 
     <!--Calendar-->
 
     <mat-card>
-      <mat-card-content style="width: 100vh; margin: auto">
+      <mat-card-content style="width: 70vh; margin: auto">
         <mat-grid-list style="height:100px !important;margin: 16px;" cols="7" rowHeight="1:1" gutterSize="8px">
           <ng-container *ngFor="let weekPrep of weekPrep">
             <mat-grid-tile>
@@ -51,9 +46,10 @@
       <mat-grid-tile style="background-color : lightgrey">
       </mat-grid-tile>
     </mat-grid-list>
-
-  </mat-card-content>     
+  </mat-card-content>
+  <br />
 
 </mat-card>
+
 
 

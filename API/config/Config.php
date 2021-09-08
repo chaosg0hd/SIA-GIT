@@ -16,7 +16,7 @@
 
 	// define database
 
-	define("DBASE", "countries_db");
+	define("DBASE", "msse_pms");
 	define("USER", "root");
 	define("PW", "");
 	define("SERVER", "localhost");
