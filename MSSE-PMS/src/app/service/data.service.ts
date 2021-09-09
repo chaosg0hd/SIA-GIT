@@ -65,7 +65,7 @@ export class DataService {
   //HTTP LANG DITO
 
   //API Request Method
-  apiURL = "http://localhost/SIA-GIT/API/";
+  apiURL = "http://192.168.1.15/SIA-GIT/API/";
 
   sendApiRequest(method: any, data: any) {
 

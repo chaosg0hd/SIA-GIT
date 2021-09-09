@@ -1,26 +1,99 @@
-<mat-card class="dtrCard mat-elevation-z5">
-  <br>
-  <div style="margin: auto; width : 50%; margin-top: 100px; padding: 10px;">
-    <p class="clock mat-elevation-z12">{{time | date: 'h:mm:ss a'}}</p>
-  </div>  
+<br />
+<br />
 
-  <div class="row">
-    <div class="column">
-      <img src="./assets/faveIcon/logo.jpg" style="margin: auto; width: auto; height: 40vh;" >  <br />
-      <h1 style="font-size: 36px; color: white;">DAILY TIME RECORD</h1>
+<div style="display: flex;">
+  <mat-card style="width: 45vw; height: 90vh; background-color: #bbd5aa; border-radius: 20px !important; margin: auto">
+    <br />
+    <br />
+    <div>
+      <img class="mat-elevation-z12" src="./assets/faveIcon/logo.jpg" style="margin: auto; width: auto; height: 30vh;">
+      <br />
+      <br />
+      <h1 style="font-size: 36px; color: black;">DAILY TIME RECORD</h1>
+
+      <div>
+         <p style="font-size: 42px; color: darkgreen;">{{time | date: 'h:mm:ss a'}}</p>
+
+      </div>
+      
+      <!--<br />
+      <p style="font-size: 42px;">LUNCHBREAK NA!</p>
+      <br />-->
+      <br />
     </div>
 
-    <div class="column2">
-      <br><br><br>
-      <mat-form-field class="mat-elevation-z5" appearance="fill" style="background-color: white; border-radius: 20px;">
-        <mat-icon class="icon" matPrefix>person</mat-icon>
-        <input class="input" type="text" [(ngModel)]="emp_id" matInput placeholder="Employee ID here...">
+    <div>
+      <mat-form-field class="mat-elevation-z5" appearance="fill" style="background-color: white; border-radius: 20px; width: 50%">
+        <mat-icon class="icon" matPrefix style="font-size: 24px;">person</mat-icon>
+        <input class="input" type="text" [(ngModel)]="emp_id" matInput placeholder="Employee ID" style="font-size: 24px; text-align: center">
       </mat-form-field><br /><br />
-      <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')"><mat-icon>alarm_add</mat-icon>&nbsp;  TIME IN</button>
-      <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')"><mat-icon>alarm_minus</mat-icon>&nbsp;  TIME OUT</button>
+      <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')" style="background-color: green; color: white; font-size: 18px; border-radius: 20px 0px 0px 20px "><mat-icon>alarm_add</mat-icon>&nbsp;  TIME IN</button>
+      <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')" style="background-color: #800000; color: white; font-size: 18px; border-radius: 0px 20px 20px 0px"><mat-icon>alarm_minus</mat-icon>&nbsp;  TIME OUT</button>
+    </div>
+
+  </mat-card>
+
+  <mat-card style="width: 45vw; height: 90vh; background-color: #bbd5aa; border-radius: 20px !important; margin: auto; ">
+    <br />
+    <div style="width: 80%; margin: auto">
+      <br />
+      <p style="color: black; font-size: 20px; text-align: justify;">
+        <br />
+        PAKITYPE NA LANG PO ANG ID, AT PAKIPINDOT PO KUNG TIME IN O TIME OUT, <br />
+        <br />
+        JUST IN CASE NA MAY MALI PAKISULAT PA DIN SA TIME CARD AND ORAS NA NAG TIME IN AT OUT,<br />
+        <br />
+        NO GRACE PERIOD PA PO, KAYA MAG OFFSET PO PAG MAG TI-TIME OUT.<br />
+        <br />
+        KAPAG WALANG LUMABAS NA MESSAGE NA NAGSASABING "MATCH FOUND" IBIG SABIHIN MALI ANG ID<br />
+      </p>
 
     </div>
+
+
+
+  </mat-card>
+</div>
+
+<div>
+
+
+  
+</div>
+
+
+
+<!--<br>
+<div style="margin: auto; width : 50%; margin-top: 100px; padding: 10px;">
+  <p class="clock mat-elevation-z12">{{time | date: 'h:mm:ss a'}}</p>
+</div>
+
+<div class="row">
+  <div class="column">
+    <img src="./assets/faveIcon/logo.jpg" style="margin: auto; width: auto; height: 40vh;" >  <br />
+    <h1 style="font-size: 36px; color: white;">DAILY TIME RECORD</h1>
   </div>
-</mat-card>
 
+  <div class="column2">
+    <br><br><br>
+    <mat-form-field class="mat-elevation-z5" appearance="fill" style="background-color: white; border-radius: 20px;">
+      <mat-icon class="icon" matPrefix>person</mat-icon>
+      <input class="input" type="text" [(ngModel)]="emp_id" matInput placeholder="Employee ID here...">
+    </mat-form-field><br /><br />
+    <button mat-raised-button class="timein-btn" (click)="onTimeClick(emp_id, 'time_in')"><mat-icon>alarm_add</mat-icon>&nbsp;  TIME IN</button>
+    <button mat-raised-button class="timeout-btn" (click)="onTimeClick(emp_id, 'time_out')"><mat-icon>alarm_minus</mat-icon>&nbsp;  TIME OUT</button>
 
+    <br />
+    <br />
+    <p style="color: black; font-size: 20px; text-align: justify;">
+      PAKITYPE NA LANG PO ANG ID, AT PAKIPINDOT PO KUNG TIME IN O TIME OUT, <br />
+      <br />
+      JUST IN CASE NA MAY MALI PAKISULAT PA DIN SA TIME CARD AND ORAS NA NAG TIME IN AT OUT,<br />
+      <br />
+      NO GRACE PERIOD PA PO, KAYA MAG OFFSET PO PAG MAG TI-TIME OUT.<br />
+      <br />
+      KAPAG WALANG LUMABAS NA MESSAGE NA NAGSASABING "MATCH FOUND" IBIG SABIHIN MALI ANG ID<br />
+    </p>
+
+  </div>
+</div>-->
