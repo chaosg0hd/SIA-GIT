@@ -1,0 +1,22 @@
+<p>component works!</p>
+<router-outlet></router-outlet>
+<p>
+  {{sentence[0].firstword}}
+
+</p>
+<div style="height: 100vh; width: 100vw; background-color: lightblue; position: absolute">
+  <ng-container *ngFor="let boxes of boxes">        
+
+                                             <p>{{boxes.name}}</p>
+  </ng-container>
+
+    <div style="position: absolute;" [ngStyle]="{'height':divHeight, 'width':divWidth, 'top': divGetTop(), 'right' : divRight}" [style.background-color]="getColor()">
+        <p>Im a box</p>
+    </div>
+
+</div>
+    
+<ng-container>
+  
+
+</ng-container>
