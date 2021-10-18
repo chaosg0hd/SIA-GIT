@@ -1,0 +1,158 @@
+<mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100">
+  <span style="flex: 1 1 auto;"></span>
+  <span>Daily Time Record Board</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-mini-fab color="primary">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div style="display: flex; width: 100vw; height: 75vh;">
+
+  <div style="padding: 16px; width: 60%; height: 100%">
+    <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+      <mat-card-title>
+        <mat-toolbar color="primary" class="mat-elevation-z4">
+          <h1>
+            Attendance Board
+          </h1>
+        </mat-toolbar>
+      </mat-card-title>
+
+      <mat-card-content>
+
+        <mat-divider></mat-divider>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                <mat-icon>person</mat-icon>
+                Bob Ross
+              </mat-chip>
+            </mat-chip-list>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-chip-list>
+              <mat-chip style="background-color: green" selected>
+                <mat-icon>done</mat-icon>
+                Available
+              </mat-chip>
+            </mat-chip-list>
+            &nbsp;
+            <mat-chip-list>
+              <mat-chip>
+                <mat-icon>clear</mat-icon>
+                Unavailable
+              </mat-chip>
+            </mat-chip-list>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                <mat-icon>person</mat-icon>
+                Bob Jobs Stevesed
+              </mat-chip>
+            </mat-chip-list>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-chip-list>
+              <mat-chip>
+                <mat-icon>done</mat-icon>
+                Available
+              </mat-chip>
+            </mat-chip-list>
+            &nbsp;
+            <mat-chip-list>
+              <mat-chip style="background-color: darkred" selected>
+                <mat-icon>clear</mat-icon>
+                Unavailable
+              </mat-chip>
+            </mat-chip-list>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+
+
+
+        </mat-list>
+
+
+
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+
+  <div style="width: 40%; height: calc(100% - 32px) ">
+    <div style=" padding: 16px; height: 50%">
+      <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+
+        <mat-card-title>
+          <mat-toolbar color="primary" class="mat-elevation-z4">
+            <h1>
+              Digital Clock
+            </h1>
+          </mat-toolbar>
+        </mat-card-title>
+
+        <mat-card-content>
+          <div style="text-align: center">
+            <br />
+            <h1 style="font-size: 32px">{{day}}</h1>
+            <br />
+            <h1 style="font-size: 64px">{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}&nbsp;{{timeinmeri}}</h1>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <button mat-raised-button color="primary">Primary</button>
+          </div>
+        </mat-card-content>
+
+
+
+      </mat-card>
+    </div>
+    <div style="padding: 16px; height: 50%">
+      <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+
+        <mat-card-title>
+          <mat-toolbar color="primary" class="mat-elevation-z4">
+            <h1>
+              Notes
+            </h1>
+          </mat-toolbar>
+        </mat-card-title>
+
+      </mat-card>
+    </div>
+  </div>
+
+
+
+
+
+  <!--<div style="padding: 8px; width: 60%; height: 100%; background-color: lightslategrey">
+    <div style="padding-bottom: 8px; height: calc(100% - 32px); background-color: white ">-->
+  <!--<mat-card style="width: calc(100% - 32px); height: calc(50% - 32px)">
+    <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+  </mat-card>-->
+  <!--</div>
+
+  <div style="padding-top: 8px;">-->
+  <!--<mat-card style="width: calc(100% - 32px); height: calc(50% - 32px)">
+    <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+  </mat-card>-->
+  <!--</div>
+  </div>
+
+  <div style="padding: 8px; width: 40%; height: 100%; background-color: lightslategrey">-->
+  <!--<mat-card style="width: calc(100% - 32px); height: calc(100% - 32px)">
+    <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+  </mat-card>-->
+  <!--</div>-->
+
+</div>
+
+

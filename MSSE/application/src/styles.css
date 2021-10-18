@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: "ticking-timebomb-bb";
+  src: local("ticking-timebomb-bb"), url(./assets/fonts/ticking-timebomb-bb/TickingTimebombBB.ttf) format("truetype");
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+/* Color Overrides */
+/*.mat-primary {
+  background: #00DC46 !important
+}*/
